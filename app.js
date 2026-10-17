@@ -60,10 +60,10 @@ const FALLBACK = {
 };
 
 const PARTS = [
-  ['cpu', '🧠', 'Procesador'],
-  ['gpu', '🎮', 'Tarjeta de video'],
-  ['ram', '⚡', 'Memoria RAM'],
-  ['ssd', '💾', 'Almacenamiento'],
+  ['cpu', '🧠', 'Procesador', 'Es el cerebro: piensa y decide qué tan rápido va todo.'],
+  ['gpu', '🎮', 'Tarjeta de video', 'Dibuja las imágenes: juegos, videos y diseño.'],
+  ['ram', '⚡', 'Memoria RAM', 'Es tu mesa de trabajo: más espacio, más cosas abiertas a la vez.'],
+  ['ssd', '💾', 'Almacenamiento', 'Es el armario donde guardas programas, fotos y archivos.'],
 ];
 
 const OPTIONS = {
@@ -71,6 +71,9 @@ const OPTIONS = {
     { id: 'gaming', icon: '🎮', label: 'Jugar', hint: 'Videojuegos sin trabas' },
     { id: 'work', icon: '💻', label: 'Trabajar / Estudiar', hint: 'Tareas, clases y oficina' },
     { id: 'basic', icon: '🌐', label: 'Uso básico', hint: 'Internet, videos y chats' },
+    { id: 'create', icon: '🎨', label: 'Diseño y video', hint: 'Fotos, edición y animación' },
+    { id: 'code', icon: '👨‍💻', label: 'Programar', hint: 'Código y proyectos' },
+    { id: 'kids', icon: '🧒', label: 'Niños y familia', hint: 'Dibujos, juegos suaves y tareas' },
   ],
   budget: [
     { id: 'eco', icon: '🪙', label: 'Económico', hint: 'Cuidando cada peso' },
@@ -90,6 +93,10 @@ const labelOf = (key, id) => (OPTIONS[key].find(o => o.id === id) || { label: ''
 /* =====================================================================
    3. MOTOR DE RECOMENDACIÓN
    ===================================================================== */
+// Usos nuevos que reutilizan el catálogo de otro uso con necesidades parecidas
+const POOL = { create: 'gaming', code: 'work', kids: 'basic' };
+const tierOf = v => (v <= 12000 ? 'eco' : v <= 22000 ? 'mid' : 'high');
+const TIER_VALUE = { eco: 10000, mid: 17000, high: 30000 };
 const pick = list => list[Math.floor(Math.random() * list.length)];
 const fits = (item, budget, use) => item.t.includes(budget) && item.u.includes(use);
 const keyOf = b => PARTS.map(([k]) => `${b[k].brand}${b[k].big}${b[k].detail}`).join('|');
@@ -110,7 +117,7 @@ function recommend(use, budget, lastKey = '') {
   let build = null;
   try {
     for (let i = 0; i < 8; i++) {            // evita repetir la misma combinación seguida
-      const next = pickBuild(use, budget);
+      const next = pickBuild(POOL[use] || use, budget);
       if (!next) break;
       build = next;
       if (keyOf(next) !== lastKey) break;
@@ -127,7 +134,8 @@ function recommend(use, budget, lastKey = '') {
    ===================================================================== */
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
-const state = { use: null, budget: null, last: '', timer: null };
+const state = { use: null, budget: null, last: '', timer: null, build: null };
+const STEP = { welcome: 0, use: 25, budget: 55, loading: 85, results: 100 };
 
 function show(name) {
   $$('.view').forEach(v => {
@@ -137,6 +145,7 @@ function show(name) {
   });
   const title = $(`.view[data-view="${name}"] .title`);
   if (title) title.focus({ preventScroll: true });
+  $('#bar').style.width = STEP[name] + '%';
   window.scrollTo({ top: 0 });
 }
 
@@ -155,6 +164,11 @@ function renderOptions(key) {
 
 function choose(key, value) {
   state[key] = value;
+  if (key === 'budget') {
+    const rng = $('#budget-range');
+    if (tierOf(Number(rng.value)) !== value) rng.value = TIER_VALUE[value];
+    $('#range-out').textContent = mxn.format(Number(rng.value));
+  }
   $$(`.opt[data-key="${key}"]`).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.value === value)));
   syncNext();
 }
@@ -164,6 +178,8 @@ function reset() {
   Object.assign(state, { use: null, budget: null, last: '' });
   $$('.opt').forEach(b => b.setAttribute('aria-pressed', 'false'));
   syncNext();
+  $('#budget-range').value = 17000;
+  $('#range-out').textContent = 'Mueve la barra o elige una opción';
   show('welcome');
 }
 
@@ -175,32 +191,58 @@ function analyze() {
 }
 
 function showResults(reroll) {
-  const build = recommend(state.use, state.budget, reroll ? state.last : '');
-  state.last = keyOf(build);
+  state.build = recommend(state.use, state.budget, reroll ? state.last : '');
+  state.last = keyOf(state.build);
+  paint(state.build);
+  show('results');
+}
+
+function paint(build) {
 
   $('#summary').textContent = build.fallback
     ? 'No encontré una combinación exacta, pero esta PC equilibrada te va a funcionar muy bien.'
     : `Para ${labelOf('use', state.use)}, con presupuesto ${labelOf('budget', state.budget)}.`;
 
-  $('#cards').innerHTML = PARTS.map(([k, icon, name]) => {
+  $('#cards').innerHTML = PARTS.map(([k, icon, name, help]) => {
     const p = build[k];
+    const swapBtn = !build.fallback && k !== 'cpu'
+      ? `<button type="button" class="swap" data-action="swap" data-part="${k}" aria-label="Probar otra pieza: ${name}">Probar otra</button>` : '';
     const link = p.price
       ? `<a class="ml" href="https://listado.mercadolibre.com.mx/${slug(`${p.brand} ${p.big} ${p.detail}`)}" target="_blank" rel="noopener">Ver en Mercado Libre</a>`
       : '';
     return `
-      <article class="card">
+      <article class="card" data-part="${k}">
         <span class="part-icon" aria-hidden="true">${icon}</span>
         <h3>${name}</h3>
         <p class="maker">${p.brand}</p>
         <p class="big">${p.big}</p>
         <p class="detail">${p.detail}</p>
         <p class="price">${p.price ? mxn.format(p.price) : 'Incluida'}</p>
+        <p class="help">${help}</p>
         ${link}
+        ${swapBtn}
       </article>`;
   }).join('');
 
   $('#total').textContent = mxn.format(totalOf(build));
-  show('results');
+}
+
+const bump = el => { if (!el) return; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); };
+
+// Cambia una sola pieza manteniendo la compatibilidad (RAM con su plataforma, video si no hay integrada)
+function swap(part, btn) {
+  const b = state.build;
+  if (!b || b.fallback) return;
+  const use = POOL[state.use] || state.use;
+  const list = DB[part].filter(p => p !== b[part] && fits(p, state.budget, use)
+    && (part !== 'ram' || p.type === b.cpu.ram)
+    && (part !== 'gpu' || b.cpu.igpu || !p.integrated));
+  if (!list.length) { btn.textContent = 'No hay más opciones'; btn.disabled = true; return; }
+  state.build = { ...b, [part]: pick(list) };
+  state.last = keyOf(state.build);
+  paint(state.build);
+  bump($(`.card[data-part="${part}"]`));
+  bump($('#total'));
 }
 
 /* =====================================================================
@@ -236,6 +278,7 @@ const actions = {
   'back-budget': () => show('use'),
   'next-budget': analyze,
   other: () => showResults(true),
+  swap: b => swap(b.dataset.part, b),
 };
 
 document.addEventListener('click', e => {
@@ -244,7 +287,11 @@ document.addEventListener('click', e => {
   e.preventDefault();                        // nunca se recarga la página
   if (btn.classList.contains('opt')) return choose(btn.dataset.key, btn.dataset.value);
   const run = actions[btn.dataset.action];
-  if (run) run();
+  if (run) run(btn);
+});
+
+document.addEventListener('input', e => {
+  if (e.target.id === 'budget-range') choose('budget', tierOf(Number(e.target.value)));
 });
 
 function init() {

@@ -120,3 +120,28 @@ main { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 1.5rem 1
   * { transition: none !important; }
   .view.active { animation: none; }
 }
+
+/* ===== v2: logo, historia, progreso, slider y piezas interactivas ===== */
+.brand svg { width: 40px; height: 40px; }
+.hero-logo { width: 120px; height: 120px; animation: float 3.2s ease-in-out infinite; filter: drop-shadow(0 10px 24px color-mix(in srgb, var(--violet) 55%, transparent)); }
+@keyframes float { 50% { transform: translateY(-8px) rotate(-2deg); } }
+.bar { height: 4px; background: var(--border); }
+.bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--blue), var(--violet)); transition: width .4s ease; }
+.story { width: 100%; max-width: 640px; margin-top: 1.5rem; padding: 1.25rem; text-align: left; background: var(--card); border: 1px solid var(--border); border-radius: 20px; box-shadow: var(--shadow); }
+.story h2 { font-size: 1.25rem; margin-bottom: .5rem; }
+.story h2:not(:first-child) { margin-top: 1.25rem; }
+.story p { color: var(--muted); }
+.steps { display: grid; gap: .75rem; list-style: none; padding: 0; counter-reset: s; }
+.steps li { display: flex; gap: .75rem; align-items: flex-start; }
+.steps li::before { counter-increment: s; content: counter(s); flex: none; display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--violet)); color: var(--on-accent); font-weight: 800; }
+.range { width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: .5rem; padding: 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 20px; }
+.range output { font-size: 1.75rem; font-weight: 900; }
+.range input { width: 100%; height: 36px; accent-color: var(--violet); cursor: pointer; }
+.range small { color: var(--muted); font-size: .9rem; }
+.help { max-width: 16rem; color: var(--muted); font-size: .9rem; }
+.swap { margin-top: .5rem; min-height: 44px; padding: .4rem 1rem; background: none; border: 2px solid var(--border); border-radius: 12px; color: var(--text); font: inherit; font-size: .95rem; font-weight: 700; cursor: pointer; transition: all .3s ease; }
+.swap:hover:not(:disabled) { border-color: var(--violet); transform: translateY(-2px); }
+.swap:disabled { opacity: .5; cursor: default; }
+.pop { animation: pop .4s ease; }
+@keyframes pop { 40% { transform: scale(1.06); } }
+@media (prefers-reduced-motion: reduce) { .hero-logo, .pop { animation: none; } }

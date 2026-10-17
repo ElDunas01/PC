@@ -9,19 +9,35 @@
   <script src="app.js" defer></script>
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--blue)"/><stop offset="1" style="stop-color:var(--violet)"/></linearGradient></defs>
+    <symbol id="logo" viewBox="0 0 64 64"><rect x="4" y="6" width="56" height="38" rx="10" fill="url(#lg)"/><circle cx="23" cy="22" r="4" fill="#fff"/><circle cx="41" cy="22" r="4" fill="#fff"/><path d="M22 32q10 8 20 0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><path d="M24 58h16M32 44v14" fill="none" stroke="url(#lg)" stroke-width="5" stroke-linecap="round"/></symbol>
+  </svg>
   <header class="top">
     <button type="button" class="brand" data-action="reset" aria-label="PC Recomendador, volver al inicio">
-      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="26" height="17" rx="4"/><path d="M11 27h10M16 22v5"/></svg>
+      <svg aria-hidden="true"><use href="#logo"/></svg>
       <span>PC Recomendador</span>
     </button>
     <button type="button" class="icon-btn" id="theme" data-action="theme" aria-label="Cambiar tema"></button>
   </header>
+  <div class="bar" aria-hidden="true"><i id="bar"></i></div>
 
   <main id="app">
     <section class="view active" data-view="welcome">
+      <svg class="hero-logo" viewBox="0 0 64 64" aria-hidden="true"><use href="#logo"/></svg>
       <h1 class="title" tabindex="-1">¡Hola! Vamos a elegir tu PC</h1>
       <p class="lead">Te ayudo a encontrar la PC perfecta para tu día a día, sin tecnicismos y cuidando tu bolsillo. ¡Empecemos!</p>
       <button type="button" class="btn btn-lg" data-action="start">Comenzar</button>
+      <article class="story">
+        <h2>Cómo nació esta idea</h2>
+        <p>Todo empezó con las ganas de hacer un ayudante para las cosas electrónicas. Elegir una PC suele llenarse de palabras raras, y queríamos lo contrario: algo tan sencillo que un niño de 10 años, o un adulto que no sabe de tecnología, pueda escoger bien para su día a día.</p>
+        <h2>Cómo funciona</h2>
+        <ol class="steps">
+          <li><span><strong>Cuéntame para qué la quieres.</strong> Jugar, estudiar, crear o lo básico.</span></li>
+          <li><span><strong>Mueve la barra de tu presupuesto.</strong> Verás el monto cambiar al instante.</span></li>
+          <li><span><strong>Mira tu PC y cámbiala.</strong> Si una pieza no te convence, prueba otra con un toque.</span></li>
+        </ol>
+      </article>
     </section>
 
     <section class="view" data-view="use" hidden>
@@ -36,6 +52,11 @@
     <section class="view" data-view="budget" hidden>
       <h2 class="title" tabindex="-1">¿Cuánto quieres invertir?</h2>
       <div class="opts" id="opts-budget" role="group" aria-label="Presupuesto"></div>
+      <div class="range">
+        <output id="range-out" for="budget-range">Mueve la barra o elige una opción</output>
+        <input type="range" id="budget-range" min="8000" max="40000" step="500" value="17000" aria-label="Presupuesto en pesos mexicanos">
+        <small>Es una guía para procesador, tarjeta de video, RAM y almacenamiento.</small>
+      </div>
       <div class="nav">
         <button type="button" class="btn btn-ghost" data-action="back-budget">Atrás</button>
         <button type="button" class="btn" data-action="next-budget" disabled>Siguiente</button>
