@@ -165,16 +165,9 @@ main { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 1.5rem 1
 .chip[aria-pressed="true"]::after { position: static; margin-left: .4rem; }
 
 /* ===== v5: inicio ampliado, pie y consejos ===== */
-.facts { width: 100%; max-width: 860px; display: grid; gap: 1rem; margin-top: 1.5rem; }
-.facts article { padding: 1.25rem; text-align: left; background: var(--card); border: 1px solid var(--border); border-radius: 20px; box-shadow: var(--shadow); transition: all .3s ease; }
-.facts article:hover { transform: translateY(-3px); border-color: var(--violet); }
-.facts span { font-size: 2rem; }
-.facts h3 { margin: .25rem 0; font-size: 1.15rem; }
-.facts p { color: var(--muted); font-size: 1rem; }
 .tips { display: grid; gap: .6rem; padding-left: 1.25rem; color: var(--muted); }
 .tips strong { color: var(--text); }
 .foot { padding: 1.5rem 1rem; text-align: center; color: var(--muted); font-size: .9rem; border-top: 1px solid var(--border); }
-@media (min-width: 640px) { .facts { grid-template-columns: repeat(3, 1fr); } }
 .section-title { width: 100%; margin: .75rem 0 -.25rem; font-size: clamp(1.3rem, 4vw, 1.8rem); line-height: 1.2; }
 .home-grid { width: 100%; max-width: 860px; display: grid; gap: 1rem; }
 .home-grid article { padding: 1.25rem; text-align: left; background: var(--card); border: 1px solid var(--border); border-radius: 20px; box-shadow: var(--shadow); }
@@ -187,3 +180,7 @@ main { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 1.5rem 1
 .home-faq summary { font-weight: 800; cursor: pointer; }
 .home-faq p { margin-top: .6rem; color: var(--muted); }
 @media (min-width: 640px) { .home-grid { grid-template-columns: repeat(3, 1fr); } }
+.device-options { max-width: 860px; }
+@media (min-width: 640px) {
+  #opts-device .opt:last-child { grid-column: 1 / -1; width: calc(50% - .5rem); justify-self: center; }
+}

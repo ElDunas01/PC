@@ -5,6 +5,9 @@
    t = presupuesto (eco | mid | high), u = usos (basic | work | gaming)
    ===================================================================== */
 const row = (brand, big, detail, price, t = [], u = [], x = {}) => ({ brand, big, detail, price, t, u, ...x });
+const slug = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 const ALL_T = ['eco', 'mid', 'high'];
 const ALL_U = ['basic', 'work', 'gaming'];
 
@@ -140,9 +143,9 @@ const FALLBACK_ITEM = { laptop: FALLBACK_LAPTOP, aio: FALLBACK_AIO };
    ===================================================================== */
 const OPTIONS = {
   device: [
-    { id: 'pc', icon: '🛠️', label: 'PC de escritorio', hint: 'Torre: más potencia por tu dinero' },
-    { id: 'laptop', icon: '💻', label: 'Laptop', hint: 'Te la llevas a todos lados' },
-    { id: 'aio', icon: '🖥️', label: 'Todo en uno', hint: 'Pantalla y computadora juntas' },
+    { id: 'pc', icon: '🛠️', label: 'PC de escritorio', hint: 'Más potencia por el precio y fácil de actualizar. Ideal para usarla en un solo lugar.' },
+    { id: 'laptop', icon: '💻', label: 'Laptop', hint: 'Llévala a clases o al trabajo. Revisa su peso, batería y memoria ampliable.' },
+    { id: 'aio', icon: '🖥️', label: 'Todo en uno', hint: 'Pantalla y computadora juntas, con menos cables. Ocupa poco espacio.' },
   ],
   profile: [
     { id: 'student', icon: '🎓', label: 'Estudiar', hint: 'Escuela, universidad o cursos' },
@@ -268,9 +271,6 @@ const FIELDS = FIELD_GROUPS.flatMap(g => g.items);
    5. FORMATO Y AYUDANTES
    ===================================================================== */
 const mxn = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
-const slug = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-  .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 const labelOf = (key, id) => (OPTIONS[key].find(o => o.id === id) || { label: '' }).label.toLowerCase();
 const selectionFocus = () => {
   const field = FIELDS.find(item => item.id === state.field);
