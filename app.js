@@ -75,7 +75,7 @@ const PARTS = [
 ];
 
 /* =====================================================================
-   2. CATÁLOGO: LAPTOPS Y TODO EN UNO
+   2. CATÁLOGO: LAPTOPS
    lap(marca, modelo, detalle, precio, presupuesto, usos, perfiles)
    Económico: 8 GB de RAM como mínimo.
    ===================================================================== */
@@ -148,8 +148,8 @@ const OPTIONS = {
   device: [
     { id: 'pc', icon: '🛠️', label: 'PC de escritorio', hint: 'Más potencia por el precio y fácil de actualizar. Ideal para usarla en un solo lugar.' },
     { id: 'laptop', icon: '💻', label: 'Laptop', hint: 'Llévala a clases o al trabajo. Revisa su peso, batería y memoria ampliable.' },
-    { id: 'tablet', icon: '📱', label: 'Tableta', hint: 'Ligera para leer, tomar apuntes, dibujar o ver contenido.' },
-    { id: 'phone', icon: '📲', label: 'Teléfono', hint: 'Compara cámara, batería, tamaño, almacenamiento y sistema.' },
+    { id: 'tablet', icon: '📱', label: 'Tablet', hint: 'Ligera para leer, tomar apuntes, dibujar o ver contenido.' },
+    { id: 'phone', icon: '📲', label: 'Teléfono celular', hint: 'Compara cámara, batería, tamaño, almacenamiento y sistema.' },
   ],
   profile: [
     { id: 'student', icon: '🎓', label: 'Estudiar', hint: 'Escuela, universidad o cursos' },
