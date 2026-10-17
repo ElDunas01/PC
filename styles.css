@@ -30,6 +30,7 @@ body {
   transition: all .3s ease;
 }
 :focus-visible { outline: 3px solid var(--link); outline-offset: 3px; }
+button { min-width: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
 
 .top {
   position: sticky; top: 0; z-index: 5;
@@ -42,9 +43,11 @@ body {
   background: none; border: 0; border-radius: 12px; color: inherit;
   font: inherit; font-weight: 800; cursor: pointer; transition: all .3s ease;
 }
-.brand svg { width: 34px; height: 34px; color: var(--violet); }
+.brand { min-width: 0; flex: 1; }
+.brand span { min-width: 0; overflow-wrap: anywhere; }
+.brand svg { flex: none; width: 34px; height: 34px; color: var(--violet); }
 .brand:hover { color: var(--link); }
-.icon-btn { font-size: 1.5rem; border: 2px solid var(--border); border-radius: 50%; width: 48px; height: 48px; justify-content: center; }
+.icon-btn { flex: none; font-size: 1.5rem; border: 2px solid var(--border); border-radius: 50%; width: 48px; height: 48px; justify-content: center; }
 .icon-btn:hover { border-color: var(--violet); }
 
 main { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
@@ -57,7 +60,7 @@ main { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 1.5rem 1
 .note { max-width: 34rem; color: var(--muted); font-size: .9rem; }
 
 /* ===== Botones ===== */
-.nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: .5rem; }
+.nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; width: 100%; max-width: 100%; margin-top: .5rem; }
 .btn {
   min-height: 56px; padding: .9rem 2rem; border: 2px solid transparent; border-radius: 16px;
   background: linear-gradient(135deg, var(--blue), var(--violet)); color: var(--on-accent);
@@ -65,7 +68,7 @@ main { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 1.5rem 1
 }
 .btn:hover:not(:disabled) { transform: translateY(-2px); }
 .btn:disabled { opacity: .4; cursor: not-allowed; filter: grayscale(.6); box-shadow: none; }
-.btn-lg { font-size: 1.4rem; padding: 1.1rem 3rem; }
+.btn-lg { font-size: clamp(1.1rem, 5vw, 1.4rem); padding: 1.1rem clamp(1.25rem, 8vw, 3rem); }
 .btn-ghost { background: transparent; color: var(--text); border-color: var(--border); box-shadow: none; }
 .btn-ghost:hover:not(:disabled) { border-color: var(--violet); }
 
@@ -80,8 +83,8 @@ main { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 1.5rem 1
 .opt:hover { transform: translateY(-3px); border-color: var(--violet); }
 .opt[aria-pressed="true"] { border-color: var(--blue); background: color-mix(in srgb, var(--blue) 14%, var(--card)); }
 .opt[aria-pressed="true"]::after { content: "✓"; position: absolute; top: .5rem; right: .9rem; font-weight: 800; color: var(--link); }
-.opt-icon { font-size: 2.5rem; line-height: 1; }
-.opt-text { display: flex; flex-direction: column; }
+.opt-icon { flex: none; font-size: 2.5rem; line-height: 1; }
+.opt-text { display: flex; flex: 1; flex-direction: column; min-width: 0; overflow-wrap: anywhere; }
 .opt small { color: var(--muted); font-size: .95rem; }
 
 /* ===== Carga ===== */
@@ -162,7 +165,7 @@ main { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 1.5rem 1
 .field-list { width: 100%; max-height: 52vh; overflow-y: auto; padding: .25rem; text-align: left; }
 .grp { margin: 1rem 0 .5rem; font-size: 1rem; color: var(--muted); }
 .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
-.chip { width: auto; min-height: 44px; padding: .5rem 1rem; flex-direction: row; justify-content: flex-start; text-align: left; font-size: 1rem; border-radius: 999px; box-shadow: none; }
+.chip { width: auto; max-width: 100%; min-height: 44px; padding: .5rem 1rem; flex-direction: row; justify-content: flex-start; text-align: left; font-size: 1rem; border-radius: 999px; box-shadow: none; }
 .chip:hover { transform: none; }
 .chip[aria-pressed="true"]::after { position: static; margin-left: .4rem; }
 

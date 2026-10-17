@@ -70,7 +70,7 @@ const FALLBACK_ECO_GAMING = { cpu: DB.cpu[2], gpu: DB.gpu[1], ram: DB.ram[0], ss
 const PARTS = [
   ['cpu', '🧠', 'Procesador', 'Es el cerebro: piensa y decide qué tan rápido va todo.'],
   ['gpu', '🎮', 'Tarjeta de video', 'Dibuja las imágenes: juegos, videos y diseño.'],
-  ['ram', '⚡', 'Memoria RAM', 'Es tu mesa de trabajo: más espacio, más cosas abiertas a la vez.'],
+  ['ram', '⚡', 'Memoria RAM', 'Permite que el equipo use los programas que tienes abiertos. Con suficiente RAM puedes mantener varias aplicaciones abiertas y trabajar con mayor fluidez.'],
   ['ssd', '💾', 'Almacenamiento', 'Es el armario donde guardas programas, fotos y archivos.'],
 ];
 
@@ -477,8 +477,15 @@ function scoreMobile(item, device) {
 
 function recommendMobile(device, amount, lastKey = '') {
   const catalog = MOBILE_CATALOG[device];
-  const affordable = catalog.filter(item => item.price <= amount);
-  const pool = affordable.length ? affordable : [catalog.reduce((a, b) => a.price < b.price ? a : b)];
+  const preferredSystem = state.mobile.system || 'any';
+  // Si la persona elige un sistema, nunca se muestran equipos de otro sistema.
+  const compatible = preferredSystem === 'any'
+    ? catalog
+    : catalog.filter(item => item.system === preferredSystem);
+  const affordable = compatible.filter(item => item.price <= amount);
+  const pool = affordable.length
+    ? affordable
+    : [compatible.reduce((a, b) => a.price < b.price ? a : b)];
   const ranked = pool.map(item => ({ item, score: scoreMobile(item, device) }))
     .sort((a, b) => b.score - a.score || a.item.price - b.item.price);
   return { items: ranked.map(x => x.item), overBudget: !affordable.length };
@@ -723,9 +730,9 @@ function showMobileList(reroll) {
       : state.mobile.system === 'harmony' ? 'HarmonyOS' : 'Android';
   const focus = d === 'tablet'
     ? `tu preferencia de uso, pantalla ${state.mobile.screen === 'compact' ? 'compacta' : state.mobile.screen === 'large' ? 'grande' : 'mediana'} y sistema ${systemName}`
-    : `tu prioridad de ${MOBILE_QUESTIONS.phone[0].options.find(o => o.id === state.mobile.priority)?.label.toLowerCase()}, pantalla ${state.mobile.screen === 'any' ? 'sin preferencia de tamaño' : state.mobile.screen === 'compact' ? 'compacta' : 'grande'} y ${state.mobile.storage === 'lots' ? 'más espacio para guardar contenido' : 'espacio para uso normal'}`;
+    : `tu prioridad de ${MOBILE_QUESTIONS.phone[0].options.find(o => o.id === state.mobile.priority)?.label.toLowerCase()}, pantalla ${state.mobile.screen === 'any' ? 'sin preferencia de tamaño' : state.mobile.screen === 'compact' ? 'compacta' : 'grande'}, almacenamiento y sistema ${systemName}`;
   $('#summary').textContent = state.mobileOverBudget
-    ? `No encontramos una ${label} del catálogo dentro del monto elegido; aquí está la opción más cercana. Elige otro presupuesto si quieres ver más alternativas.`
+    ? `No encontramos una ${label}${state.mobile.system !== 'any' ? ` compatible con ${systemName}` : ''} dentro del monto elegido. Aquí está la opción más económica que coincide con tu preferencia.`
     : `Opción ${state.mobileIndex + 1} de ${state.mobileRanked.length}, elegida según ${focus}. Cada vez que pulses «Ver otra opción» avanzarás a un modelo distinto.`;
   $('#cards').classList.remove('three', 'mobile-single');
   $('#cards').classList.add('mobile-single');
