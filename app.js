@@ -34,7 +34,7 @@ const DB = {
     row('AMD', 'RX 7800 XT', '16 GB', 12500, ['high'], ['gaming']),
     row('NVIDIA', 'RTX 4070 Super', '12 GB', 15500, ['high'], ['gaming']),
   ],
-  // Económico: solo 8 GB (límite del presupuesto bajo). Medio y alto: 16 GB o más.
+  // Económico: exactamente 8 GB para mantener el costo bajo. Medio y alto: 16 GB o más.
   ram: [
     row('Kingston', '8 GB', 'DDR4 3200 MHz', 1500, ['eco'], ALL_U, { type: 'DDR4' }),
     row('Corsair', '8 GB', 'DDR4 3200 MHz', 1650, ['eco'], ALL_U, { type: 'DDR4' }),
@@ -60,6 +60,9 @@ const FALLBACK = {
   ram: row('Kingston', '16 GB', 'DDR4 3200 MHz', 3200),
   ssd: row('WD', '1 TB', 'Blue SN580 NVMe', 1500),
 };
+
+const FALLBACK_ECO = { cpu: DB.cpu[0], gpu: DB.gpu[0], ram: DB.ram[0], ssd: DB.ssd[0] };
+const FALLBACK_ECO_GAMING = { cpu: DB.cpu[2], gpu: DB.gpu[1], ram: DB.ram[0], ssd: DB.ssd[0] };
 
 const PARTS = [
   ['cpu', '🧠', 'Procesador', 'Es el cerebro: piensa y decide qué tan rápido va todo.'],
@@ -156,7 +159,7 @@ const OPTIONS = {
     { id: 'kids', icon: '🧒', label: 'Niños y familia', hint: 'Dibujos, juegos suaves y tareas' },
   ],
   budget: [
-    { id: 'eco', icon: '🪙', label: 'Económico', hint: 'Cuidando cada peso' },
+    { id: 'eco', icon: '🪙', label: 'Económico', hint: 'Cuidando cada peso; 8 GB de RAM' },
     { id: 'mid', icon: '⚖️', label: 'Intermedio', hint: 'Buen equilibrio' },
     { id: 'high', icon: '🚀', label: 'Alto', hint: 'Lo mejor para rendir más' },
   ],
@@ -167,6 +170,11 @@ const RANGE = {
   pc: { min: 8000, max: 40000, cut: [12000, 22000], val: { eco: 10000, mid: 17000, high: 30000 } },
   laptop: { min: 8000, max: 80000, cut: [18000, 35000], val: { eco: 13000, mid: 26000, high: 55000 } },
   aio: { min: 8000, max: 80000, cut: [18000, 35000], val: { eco: 13000, mid: 26000, high: 55000 } },
+};
+const BUDGET_HINT = {
+  pc: 'Guía para las piezas principales de una PC de escritorio; el total no incluye gabinete, fuente ni tarjeta madre.',
+  laptop: 'Guía para comparar laptops completas. El precio depende de la marca y configuración.',
+  aio: 'Guía para comparar equipos todo en uno completos. El precio depende de la marca y configuración.',
 };
 
 // Usos nuevos que reutilizan el catálogo de PC de un uso con necesidades parecidas
@@ -188,13 +196,21 @@ const FIELD_GROUPS = [
     S('Primaria', 'kids'), S('Secundaria', 'kids'), S('Bachillerato', 'work'),
   ]},
   { name: 'Ingenierías y tecnología', for: 'student', items: [
-    S('Ingeniería en sistemas computacionales', 'code'), S('Ingeniería en software', 'code'),
-    S('Ingeniería en datos e inteligencia artificial', 'code'), S('Ingeniería en ciberseguridad', 'code'),
+    S('Ingeniería en sistemas computacionales', 'code'), S('Ingeniería en computación', 'code'),
+    S('Ingeniería en software', 'code'), S('Ingeniería en tecnologías de información', 'code'),
+    S('Ingeniería en datos e inteligencia artificial', 'code'), S('Ingeniería en ciencia de datos', 'code'),
+    S('Ingeniería en ciberseguridad', 'code'), S('Ingeniería en sistemas embebidos', 'code'),
     S('Ingeniería en telecomunicaciones', 'work'), S('Ingeniería electrónica', 'work'),
-    S('Ingeniería eléctrica', 'work'), S('Ingeniería mecatrónica', 'create'), S('Ingeniería en robótica', 'create'),
+    S('Ingeniería eléctrica', 'work'), S('Ingeniería en automatización y control', 'create'),
+    S('Ingeniería mecatrónica', 'create'), S('Ingeniería en robótica', 'create'),
     S('Ingeniería civil', 'create'), S('Ingeniería mecánica', 'create'), S('Ingeniería aeroespacial', 'create'),
     S('Ingeniería automotriz', 'create'), S('Ingeniería industrial', 'work'), S('Ingeniería biomédica', 'work'),
     S('Ingeniería en energías renovables', 'work'),
+  ]},
+  { name: 'Salud y ciencias de la vida', for: 'student', items: [
+    S('Medicina', 'work'), S('Bioinformática', 'code'), S('Biotecnología', 'work'),
+    S('Ciencias biomédicas', 'work'), S('Medicina veterinaria', 'work'),
+    S('Química farmacéutica', 'work'), S('Enfermería', 'work'),
   ]},
   { name: 'Diseño, arte y comunicación', for: 'student', items: [
     S('Arquitectura', 'create'), S('Diseño gráfico', 'create'), S('Diseño industrial', 'create'),
@@ -213,15 +229,24 @@ const FIELD_GROUPS = [
   { name: 'Tecnología y software', for: 'work', items: [
     W('Desarrollador/a de software', 'code'), W('Programador/a web', 'code'), W('Científico/a de datos', 'code'),
     W('Especialista en ciberseguridad', 'code'), W('Especialista en inteligencia artificial', 'code'),
+    W('Analista de datos', 'code'), W('Administrador/a de bases de datos', 'code'),
+    W('Especialista DevOps y nube', 'code'), W('Probador/a de software', 'code'),
     W('Administrador/a de redes', 'work'), W('Soporte técnico', 'work'), W('Analista de sistemas', 'work'),
+    W('Técnico/a de reparación de computadoras', 'work'),
     W('Diseñador/a UX/UI', 'create'), W('Desarrollador/a de videojuegos', 'gaming'),
   ]},
   { name: 'Ingeniería y electrónica', for: 'work', items: [
     W('Ingeniero/a electrónico/a', 'work'), W('Ingeniero/a en telecomunicaciones', 'work'),
-    W('Técnico/a en electrónica', 'work'), W('Ingeniero/a mecatrónico/a', 'create'),
+    W('Técnico/a en electrónica', 'work'), W('Técnico/a en telecomunicaciones', 'work'),
+    W('Ingeniero/a de sistemas embebidos', 'code'), W('Ingeniero/a de automatización y control', 'create'),
+    W('Técnico/a en instrumentación', 'work'), W('Ingeniero/a mecatrónico/a', 'create'),
     W('Ingeniero/a en robótica', 'create'), W('Ingeniero/a civil (con CAD)', 'create'),
     W('Ingeniero/a mecánico/a', 'create'), W('Ingeniero/a automotriz', 'create'),
     W('Ingeniero/a en logística', 'work'),
+  ]},
+  { name: 'Ciencia y salud digital', for: 'work', items: [
+    W('Analista de laboratorio clínico', 'work'), W('Radiólogo/a', 'work'),
+    W('Bioinformático/a', 'code'), W('Especialista en equipos médicos', 'work'),
   ]},
   { name: 'Diseño, video y creatividad', for: 'work', items: [
     W('Diseñador/a gráfico/a', 'create'), W('Editor/a de video', 'create'), W('Animador/a 3D', 'create'),
@@ -247,12 +272,22 @@ const slug = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '
   .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 const labelOf = (key, id) => (OPTIONS[key].find(o => o.id === id) || { label: '' }).label.toLowerCase();
+const selectionFocus = () => {
+  const field = FIELDS.find(item => item.id === state.field);
+  if (state.profile === 'student' && field) return `la carrera de ${field.career}`;
+  if (state.profile === 'work' && field) return `tu actividad como ${field.job}`;
+  if (state.profile === 'business') return 'tu empresa o negocio';
+  if (state.profile === 'home') return 'tu hogar';
+  return 'tu perfil';
+};
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const pick = list => list[Math.floor(Math.random() * list.length)];
 const dev = () => state.device || 'pc';
 const tierOf = v => { const [a, b] = RANGE[dev()].cut; return v <= a ? 'eco' : v <= b ? 'mid' : 'high'; };
 const fits = (item, budget, use) => item.t.includes(budget) && item.u.includes(use);
+const fitsRam = (item, budget, use) => fits(item, budget, use) && (budget !== 'eco' || item.big === '8 GB');
+const hasEcoLaptopRam = item => /\b8\s*GB\s*RAM\b/i.test(item.detail);
 const keyOf = b => PARTS.map(([k]) => `${b[k].brand}${b[k].big}${b[k].detail}`).join('|');
 const keyList = items => items.map(i => `${i.brand}${i.big}`).sort().join('|');
 const totalOf = b => PARTS.reduce((sum, [k]) => sum + b[k].price, 0);
@@ -267,7 +302,7 @@ function pickBuild(use, budget) {
   // Sin gráficos integrados en el procesador, la tarjeta de video es obligatoria
   const gpu = pick(DB.gpu.filter(p => fits(p, budget, u) && (cpu.igpu || !p.integrated)));
   // La RAM debe ser compatible con la plataforma del procesador (DDR4 o DDR5)
-  const ram = pick(DB.ram.filter(p => fits(p, budget, u) && p.type === cpu.ram));
+  const ram = pick(DB.ram.filter(p => fitsRam(p, budget, u) && p.type === cpu.ram));
   const ssd = pick(DB.ssd.filter(p => fits(p, budget, u)));
   return gpu && ram && ssd ? { cpu, gpu, ram, ssd } : null;
 }
@@ -285,16 +320,20 @@ function recommend(use, budget, lastKey = '') {
     console.error(err);
     build = null;
   }
-  return build ? { ...build, fallback: false } : { ...FALLBACK, fallback: true };
+  if (build) return { ...build, fallback: false };
+  const safeFallback = budget === 'eco'
+    ? ((POOL[use] || use) === 'gaming' ? FALLBACK_ECO_GAMING : FALLBACK_ECO)
+    : FALLBACK;
+  return { ...safeFallback, fallback: true };
 }
 
 // Laptops o todo en uno: relaja el filtro (perfil, luego uso, luego solo presupuesto)
 function recommendList(device, use, budget, profile, lastKey = '') {
   const src = CATALOG[device];
   const steps = [
-    p => fits(p, budget, use) && p.p.includes(profile),
-    p => fits(p, budget, use),
-    p => p.t.includes(budget),
+    p => (budget !== 'eco' || hasEcoLaptopRam(p)) && fits(p, budget, use) && p.p.includes(profile),
+    p => (budget !== 'eco' || hasEcoLaptopRam(p)) && fits(p, budget, use),
+    p => (budget !== 'eco' || hasEcoLaptopRam(p)) && p.t.includes(budget),
   ];
   let pool = [];
   for (const f of steps) { pool = src.filter(f); if (pool.length) break; }
@@ -351,6 +390,9 @@ function renderOptions(key) {
 function renderField() {
   const student = state.profile === 'student';
   $('#field-title').textContent = student ? '¿Qué carrera estudias?' : '¿A qué te dedicas?';
+  $('#field-hint').textContent = student
+    ? 'Elige la carrera que más se acerque a la tuya; la usaremos para sugerir qué programas podrías necesitar.'
+    : 'Elige el trabajo que más se acerque al tuyo para orientar la recomendación a tus herramientas y tareas.';
   $('#field-search').placeholder = student ? 'Busca tu carrera' : 'Busca tu trabajo';
   $('#field-search').value = '';
   $('#field-list').innerHTML = FIELD_GROUPS
@@ -385,6 +427,7 @@ function choose(key, value) {
   if (key === 'device') {
     const r = RANGE[value], rng = $('#budget-range');
     Object.assign(rng, { min: r.min, max: r.max, value: r.val.mid });
+    $('#budget-hint').textContent = BUDGET_HINT[value];
     state.budget = null;
     $$('.opt[data-key="budget"]').forEach(b => b.setAttribute('aria-pressed', 'false'));
     $('#range-out').textContent = 'Mueve la barra o elige una opción';
@@ -408,6 +451,7 @@ function reset() {
   $$('.opt').forEach(b => b.setAttribute('aria-pressed', 'false'));
   $('#use-hint').hidden = true;
   Object.assign($('#budget-range'), { min: 8000, max: 40000, value: 17000 });
+  $('#budget-hint').textContent = 'El monto guía depende del tipo de equipo que elegiste.';
   $('#range-out').textContent = 'Mueve la barra o elige una opción';
   syncNext();
   show('welcome');
@@ -421,6 +465,8 @@ function analyze() {
 }
 
 function showResults(reroll) {
+  const titles = { pc: 'Tu PC de escritorio ideal', laptop: 'Tu laptop ideal', aio: 'Tu equipo todo en uno ideal' };
+  $('#result-title').textContent = titles[dev()];
   if (state.device === 'laptop' || state.device === 'aio') return showList(reroll);
   state.build = recommend(state.use, state.budget, reroll ? state.last : '');
   state.last = keyOf(state.build);
@@ -430,8 +476,8 @@ function showResults(reroll) {
 
 function paint(build) {
   $('#summary').textContent = build.fallback
-    ? 'No encontré una combinación exacta, pero esta PC equilibrada te va a funcionar muy bien.'
-    : `Para ${labelOf('use', state.use)}, con presupuesto ${labelOf('budget', state.budget)}.`;
+    ? `No encontré una combinación exacta para ${selectionFocus()}. Esta opción sirve como referencia${state.budget === 'eco' ? ' y conserva 8 GB de RAM en el nivel económico' : ''}.`
+    : `Una opción para ${selectionFocus()}, enfocada en ${labelOf('use', state.use)} y en un presupuesto ${labelOf('budget', state.budget)}.`;
 
   $('#cards').classList.remove('three');
   $('#cards').innerHTML = PARTS.map(([k, icon, name, help]) => {
@@ -467,8 +513,8 @@ function showList(reroll) {
   state.last = keyList(r.items);
   state.build = null;
   $('#summary').textContent = r.fallback
-    ? 'No encontré una igual a lo que pediste, pero esta opción equilibrada te va a servir muy bien.'
-    : `Para ${labelOf('profile', state.profile)}, pensando en ${labelOf('use', state.use)}, con presupuesto ${labelOf('budget', state.budget)}.`;
+    ? `No encontré una coincidencia exacta para ${selectionFocus()}. Esta opción sirve como referencia${state.budget === 'eco' ? ' y conserva 8 GB de RAM en el nivel económico' : ''}.`
+    : `Una opción para ${selectionFocus()}, enfocada en ${labelOf('use', state.use)} y en un presupuesto ${labelOf('budget', state.budget)}.`;
   const icon = d === 'aio' ? '🖥️' : '💻';
   $('#cards').classList.add('three');
   $('#cards').innerHTML = r.items.map((p, i) => `
@@ -493,7 +539,7 @@ function swap(part, btn) {
   const b = state.build;
   if (!b || b.fallback) return;
   const use = POOL[state.use] || state.use;
-  const list = DB[part].filter(p => p !== b[part] && fits(p, state.budget, use)
+  const list = DB[part].filter(p => p !== b[part] && (part === 'ram' ? fitsRam(p, state.budget, use) : fits(p, state.budget, use))
     && (part !== 'ram' || p.type === b.cpu.ram)
     && (part !== 'gpu' || b.cpu.igpu || !p.integrated));
   if (!list.length) { btn.textContent = 'No hay más opciones'; btn.disabled = true; return; }
