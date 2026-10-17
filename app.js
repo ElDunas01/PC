@@ -1,16 +1,15 @@
 'use strict';
 
 /* =====================================================================
-   1. BASE DE DATOS SIMULADA
-   Todos los precios son Number (MXN, aproximados). Se formatean solo al renderizar.
-   t = presupuestos donde aplica (eco | mid | high), u = usos (basic | work | gaming)
+   1. BASE DE DATOS: PC DE ESCRITORIO (precios Number en MXN, aproximados)
+   t = presupuesto (eco | mid | high), u = usos (basic | work | gaming)
    ===================================================================== */
 const row = (brand, big, detail, price, t = [], u = [], x = {}) => ({ brand, big, detail, price, t, u, ...x });
 const ALL_T = ['eco', 'mid', 'high'];
 const ALL_U = ['basic', 'work', 'gaming'];
 
 const DB = {
-  // igpu: trae gráficos integrados | ram: tipo de memoria que usa su plataforma
+  // igpu: trae gráficos integrados | ram: tipo de memoria de su plataforma
   cpu: [
     row('Intel', 'Core i3', '12100', 2900, ['eco'], ['basic', 'work'], { igpu: true, ram: 'DDR4' }),
     row('AMD', 'Ryzen 5', '5600G', 3300, ['eco'], ['basic', 'work'], { igpu: true, ram: 'DDR4' }),
@@ -35,10 +34,14 @@ const DB = {
     row('AMD', 'RX 7800 XT', '16 GB', 12500, ['high'], ['gaming']),
     row('NVIDIA', 'RTX 4070 Super', '12 GB', 15500, ['high'], ['gaming']),
   ],
+  // Económico: solo 8 GB (límite del presupuesto bajo). Medio y alto: 16 GB o más.
   ram: [
-    row('Kingston', '16 GB', 'DDR4 3200 MHz', 3200, ['eco', 'mid'], ALL_U, { type: 'DDR4' }),
-    row('Corsair', '16 GB', 'DDR4 3200 MHz', 3600, ['eco', 'mid'], ALL_U, { type: 'DDR4' }),
-    row('Crucial', '16 GB', 'DDR4 3200 MHz', 3400, ['eco', 'mid'], ALL_U, { type: 'DDR4' }),
+    row('Kingston', '8 GB', 'DDR4 3200 MHz', 1500, ['eco'], ALL_U, { type: 'DDR4' }),
+    row('Corsair', '8 GB', 'DDR4 3200 MHz', 1650, ['eco'], ALL_U, { type: 'DDR4' }),
+    row('Crucial', '8 GB', 'DDR4 3200 MHz', 1550, ['eco'], ALL_U, { type: 'DDR4' }),
+    row('Kingston', '16 GB', 'DDR4 3200 MHz', 3200, ['mid'], ALL_U, { type: 'DDR4' }),
+    row('Corsair', '16 GB', 'DDR4 3200 MHz', 3600, ['mid'], ALL_U, { type: 'DDR4' }),
+    row('Crucial', '16 GB', 'DDR4 3200 MHz', 3400, ['mid'], ALL_U, { type: 'DDR4' }),
     row('Kingston', '16 GB', 'DDR5 5600 MHz', 5200, ['mid', 'high'], ALL_U, { type: 'DDR5' }),
     row('Corsair', '32 GB', 'DDR5 6000 MHz', 9500, ['high'], ['work', 'gaming'], { type: 'DDR5' }),
   ],
@@ -51,7 +54,6 @@ const DB = {
   ],
 };
 
-// PC genérica que se muestra cuando no hay combinación exacta
 const FALLBACK = {
   cpu: row('Intel', 'Core i5', '12400', 4200),
   gpu: row('Procesador', 'Integrada', 'Ya viene incluida', 0),
@@ -66,7 +68,85 @@ const PARTS = [
   ['ssd', '💾', 'Almacenamiento', 'Es el armario donde guardas programas, fotos y archivos.'],
 ];
 
+/* =====================================================================
+   2. CATÁLOGO: LAPTOPS Y TODO EN UNO
+   lap(marca, modelo, detalle, precio, presupuesto, usos, perfiles)
+   Económico: 8 GB de RAM como mínimo.
+   ===================================================================== */
+const lap = (brand, big, detail, price, t, u, p) => row(brand, big, detail, price, [t], u.split(' '), { p: p.split(' ') });
+
+const LAPTOPS = [
+  lap('Acer', 'Aspire 3', 'Ryzen 5, 8 GB RAM, 512 GB', 9500, 'eco', 'basic kids work', 'student home'),
+  lap('ASUS', 'Vivobook Go 15', 'Ryzen 5, 8 GB RAM, 512 GB', 11900, 'eco', 'basic work kids', 'student home'),
+  lap('Lenovo', 'IdeaPad Slim 3', 'Core i5, 8 GB RAM, 512 GB', 12500, 'eco', 'basic work kids code', 'student home work'),
+  lap('Dell', 'Inspiron 15', 'Core i5, 8 GB RAM, 512 GB', 14500, 'eco', 'basic work', 'student home work'),
+  lap('Samsung', 'Galaxy Book4', 'Core 5, 8 GB RAM, 512 GB', 15900, 'eco', 'basic work', 'student work home'),
+  lap('HP', 'ProBook 440', 'Core i5, 8 GB RAM, 512 GB', 16500, 'eco', 'work basic', 'business work'),
+  lap('Apple', 'MacBook Air M1', 'Chip M1, 8 GB RAM, 256 GB', 16500, 'eco', 'basic work create code', 'student work home'),
+  lap('Lenovo', 'ThinkPad E14', 'Core i5, 8 GB RAM, 512 GB', 16900, 'eco', 'work code', 'business work student'),
+  lap('ASUS', 'TUF Gaming A15', 'Ryzen 5, RTX 3050, 8 GB RAM', 17500, 'eco', 'gaming', 'home'),
+  lap('Acer', 'Nitro V 15', 'Core i5, RTX 3050, 8 GB RAM', 17900, 'eco', 'gaming create', 'home student'),
+  lap('Acer', 'Swift Go 14', 'Core Ultra 5, 16 GB RAM, 512 GB', 20900, 'mid', 'work basic create', 'student work'),
+  lap('Lenovo', 'ThinkPad L14', 'Ryzen 5 PRO, 16 GB RAM, 512 GB', 22500, 'mid', 'work code', 'business work'),
+  lap('ASUS', 'Vivobook S 15 OLED', 'Core Ultra 7, 16 GB RAM, 1 TB', 23900, 'mid', 'work create basic', 'student home work'),
+  lap('ASUS', 'Zenbook 14 OLED', 'Core Ultra 5, 16 GB RAM, 512 GB', 24900, 'mid', 'work create', 'student work business'),
+  lap('Apple', 'MacBook Air 13 M3', 'Chip M3, 16 GB RAM, 256 GB', 25500, 'mid', 'basic work create code kids', 'student work home business'),
+  lap('HP', 'EliteBook 640', 'Core Ultra 5, 16 GB RAM, 512 GB', 25900, 'mid', 'work', 'business'),
+  lap('Dell', 'Latitude 5450', 'Core Ultra 5, 16 GB RAM, 512 GB', 26500, 'mid', 'work code', 'business work'),
+  lap('HP', 'Victus 16', 'Ryzen 5, RTX 4060, 16 GB RAM', 26900, 'mid', 'gaming create', 'home student'),
+  lap('Lenovo', 'ThinkPad T14', 'Core Ultra 5, 16 GB RAM, 512 GB', 27900, 'mid', 'work code', 'business work'),
+  lap('Microsoft', 'Surface Laptop 7', 'Snapdragon X, 16 GB RAM, 256 GB', 27900, 'mid', 'work basic kids', 'student work business home'),
+  lap('ASUS', 'TUF Gaming A16', 'Ryzen 7, RTX 4060, 16 GB RAM', 28500, 'mid', 'gaming code', 'home student'),
+  lap('MSI', 'Katana 15', 'Core i7, RTX 4060, 16 GB RAM', 29900, 'mid', 'gaming create', 'home'),
+  lap('Lenovo', 'Legion 5', 'Ryzen 7, RTX 4060, 16 GB RAM', 30900, 'mid', 'gaming create code', 'home student work'),
+  lap('LG', 'gram 16', 'Core Ultra 7, 16 GB RAM, 512 GB', 30900, 'mid', 'work basic', 'work business student'),
+  lap('Apple', 'MacBook Air 15 M3', 'Chip M3, 16 GB RAM, 512 GB', 36900, 'high', 'basic work create kids', 'student work home business'),
+  lap('Apple', 'MacBook Pro 14 M4', 'Chip M4, 16 GB RAM, 512 GB', 42900, 'high', 'create code work', 'work business student'),
+  lap('ASUS', 'ROG Strix G16', 'Core i7, RTX 4070, 16 GB RAM', 45900, 'high', 'gaming create', 'home'),
+  lap('Lenovo', 'Legion Pro 5', 'Core i7, RTX 4070, 32 GB RAM', 47900, 'high', 'gaming create code', 'home work'),
+  lap('Dell', 'XPS 14', 'Core Ultra 7, 32 GB RAM, 1 TB', 49900, 'high', 'work create code', 'work business'),
+  lap('ASUS', 'ROG Zephyrus G14', 'Ryzen 9, RTX 4070, 32 GB RAM', 52900, 'high', 'gaming create code', 'home work'),
+  lap('HP', 'EliteBook 840', 'Core Ultra 7, 32 GB RAM, 1 TB', 52900, 'high', 'work code', 'business'),
+  lap('Lenovo', 'ThinkPad X1 Carbon', 'Core Ultra 7, 32 GB RAM, 1 TB', 58900, 'high', 'work code', 'business work'),
+  lap('Razer', 'Blade 14', 'Ryzen 9, RTX 4070, 32 GB RAM', 59900, 'high', 'gaming create', 'home'),
+  lap('Apple', 'MacBook Pro 16 M4 Pro', 'Chip M4 Pro, 24 GB RAM, 512 GB', 69900, 'high', 'create code', 'work business'),
+  lap('MSI', 'Stealth 16', 'Core Ultra 9, RTX 4080, 32 GB RAM', 74900, 'high', 'gaming create', 'home work'),
+  lap('Lenovo', 'ThinkPad P1', 'Core Ultra 9, RTX Ada, 32 GB RAM', 79000, 'high', 'create code work', 'business work'),
+];
+
+const AIOS = [
+  lap('Acer', 'Aspire C24', 'Core i3, 8 GB RAM, 256 GB', 11900, 'eco', 'basic kids', 'student home'),
+  lap('Lenovo', 'IdeaCentre AIO 3', 'Ryzen 5, 8 GB RAM, 512 GB', 13900, 'eco', 'basic work kids', 'student home'),
+  lap('HP', 'All-in-One 24', 'Ryzen 5, 8 GB RAM, 512 GB', 14900, 'eco', 'basic work kids', 'student home'),
+  lap('ASUS', 'Vivo AiO 24', 'Core i5, 8 GB RAM, 512 GB', 15900, 'eco', 'basic work kids', 'student home'),
+  lap('Dell', 'Inspiron 24', 'Core i5, 8 GB RAM, 512 GB', 16900, 'eco', 'basic work', 'home business'),
+  lap('HP', 'Pavilion 27', 'Core i5, 16 GB RAM, 512 GB', 22900, 'mid', 'work create basic', 'home business'),
+  lap('Lenovo', 'Yoga AIO 7', 'Ryzen 7, 16 GB RAM, 1 TB', 31900, 'mid', 'work create', 'home business'),
+  lap('Apple', 'iMac 24 M4', 'Chip M4, 16 GB RAM, 256 GB', 32900, 'high', 'create work code basic', 'home work business'),
+  lap('MSI', 'Modern AIO', 'Core i7, RTX 4060, 16 GB RAM', 45900, 'high', 'gaming create', 'home'),
+  lap('Dell', 'XPS 27', 'Core Ultra 7, 32 GB RAM, 1 TB', 52900, 'high', 'work create code', 'business work'),
+];
+
+const FALLBACK_LAPTOP = lap('Lenovo', 'IdeaPad Slim 3', 'Core i5, 8 GB RAM, 512 GB', 12500, 'eco', 'basic work', 'student home');
+const FALLBACK_AIO = lap('HP', 'All-in-One 24', 'Ryzen 5, 8 GB RAM, 512 GB', 14900, 'eco', 'basic work', 'student home');
+const CATALOG = { laptop: LAPTOPS, aio: AIOS };
+const FALLBACK_ITEM = { laptop: FALLBACK_LAPTOP, aio: FALLBACK_AIO };
+
+/* =====================================================================
+   3. OPCIONES DEL ASISTENTE
+   ===================================================================== */
 const OPTIONS = {
+  device: [
+    { id: 'pc', icon: '🛠️', label: 'PC de escritorio', hint: 'Torre: más potencia por tu dinero' },
+    { id: 'laptop', icon: '💻', label: 'Laptop', hint: 'Te la llevas a todos lados' },
+    { id: 'aio', icon: '🖥️', label: 'Todo en uno', hint: 'Pantalla y computadora juntas' },
+  ],
+  profile: [
+    { id: 'student', icon: '🎓', label: 'Estudiar', hint: 'Escuela, universidad o cursos' },
+    { id: 'work', icon: '💼', label: 'Trabajar', hint: 'Oficina o trabajo desde casa' },
+    { id: 'home', icon: '🏠', label: 'Hogar', hint: 'Para toda la familia' },
+    { id: 'business', icon: '🏢', label: 'Empresa o negocio', hint: 'Equipos para un equipo de trabajo' },
+  ],
   use: [
     { id: 'gaming', icon: '🎮', label: 'Jugar', hint: 'Videojuegos sin trabas' },
     { id: 'work', icon: '💻', label: 'Trabajar / Estudiar', hint: 'Tareas, clases y oficina' },
@@ -75,16 +155,6 @@ const OPTIONS = {
     { id: 'code', icon: '👨‍💻', label: 'Programar', hint: 'Código y proyectos' },
     { id: 'kids', icon: '🧒', label: 'Niños y familia', hint: 'Dibujos, juegos suaves y tareas' },
   ],
-  device: [
-    { id: 'pc', icon: '🖥️', label: 'PC de escritorio', hint: 'Más potencia por tu dinero' },
-    { id: 'laptop', icon: '💻', label: 'Laptop', hint: 'Te la llevas a todos lados' },
-  ],
-  profile: [
-    { id: 'student', icon: '🎓', label: 'Estudiar', hint: 'Escuela, universidad o cursos' },
-    { id: 'work', icon: '💼', label: 'Trabajar', hint: 'Oficina o trabajo desde casa' },
-    { id: 'home', icon: '🏠', label: 'Hogar', hint: 'Para toda la familia' },
-    { id: 'business', icon: '🏢', label: 'Empresa o negocio', hint: 'Equipos para un equipo de trabajo' },
-  ],
   budget: [
     { id: 'eco', icon: '🪙', label: 'Económico', hint: 'Cuidando cada peso' },
     { id: 'mid', icon: '⚖️', label: 'Intermedio', hint: 'Buen equilibrio' },
@@ -92,47 +162,121 @@ const OPTIONS = {
   ],
 };
 
+// Rangos de la barra de presupuesto por tipo de equipo (cut = cortes entre niveles)
+const RANGE = {
+  pc: { min: 8000, max: 40000, cut: [12000, 22000], val: { eco: 10000, mid: 17000, high: 30000 } },
+  laptop: { min: 8000, max: 80000, cut: [18000, 35000], val: { eco: 13000, mid: 26000, high: 55000 } },
+  aio: { min: 8000, max: 80000, cut: [18000, 35000], val: { eco: 13000, mid: 26000, high: 55000 } },
+};
+
+// Usos nuevos que reutilizan el catálogo de PC de un uso con necesidades parecidas
+const POOL = { create: 'gaming', code: 'work', kids: 'basic' };
+
+const PC_NOTE = 'Suma de procesador, tarjeta de video, RAM y almacenamiento. Aún faltan gabinete, fuente y tarjeta madre. Los precios son aproximados.';
+const LAP_NOTE = 'Precios aproximados de modelos de línea: cambian según la tienda y la configuración. Confirma las especificaciones antes de comprar.';
+
 /* =====================================================================
-   2. FORMATO (solo capa de render)
+   4. CARRERAS Y TRABAJOS (los que más usan computadora o electrónicos)
+   F(carrera, trabajo, uso sugerido). Estudiantes ven la carrera; trabajadores ven el trabajo.
+   ===================================================================== */
+const F = (career, job, use) => ({ career, job, use, id: slug(`${career} ${job}`) });
+const S = (career, use) => F(career, career, use);   // carrera sin etiqueta distinta
+const W = (job, use) => F('', job, use);             // trabajo
+
+const FIELD_GROUPS = [
+  { name: 'Escuela', for: 'student', items: [
+    S('Primaria', 'kids'), S('Secundaria', 'kids'), S('Bachillerato', 'work'),
+  ]},
+  { name: 'Ingenierías y tecnología', for: 'student', items: [
+    S('Ingeniería en sistemas computacionales', 'code'), S('Ingeniería en software', 'code'),
+    S('Ingeniería en datos e inteligencia artificial', 'code'), S('Ingeniería en ciberseguridad', 'code'),
+    S('Ingeniería en telecomunicaciones', 'work'), S('Ingeniería electrónica', 'work'),
+    S('Ingeniería eléctrica', 'work'), S('Ingeniería mecatrónica', 'create'), S('Ingeniería en robótica', 'create'),
+    S('Ingeniería civil', 'create'), S('Ingeniería mecánica', 'create'), S('Ingeniería aeroespacial', 'create'),
+    S('Ingeniería automotriz', 'create'), S('Ingeniería industrial', 'work'), S('Ingeniería biomédica', 'work'),
+    S('Ingeniería en energías renovables', 'work'),
+  ]},
+  { name: 'Diseño, arte y comunicación', for: 'student', items: [
+    S('Arquitectura', 'create'), S('Diseño gráfico', 'create'), S('Diseño industrial', 'create'),
+    S('Animación digital', 'create'), S('Cine y audiovisual', 'create'), S('Fotografía', 'create'),
+    S('Diseño de videojuegos', 'gaming'), S('Comunicación digital', 'create'), S('Periodismo', 'work'),
+    S('Producción musical', 'create'),
+  ]},
+  { name: 'Ciencias y matemáticas', for: 'student', items: [
+    S('Matemáticas', 'code'), S('Física', 'code'), S('Estadística', 'code'), S('Actuaría', 'code'),
+    S('Computación', 'code'), S('Química', 'work'), S('Astronomía', 'work'),
+  ]},
+  { name: 'Negocios y economía', for: 'student', items: [
+    S('Contaduría', 'work'), S('Administración', 'work'), S('Economía', 'work'), S('Finanzas', 'work'),
+    S('Mercadotecnia digital', 'create'), S('Negocios internacionales', 'work'), S('Comercio electrónico', 'work'),
+  ]},
+  { name: 'Tecnología y software', for: 'work', items: [
+    W('Desarrollador/a de software', 'code'), W('Programador/a web', 'code'), W('Científico/a de datos', 'code'),
+    W('Especialista en ciberseguridad', 'code'), W('Especialista en inteligencia artificial', 'code'),
+    W('Administrador/a de redes', 'work'), W('Soporte técnico', 'work'), W('Analista de sistemas', 'work'),
+    W('Diseñador/a UX/UI', 'create'), W('Desarrollador/a de videojuegos', 'gaming'),
+  ]},
+  { name: 'Ingeniería y electrónica', for: 'work', items: [
+    W('Ingeniero/a electrónico/a', 'work'), W('Ingeniero/a en telecomunicaciones', 'work'),
+    W('Técnico/a en electrónica', 'work'), W('Ingeniero/a mecatrónico/a', 'create'),
+    W('Ingeniero/a en robótica', 'create'), W('Ingeniero/a civil (con CAD)', 'create'),
+    W('Ingeniero/a mecánico/a', 'create'), W('Ingeniero/a automotriz', 'create'),
+    W('Ingeniero/a en logística', 'work'),
+  ]},
+  { name: 'Diseño, video y creatividad', for: 'work', items: [
+    W('Diseñador/a gráfico/a', 'create'), W('Editor/a de video', 'create'), W('Animador/a 3D', 'create'),
+    W('Arquitecto/a', 'create'), W('Fotógrafo/a profesional', 'create'), W('Productor/a musical', 'create'),
+    W('Creador/a de contenido', 'create'), W('Community manager', 'create'), W('Ilustrador/a digital', 'create'),
+  ]},
+  { name: 'Oficina y negocios', for: 'work', items: [
+    W('Contador/a', 'work'), W('Administrador/a', 'work'), W('Analista financiero/a', 'work'),
+    W('Ejecutivo/a de ventas', 'work'), W('Asistente administrativo/a', 'work'), W('Economista', 'work'),
+    W('Abogado/a', 'work'), W('Emprendedor/a', 'work'), W('Freelancer', 'work'),
+  ]},
+  { name: 'Otra opción', for: 'both', items: [
+    F('Otra carrera', 'Otro trabajo', ''),
+  ]},
+];
+const FIELDS = FIELD_GROUPS.flatMap(g => g.items);
+
+/* =====================================================================
+   5. FORMATO Y AYUDANTES
    ===================================================================== */
 const mxn = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
 const slug = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
   .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 const labelOf = (key, id) => (OPTIONS[key].find(o => o.id === id) || { label: '' }).label.toLowerCase();
-
-/* =====================================================================
-   3. MOTOR DE RECOMENDACIÓN
-   ===================================================================== */
-// Usos nuevos que reutilizan el catálogo de otro uso con necesidades parecidas
-const POOL = { create: 'gaming', code: 'work', kids: 'basic' };
-// La barra de presupuesto cambia de escala según el equipo (cut = cortes entre niveles)
-const RANGE = {
-  pc: { min: 8000, max: 40000, cut: [12000, 22000], val: { eco: 10000, mid: 17000, high: 30000 } },
-  laptop: { min: 8000, max: 80000, cut: [18000, 35000], val: { eco: 13000, mid: 26000, high: 55000 } },
-};
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+const pick = list => list[Math.floor(Math.random() * list.length)];
 const dev = () => state.device || 'pc';
 const tierOf = v => { const [a, b] = RANGE[dev()].cut; return v <= a ? 'eco' : v <= b ? 'mid' : 'high'; };
-const pick = list => list[Math.floor(Math.random() * list.length)];
 const fits = (item, budget, use) => item.t.includes(budget) && item.u.includes(use);
 const keyOf = b => PARTS.map(([k]) => `${b[k].brand}${b[k].big}${b[k].detail}`).join('|');
+const keyList = items => items.map(i => `${i.brand}${i.big}`).sort().join('|');
 const totalOf = b => PARTS.reduce((sum, [k]) => sum + b[k].price, 0);
 
+/* =====================================================================
+   6. MOTOR DE RECOMENDACIÓN
+   ===================================================================== */
 function pickBuild(use, budget) {
-  const cpu = pick(DB.cpu.filter(p => fits(p, budget, use)));
+  const u = POOL[use] || use;
+  const cpu = pick(DB.cpu.filter(p => fits(p, budget, u)));
   if (!cpu) return null;
   // Sin gráficos integrados en el procesador, la tarjeta de video es obligatoria
-  const gpu = pick(DB.gpu.filter(p => fits(p, budget, use) && (cpu.igpu || !p.integrated)));
+  const gpu = pick(DB.gpu.filter(p => fits(p, budget, u) && (cpu.igpu || !p.integrated)));
   // La RAM debe ser compatible con la plataforma del procesador (DDR4 o DDR5)
-  const ram = pick(DB.ram.filter(p => fits(p, budget, use) && p.type === cpu.ram));
-  const ssd = pick(DB.ssd.filter(p => fits(p, budget, use)));
+  const ram = pick(DB.ram.filter(p => fits(p, budget, u) && p.type === cpu.ram));
+  const ssd = pick(DB.ssd.filter(p => fits(p, budget, u)));
   return gpu && ram && ssd ? { cpu, gpu, ram, ssd } : null;
 }
 
 function recommend(use, budget, lastKey = '') {
   let build = null;
   try {
-    for (let i = 0; i < 8; i++) {            // evita repetir la misma combinación seguida
-      const next = pickBuild(POOL[use] || use, budget);
+    for (let i = 0; i < 8; i++) {          // evita repetir la misma combinación seguida
+      const next = pickBuild(use, budget);
       if (!next) break;
       build = next;
       if (keyOf(next) !== lastKey) break;
@@ -144,13 +288,37 @@ function recommend(use, budget, lastKey = '') {
   return build ? { ...build, fallback: false } : { ...FALLBACK, fallback: true };
 }
 
+// Laptops o todo en uno: relaja el filtro (perfil, luego uso, luego solo presupuesto)
+function recommendList(device, use, budget, profile, lastKey = '') {
+  const src = CATALOG[device];
+  const steps = [
+    p => fits(p, budget, use) && p.p.includes(profile),
+    p => fits(p, budget, use),
+    p => p.t.includes(budget),
+  ];
+  let pool = [];
+  for (const f of steps) { pool = src.filter(f); if (pool.length) break; }
+  if (!pool.length) return { items: [FALLBACK_ITEM[device]], fallback: true };
+  let items = [];
+  for (let i = 0; i < 6; i++) {
+    const mix = [...pool].sort(() => Math.random() - 0.5);
+    items = [];
+    mix.forEach(p => { if (items.length < 3 && !items.some(o => o.brand === p.brand)) items.push(p); });
+    mix.forEach(p => { if (items.length < 3 && !items.includes(p)) items.push(p); });
+    if (keyList(items) !== lastKey) break;
+  }
+  return { items, fallback: false };
+}
+
 /* =====================================================================
-   4. ESTADO Y VISTAS
+   7. ESTADO Y VISTAS
    ===================================================================== */
-const $ = (sel, root = document) => root.querySelector(sel);
-const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
-const state = { device: null, profile: null, field: null, auto: false, use: null, budget: null, last: '', timer: null, build: null };
-const STEP = { welcome: 0, device: 15, profile: 25, field: 35, use: 50, budget: 70, loading: 85, results: 100 };
+const state = {
+  device: null, profile: null, field: null, auto: false, use: null, budget: null,
+  last: '', timer: null, build: null,
+};
+const STEP = { welcome: 0, device: 12, profile: 24, field: 36, use: 48, budget: 66, loading: 85, results: 100 };
+const needsField = () => state.profile === 'student' || state.profile === 'work';
 
 function show(name) {
   $$('.view').forEach(v => {
@@ -180,281 +348,18 @@ function renderOptions(key) {
     </button>`).join('');
 }
 
-function choose(key, value) {
-  state[key] = value;
-  if (key === 'profile') state.field = null;
-  if (key === 'use') { state.auto = false; $('#use-hint').hidden = true; }
-  if (key === 'device') {
-    const r = RANGE[value], rng = $('#budget-range');
-    Object.assign(rng, { min: r.min, max: r.max, value: r.val.mid });
-    state.budget = null;
-    $$('.opt[data-key="budget"]').forEach(b => b.setAttribute('aria-pressed', 'false'));
-    $('#range-out').textContent = 'Mueve la barra o elige una opción';
-  }
-  if (key === 'budget') {
-    const rng = $('#budget-range');
-    if (tierOf(Number(rng.value)) !== value) rng.value = RANGE[dev()].val[value];
-    $('#range-out').textContent = mxn.format(Number(rng.value));
-  }
-  $$(`.opt[data-key="${key}"]`).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.value === value)));
-  syncNext();
-}
-
-function reset() {
-  clearTimeout(state.timer);                 // cancela un análisis en curso
-  Object.assign(state, { device: null, profile: null, field: null, auto: false, use: null, budget: null, last: '' });
-  $$('.opt').forEach(b => b.setAttribute('aria-pressed', 'false'));
-  syncNext();
-  $('#use-hint').hidden = true;
-  Object.assign($('#budget-range'), { min: 8000, max: 40000, value: 17000 });
-  $('#range-out').textContent = 'Mueve la barra o elige una opción';
-  show('welcome');
-}
-
-function analyze() {
-  if (!state.use || !state.budget) return;
-  show('loading');
-  clearTimeout(state.timer);
-  state.timer = setTimeout(() => showResults(false), 1500 + Math.random() * 500);
-}
-
-function showResults(reroll) {
-  if (state.device === 'laptop') return showLaptops(reroll);
-  state.build = recommend(state.use, state.budget, reroll ? state.last : '');
-  state.last = keyOf(state.build);
-  paint(state.build);
-  show('results');
-}
-
-function paint(build) {
-
-  $('#summary').textContent = build.fallback
-    ? 'No encontré una combinación exacta, pero esta PC equilibrada te va a funcionar muy bien.'
-    : `Para ${labelOf('use', state.use)}, con presupuesto ${labelOf('budget', state.budget)}.`;
-
-  $('#cards').innerHTML = PARTS.map(([k, icon, name, help]) => {
-    const p = build[k];
-    const swapBtn = !build.fallback && k !== 'cpu'
-      ? `<button type="button" class="swap" data-action="swap" data-part="${k}" aria-label="Probar otra pieza: ${name}">Probar otra</button>` : '';
-    const link = p.price
-      ? `<a class="ml" href="https://listado.mercadolibre.com.mx/${slug(`${p.brand} ${p.big} ${p.detail}`)}" target="_blank" rel="noopener">Ver en Mercado Libre</a>`
-      : '';
-    return `
-      <article class="card" data-part="${k}">
-        <span class="part-icon" aria-hidden="true">${icon}</span>
-        <h3>${name}</h3>
-        <p class="maker">${p.brand}</p>
-        <p class="big">${p.big}</p>
-        <p class="detail">${p.detail}</p>
-        <p class="price">${p.price ? mxn.format(p.price) : 'Incluida'}</p>
-        <p class="help">${help}</p>
-        ${link}
-        ${swapBtn}
-      </article>`;
-  }).join('');
-
-  $('#total').textContent = mxn.format(totalOf(build));
-  $('#total-line').hidden = false;
-  $('#note').textContent = PC_NOTE;
-  $('#cards').classList.remove('three');
-}
-
-const bump = el => { if (!el) return; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); };
-
-// Cambia una sola pieza manteniendo la compatibilidad (RAM con su plataforma, video si no hay integrada)
-function swap(part, btn) {
-  const b = state.build;
-  if (!b || b.fallback) return;
-  const use = POOL[state.use] || state.use;
-  const list = DB[part].filter(p => p !== b[part] && fits(p, state.budget, use)
-    && (part !== 'ram' || p.type === b.cpu.ram)
-    && (part !== 'gpu' || b.cpu.igpu || !p.integrated));
-  if (!list.length) { btn.textContent = 'No hay más opciones'; btn.disabled = true; return; }
-  state.build = { ...b, [part]: pick(list) };
-  state.last = keyOf(state.build);
-  paint(state.build);
-  bump($(`.card[data-part="${part}"]`));
-  bump($('#total'));
-}
-
-/* =====================================================================
-   5. TEMA CAMALEÓN
-   ===================================================================== */
-const root = document.documentElement;
-const media = window.matchMedia('(prefers-color-scheme: light)');
-const currentTheme = () => root.dataset.theme || (media.matches ? 'light' : 'dark');
-
-function paintThemeButton() {
-  const light = currentTheme() === 'light';
-  const btn = $('#theme');
-  btn.textContent = light ? '🌙' : '☀️';
-  btn.setAttribute('aria-label', light ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro');
-}
-
-function toggleTheme() {
-  const next = currentTheme() === 'light' ? 'dark' : 'light';
-  root.dataset.theme = next;
-  try { localStorage.setItem('pcr-theme', next); } catch (e) { /* sin almacenamiento */ }
-  paintThemeButton();
-}
-
-/* =====================================================================
-   6. EVENTOS E INICIO
-   ===================================================================== */
-/* =====================================================================
-   LAPTOPS: catálogo y motor (precios Number en MXN, aproximados)
-   t = presupuesto, u = usos, p = perfiles (student | work | home | business)
-   ===================================================================== */
-const lap = (brand, big, detail, price, t, u, p) => row(brand, big, detail, price, [t], u.split(' '), { p: p.split(' ') });
-const LAPTOPS = [
-  lap('Acer', 'Aspire 3', 'Ryzen 5, 8 GB RAM, 512 GB', 9500, 'eco', 'basic kids work', 'student home'),
-  lap('ASUS', 'Vivobook Go 15', 'Ryzen 5, 16 GB RAM, 512 GB', 11900, 'eco', 'basic work kids', 'student home'),
-  lap('Lenovo', 'IdeaPad Slim 3', 'Core i5, 16 GB RAM, 512 GB', 12500, 'eco', 'basic work kids code', 'student home work'),
-  lap('Dell', 'Inspiron 15', 'Core i5, 16 GB RAM, 512 GB', 14500, 'eco', 'basic work', 'student home work'),
-  lap('Samsung', 'Galaxy Book4', 'Core 5, 16 GB RAM, 512 GB', 15900, 'eco', 'basic work', 'student work home'),
-  lap('HP', 'ProBook 440', 'Core i5, 16 GB RAM, 512 GB', 16500, 'eco', 'work basic', 'business work'),
-  lap('Apple', 'MacBook Air M1', 'Chip M1, 8 GB RAM, 256 GB', 16500, 'eco', 'basic work create code', 'student work home'),
-  lap('Lenovo', 'ThinkPad E14', 'Core i5, 16 GB RAM, 512 GB', 16900, 'eco', 'work code', 'business work student'),
-  lap('ASUS', 'TUF Gaming A15', 'Ryzen 5, RTX 3050, 16 GB RAM', 17500, 'eco', 'gaming', 'home'),
-  lap('Acer', 'Nitro V 15', 'Core i5, RTX 3050, 16 GB RAM', 17900, 'eco', 'gaming create', 'home student'),
-  lap('Acer', 'Swift Go 14', 'Core Ultra 5, 16 GB RAM, 512 GB', 20900, 'mid', 'work basic create', 'student work'),
-  lap('Lenovo', 'ThinkPad L14', 'Ryzen 5 PRO, 16 GB RAM, 512 GB', 22500, 'mid', 'work code', 'business work'),
-  lap('ASUS', 'Vivobook S 15 OLED', 'Core Ultra 7, 16 GB RAM, 1 TB', 23900, 'mid', 'work create basic', 'student home work'),
-  lap('ASUS', 'Zenbook 14 OLED', 'Core Ultra 5, 16 GB RAM, 512 GB', 24900, 'mid', 'work create', 'student work business'),
-  lap('Apple', 'MacBook Air 13 M3', 'Chip M3, 16 GB RAM, 256 GB', 25500, 'mid', 'basic work create code kids', 'student work home business'),
-  lap('HP', 'EliteBook 640', 'Core Ultra 5, 16 GB RAM, 512 GB', 25900, 'mid', 'work', 'business'),
-  lap('Dell', 'Latitude 5450', 'Core Ultra 5, 16 GB RAM, 512 GB', 26500, 'mid', 'work code', 'business work'),
-  lap('HP', 'Victus 16', 'Ryzen 5, RTX 4060, 16 GB RAM', 26900, 'mid', 'gaming create', 'home student'),
-  lap('Lenovo', 'ThinkPad T14', 'Core Ultra 5, 16 GB RAM, 512 GB', 27900, 'mid', 'work code', 'business work'),
-  lap('Microsoft', 'Surface Laptop 7', 'Snapdragon X, 16 GB RAM, 256 GB', 27900, 'mid', 'work basic kids', 'student work business home'),
-  lap('ASUS', 'TUF Gaming A16', 'Ryzen 7, RTX 4060, 16 GB RAM', 28500, 'mid', 'gaming code', 'home student'),
-  lap('MSI', 'Katana 15', 'Core i7, RTX 4060, 16 GB RAM', 29900, 'mid', 'gaming create', 'home'),
-  lap('Lenovo', 'Legion 5', 'Ryzen 7, RTX 4060, 16 GB RAM', 30900, 'mid', 'gaming create code', 'home student work'),
-  lap('LG', 'gram 16', 'Core Ultra 7, 16 GB RAM, 512 GB', 30900, 'mid', 'work basic', 'work business student'),
-  lap('Apple', 'MacBook Air 15 M3', 'Chip M3, 16 GB RAM, 512 GB', 36900, 'high', 'basic work create kids', 'student work home business'),
-  lap('Apple', 'MacBook Pro 14 M4', 'Chip M4, 16 GB RAM, 512 GB', 42900, 'high', 'create code work', 'work business student'),
-  lap('ASUS', 'ROG Strix G16', 'Core i7, RTX 4070, 16 GB RAM', 45900, 'high', 'gaming create', 'home'),
-  lap('Lenovo', 'Legion Pro 5', 'Core i7, RTX 4070, 32 GB RAM', 47900, 'high', 'gaming create code', 'home work'),
-  lap('Dell', 'XPS 14', 'Core Ultra 7, 32 GB RAM, 1 TB', 49900, 'high', 'work create code', 'work business'),
-  lap('ASUS', 'ROG Zephyrus G14', 'Ryzen 9, RTX 4070, 32 GB RAM', 52900, 'high', 'gaming create code', 'home work'),
-  lap('HP', 'EliteBook 840', 'Core Ultra 7, 32 GB RAM, 1 TB', 52900, 'high', 'work code', 'business'),
-  lap('Lenovo', 'ThinkPad X1 Carbon', 'Core Ultra 7, 32 GB RAM, 1 TB', 58900, 'high', 'work code', 'business work'),
-  lap('Razer', 'Blade 14', 'Ryzen 9, RTX 4070, 32 GB RAM', 59900, 'high', 'gaming create', 'home'),
-  lap('Apple', 'MacBook Pro 16 M4 Pro', 'Chip M4 Pro, 24 GB RAM, 512 GB', 69900, 'high', 'create code', 'work business'),
-  lap('MSI', 'Stealth 16', 'Core Ultra 9, RTX 4080, 32 GB RAM', 74900, 'high', 'gaming create', 'home work'),
-  lap('Lenovo', 'ThinkPad P1', 'Core Ultra 9, RTX Ada, 32 GB RAM', 79000, 'high', 'create code work', 'business work'),
-];
-const FALLBACK_LAPTOP = lap('Lenovo', 'IdeaPad Slim 3', 'Core i5, 16 GB RAM, 512 GB', 12500, 'eco', 'basic work', 'student home');
-const PC_NOTE = 'Suma de procesador, tarjeta de video, RAM y almacenamiento. Aún faltan gabinete, fuente y tarjeta madre. Los precios son aproximados.';
-const LAP_NOTE = 'Precios aproximados de modelos de línea: cambian según la tienda y la configuración. Confirma las especificaciones antes de comprar.';
-
-// Si no hay match exacto se relaja el filtro: perfil, luego uso, luego solo presupuesto
-function recommendLaptops(use, budget, profile, lastKey = '') {
-  const filters = [
-    p => fits(p, budget, use) && p.p.includes(profile),
-    p => fits(p, budget, use),
-    p => p.t.includes(budget),
-  ];
-  let pool = [];
-  for (const f of filters) { pool = LAPTOPS.filter(f); if (pool.length) break; }
-  if (!pool.length) return { items: [FALLBACK_LAPTOP], fallback: true };
-  let items = [];
-  for (let i = 0; i < 6; i++) {
-    const mix = [...pool].sort(() => Math.random() - .5);
-    items = [];
-    mix.forEach(p => { if (items.length < 3 && !items.some(o => o.brand === p.brand)) items.push(p); });
-    mix.forEach(p => { if (items.length < 3 && !items.includes(p)) items.push(p); });
-    if (keyLap(items) !== lastKey) break;
-  }
-  return { items, fallback: false };
-}
-const keyLap = items => items.map(i => i.big).sort().join('|');
-
-function showLaptops(reroll) {
-  const r = recommendLaptops(state.use, state.budget, state.profile, reroll ? state.last : '');
-  state.last = keyLap(r.items);
-  state.build = null;
-  $('#summary').textContent = r.fallback
-    ? 'No encontré una igual a lo que pediste, pero esta laptop equilibrada te va a servir muy bien.'
-    : `Para ${labelOf('profile', state.profile)}, pensando en ${labelOf('use', state.use)}, con presupuesto ${labelOf('budget', state.budget)}.`;
-  $('#cards').classList.add('three');
-  $('#cards').innerHTML = r.items.map((p, i) => `
-    <article class="card">
-      <span class="part-icon" aria-hidden="true">💻</span>
-      <h3>Opción ${'ABC'[i]}</h3>
-      <p class="maker">${p.brand}</p>
-      <p class="big">${p.big}</p>
-      <p class="detail">${p.detail}</p>
-      <p class="price">${mxn.format(p.price)}</p>
-      <a class="ml" href="https://listado.mercadolibre.com.mx/${slug(`${p.brand} ${p.big}`)}" target="_blank" rel="noopener">Ver en Mercado Libre</a>
-    </article>`).join('');
-  $('#total-line').hidden = true;
-  $('#note').textContent = LAP_NOTE;
-  show('results');
-}
-
-/* =====================================================================
-   CARRERAS Y TRABAJOS: carrera | trabajo | uso sugerido para el equipo
-   ===================================================================== */
-const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-const G = (name, rows, only) => ({
-  name, only,
-  items: rows.map(r => { const [career, job, use] = r.split('|'); return { id: slug(career), career, job, use, group: name }; }),
-});
-const FIELD_GROUPS = [
-  G('Escuela', ['Primaria|Primaria|kids', 'Secundaria|Secundaria|kids', 'Bachillerato|Bachillerato|work'], 'student'),
-  G('Ingenierías', [
-    'Ingeniería civil|Ingeniero/a civil|create', 'Ingeniería mecánica|Ingeniero/a mecánico/a|create',
-    'Ingeniería mecatrónica|Ingeniero/a mecatrónico/a|create', 'Ingeniería eléctrica|Ingeniero/a eléctrico/a|work',
-    'Ingeniería electrónica|Ingeniero/a electrónico/a|work', 'Ingeniería industrial|Ingeniero/a industrial|work',
-    'Ingeniería en sistemas computacionales|Ingeniero/a en sistemas|code', 'Ingeniería en software|Desarrollador/a de software|code',
-    'Ingeniería en datos e IA|Científico/a de datos|code', 'Ingeniería en telecomunicaciones|Ingeniero/a en telecomunicaciones|work',
-    'Ingeniería química|Ingeniero/a químico/a|work', 'Ingeniería petrolera|Ingeniero/a petrolero/a|work',
-    'Ingeniería ambiental|Ingeniero/a ambiental|work', 'Ingeniería biomédica|Ingeniero/a biomédico/a|work',
-    'Ingeniería aeroespacial|Ingeniero/a aeroespacial|create', 'Ingeniería automotriz|Ingeniero/a automotriz|create',
-    'Ingeniería en logística|Ingeniero/a en logística|work', 'Ingeniería en alimentos|Ingeniero/a en alimentos|work',
-    'Ingeniería agronómica|Ingeniero/a agrónomo/a|work', 'Ingeniería en energías renovables|Ingeniero/a en energías renovables|work',
-    'Ingeniería en minas|Ingeniero/a de minas|work',
-  ]),
-  G('Negocios y leyes', [
-    'Administración|Administrador/a|work', 'Contaduría|Contador/a|work', 'Economía|Economista|work', 'Derecho|Abogado/a|work',
-    'Mercadotecnia|Especialista en marketing|create', 'Negocios internacionales|Comercio exterior|work', 'Actuaría|Actuario/a|code',
-    'Recursos humanos|Recursos humanos|work', 'Ciencias políticas|Analista político/a|work', 'Relaciones internacionales|Relaciones internacionales|work',
-  ]),
-  G('Diseño y arte', [
-    'Arquitectura|Arquitecto/a|create', 'Diseño gráfico|Diseñador/a gráfico/a|create', 'Diseño industrial|Diseñador/a industrial|create',
-    'Animación digital|Animador/a|create', 'Cine y audiovisual|Editor/a de video|create', 'Fotografía|Fotógrafo/a|create',
-    'Música|Músico/a|create', 'Artes visuales|Artista visual|create', 'Diseño de modas|Diseñador/a de modas|create',
-    'Comunicación|Comunicólogo/a|create', 'Periodismo|Periodista|work',
-  ]),
-  G('Salud', [
-    'Medicina|Médico/a|work', 'Enfermería|Enfermero/a|work', 'Odontología|Dentista|work', 'Nutrición|Nutriólogo/a|work',
-    'Psicología|Psicólogo/a|work', 'Fisioterapia|Fisioterapeuta|work', 'Veterinaria|Veterinario/a|work', 'Farmacia|Farmacéutico/a|work',
-  ]),
-  G('Ciencias, educación y servicios', [
-    'Matemáticas|Matemático/a|code', 'Física|Físico/a|code', 'Biología|Biólogo/a|work', 'Química|Químico/a|work',
-    'Computación|Programador/a|code', 'Pedagogía|Pedagogo/a|work', 'Educación|Maestro/a|work', 'Idiomas y traducción|Traductor/a|work',
-    'Historia|Historiador/a|work', 'Filosofía|Filósofo/a|work', 'Letras|Escritor/a|work', 'Sociología|Sociólogo/a|work',
-    'Trabajo social|Trabajador/a social|work', 'Gastronomía|Chef|work', 'Turismo|Turismo y hoteles|work',
-  ]),
-  G('Oficios y otros trabajos', [
-    'Oficina y administración|Oficina y administración|work', 'Ventas y atención a clientes|Ventas y atención a clientes|work',
-    'Emprendedor/a|Emprendedor/a|work', 'Creador/a de contenido|Creador/a de contenido|create',
-    'Soporte técnico|Soporte técnico|work', 'Freelancer|Freelancer|work',
-  ], 'work'),
-  G('Otro', ['Otra carrera|Otro trabajo|']),
-];
-const FIELDS = FIELD_GROUPS.flatMap(g => g.items);
-const needsField = () => state.profile === 'student' || state.profile === 'work';
-
 function renderField() {
   const student = state.profile === 'student';
   $('#field-title').textContent = student ? '¿Qué carrera estudias?' : '¿A qué te dedicas?';
+  $('#field-search').placeholder = student ? 'Busca tu carrera' : 'Busca tu trabajo';
   $('#field-search').value = '';
-  $('#field-list').innerHTML = FIELD_GROUPS.filter(g => !g.only || g.only === state.profile).map(g => `
-    <h3 class="grp">${g.name}</h3>
-    <div class="chips">${g.items.map(f => `<button type="button" class="opt chip" data-key="field" data-value="${f.id}"
-      data-q="${norm(f.career + ' ' + f.job)}" ${f.use ? '' : 'data-any="1"'} aria-pressed="${state.field === f.id}">${student ? f.career : f.job}</button>`).join('')}</div>`).join('');
+  $('#field-list').innerHTML = FIELD_GROUPS
+    .filter(g => g.for === state.profile || g.for === 'both')
+    .map(g => `
+      <h3 class="grp">${g.name}</h3>
+      <div class="chips">${g.items.map(f => `<button type="button" class="opt chip" data-key="field"
+        data-value="${f.id}" data-q="${norm(f.career + ' ' + f.job)}" ${f.use ? '' : 'data-any="1"'}
+        aria-pressed="${state.field === f.id}">${student ? f.career : f.job}</button>`).join('')}</div>`).join('');
 }
 
 function filterFields() {
@@ -475,6 +380,154 @@ function suggestUse() {
   $('#use-hint').hidden = false;
 }
 
+function choose(key, value) {
+  state[key] = value;
+  if (key === 'device') {
+    const r = RANGE[value], rng = $('#budget-range');
+    Object.assign(rng, { min: r.min, max: r.max, value: r.val.mid });
+    state.budget = null;
+    $$('.opt[data-key="budget"]').forEach(b => b.setAttribute('aria-pressed', 'false'));
+    $('#range-out').textContent = 'Mueve la barra o elige una opción';
+  }
+  if (key === 'profile') state.field = null;
+  if (key === 'use') { state.auto = false; $('#use-hint').hidden = true; }
+  if (key === 'budget') {
+    const rng = $('#budget-range');
+    if (tierOf(Number(rng.value)) !== value) rng.value = RANGE[dev()].val[value];
+    $('#range-out').textContent = mxn.format(Number(rng.value));
+  }
+  $$(`.opt[data-key="${key}"]`).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.value === value)));
+  syncNext();
+}
+
+function reset() {
+  clearTimeout(state.timer);
+  Object.assign(state, {
+    device: null, profile: null, field: null, auto: false, use: null, budget: null, last: '', build: null,
+  });
+  $$('.opt').forEach(b => b.setAttribute('aria-pressed', 'false'));
+  $('#use-hint').hidden = true;
+  Object.assign($('#budget-range'), { min: 8000, max: 40000, value: 17000 });
+  $('#range-out').textContent = 'Mueve la barra o elige una opción';
+  syncNext();
+  show('welcome');
+}
+
+function analyze() {
+  if (!state.use || !state.budget) return;
+  show('loading');
+  clearTimeout(state.timer);
+  state.timer = setTimeout(() => showResults(false), 1500 + Math.random() * 500);
+}
+
+function showResults(reroll) {
+  if (state.device === 'laptop' || state.device === 'aio') return showList(reroll);
+  state.build = recommend(state.use, state.budget, reroll ? state.last : '');
+  state.last = keyOf(state.build);
+  paint(state.build);
+  show('results');
+}
+
+function paint(build) {
+  $('#summary').textContent = build.fallback
+    ? 'No encontré una combinación exacta, pero esta PC equilibrada te va a funcionar muy bien.'
+    : `Para ${labelOf('use', state.use)}, con presupuesto ${labelOf('budget', state.budget)}.`;
+
+  $('#cards').classList.remove('three');
+  $('#cards').innerHTML = PARTS.map(([k, icon, name, help]) => {
+    const p = build[k];
+    const link = p.price
+      ? `<a class="ml" href="https://listado.mercadolibre.com.mx/${slug(`${p.brand} ${p.big} ${p.detail}`)}" target="_blank" rel="noopener">Ver en Mercado Libre</a>`
+      : '';
+    const swapBtn = !build.fallback && k !== 'cpu'
+      ? `<button type="button" class="swap" data-action="swap" data-part="${k}" aria-label="Probar otra pieza: ${name}">Probar otra</button>`
+      : '';
+    return `
+      <article class="card" data-part="${k}">
+        <span class="part-icon" aria-hidden="true">${icon}</span>
+        <h3>${name}</h3>
+        <p class="maker">${p.brand}</p>
+        <p class="big">${p.big}</p>
+        <p class="detail">${p.detail}</p>
+        <p class="price">${p.price ? mxn.format(p.price) : 'Incluida'}</p>
+        <p class="help">${help}</p>
+        ${link}
+        ${swapBtn}
+      </article>`;
+  }).join('');
+
+  $('#total').textContent = mxn.format(totalOf(build));
+  $('#total-line').hidden = false;
+  $('#note').textContent = PC_NOTE;
+}
+
+function showList(reroll) {
+  const d = state.device;
+  const r = recommendList(d, state.use, state.budget, state.profile, reroll ? state.last : '');
+  state.last = keyList(r.items);
+  state.build = null;
+  $('#summary').textContent = r.fallback
+    ? 'No encontré una igual a lo que pediste, pero esta opción equilibrada te va a servir muy bien.'
+    : `Para ${labelOf('profile', state.profile)}, pensando en ${labelOf('use', state.use)}, con presupuesto ${labelOf('budget', state.budget)}.`;
+  const icon = d === 'aio' ? '🖥️' : '💻';
+  $('#cards').classList.add('three');
+  $('#cards').innerHTML = r.items.map((p, i) => `
+    <article class="card">
+      <span class="part-icon" aria-hidden="true">${icon}</span>
+      <h3>Opción ${'ABC'[i]}</h3>
+      <p class="maker">${p.brand}</p>
+      <p class="big">${p.big}</p>
+      <p class="detail">${p.detail}</p>
+      <p class="price">${mxn.format(p.price)}</p>
+      <a class="ml" href="https://listado.mercadolibre.com.mx/${slug(`${p.brand} ${p.big}`)}" target="_blank" rel="noopener">Ver en Mercado Libre</a>
+    </article>`).join('');
+  $('#total-line').hidden = true;
+  $('#note').textContent = LAP_NOTE;
+  show('results');
+}
+
+const bump = el => { if (!el) return; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); };
+
+// Cambia una sola pieza manteniendo la compatibilidad
+function swap(part, btn) {
+  const b = state.build;
+  if (!b || b.fallback) return;
+  const use = POOL[state.use] || state.use;
+  const list = DB[part].filter(p => p !== b[part] && fits(p, state.budget, use)
+    && (part !== 'ram' || p.type === b.cpu.ram)
+    && (part !== 'gpu' || b.cpu.igpu || !p.integrated));
+  if (!list.length) { btn.textContent = 'No hay más opciones'; btn.disabled = true; return; }
+  state.build = { ...b, [part]: pick(list) };
+  state.last = keyOf(state.build);
+  paint(state.build);
+  bump($(`.card[data-part="${part}"]`));
+  bump($('#total'));
+}
+
+/* =====================================================================
+   8. TEMA CAMALEÓN
+   ===================================================================== */
+const root = document.documentElement;
+const media = window.matchMedia('(prefers-color-scheme: light)');
+const currentTheme = () => root.dataset.theme || (media.matches ? 'light' : 'dark');
+
+function paintThemeButton() {
+  const light = currentTheme() === 'light';
+  const btn = $('#theme');
+  btn.textContent = light ? '🌙' : '☀️';
+  btn.setAttribute('aria-label', light ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro');
+}
+
+function toggleTheme() {
+  const next = currentTheme() === 'light' ? 'dark' : 'light';
+  root.dataset.theme = next;
+  try { localStorage.setItem('pcr-theme', next); } catch (e) { /* sin almacenamiento */ }
+  paintThemeButton();
+}
+
+/* =====================================================================
+   9. EVENTOS E INICIO
+   ===================================================================== */
 const actions = {
   reset,
   theme: toggleTheme,
@@ -493,13 +546,13 @@ const actions = {
   'back-budget': () => show('use'),
   'next-budget': analyze,
   other: () => showResults(true),
-  swap: b => swap(b.dataset.part, b),
+  swap: (b) => swap(b.dataset.part, b),
 };
 
 document.addEventListener('click', e => {
   const btn = e.target.closest('button');
   if (!btn || btn.disabled) return;
-  e.preventDefault();                        // nunca se recarga la página
+  e.preventDefault();                       // nunca se recarga la página
   if (btn.classList.contains('opt')) return choose(btn.dataset.key, btn.dataset.value);
   const run = actions[btn.dataset.action];
   if (run) run(btn);
