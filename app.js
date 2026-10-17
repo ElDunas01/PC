@@ -120,19 +120,6 @@ const LAPTOPS = [
   lap('Lenovo', 'ThinkPad P1', 'Core Ultra 9, RTX Ada, 32 GB RAM', 79000, 'high', 'create code work', 'business work'),
 ];
 
-const AIOS = [
-  lap('Acer', 'Aspire C24', 'Core i3, 8 GB RAM, 256 GB', 11900, 'eco', 'basic kids', 'student home'),
-  lap('Lenovo', 'IdeaCentre AIO 3', 'Ryzen 5, 8 GB RAM, 512 GB', 13900, 'eco', 'basic work kids', 'student home'),
-  lap('HP', 'All-in-One 24', 'Ryzen 5, 8 GB RAM, 512 GB', 14900, 'eco', 'basic work kids', 'student home'),
-  lap('ASUS', 'Vivo AiO 24', 'Core i5, 8 GB RAM, 512 GB', 15900, 'eco', 'basic work kids', 'student home'),
-  lap('Dell', 'Inspiron 24', 'Core i5, 8 GB RAM, 512 GB', 16900, 'eco', 'basic work', 'home business'),
-  lap('HP', 'Pavilion 27', 'Core i5, 16 GB RAM, 512 GB', 22900, 'mid', 'work create basic', 'home business'),
-  lap('Lenovo', 'Yoga AIO 7', 'Ryzen 7, 16 GB RAM, 1 TB', 31900, 'mid', 'work create', 'home business'),
-  lap('Apple', 'iMac 24 M4', 'Chip M4, 16 GB RAM, 256 GB', 32900, 'high', 'create work code basic', 'home work business'),
-  lap('MSI', 'Modern AIO', 'Core i7, RTX 4060, 16 GB RAM', 45900, 'high', 'gaming create', 'home'),
-  lap('Dell', 'XPS 27', 'Core Ultra 7, 32 GB RAM, 1 TB', 52900, 'high', 'work create code', 'business work'),
-];
-
 // Precios orientativos en MXN. Las preguntas adaptan el orden de recomendación.
 const MOBILE_CATALOG = {
   tablet: [
@@ -151,9 +138,8 @@ const MOBILE_CATALOG = {
 };
 
 const FALLBACK_LAPTOP = lap('Lenovo', 'IdeaPad Slim 3', 'Core i5, 8 GB RAM, 512 GB', 12500, 'eco', 'basic work', 'student home');
-const FALLBACK_AIO = lap('HP', 'All-in-One 24', 'Ryzen 5, 8 GB RAM, 512 GB', 14900, 'eco', 'basic work', 'student home');
-const CATALOG = { laptop: LAPTOPS, aio: AIOS };
-const FALLBACK_ITEM = { laptop: FALLBACK_LAPTOP, aio: FALLBACK_AIO };
+const CATALOG = { laptop: LAPTOPS };
+const FALLBACK_ITEM = { laptop: FALLBACK_LAPTOP };
 
 /* =====================================================================
    3. OPCIONES DEL ASISTENTE
@@ -162,7 +148,6 @@ const OPTIONS = {
   device: [
     { id: 'pc', icon: '🛠️', label: 'PC de escritorio', hint: 'Más potencia por el precio y fácil de actualizar. Ideal para usarla en un solo lugar.' },
     { id: 'laptop', icon: '💻', label: 'Laptop', hint: 'Llévala a clases o al trabajo. Revisa su peso, batería y memoria ampliable.' },
-    { id: 'aio', icon: '🖥️', label: 'Todo en uno', hint: 'Pantalla y computadora juntas, con menos cables. Ocupa poco espacio.' },
     { id: 'tablet', icon: '📱', label: 'Tableta', hint: 'Ligera para leer, tomar apuntes, dibujar o ver contenido.' },
     { id: 'phone', icon: '📲', label: 'Teléfono', hint: 'Compara cámara, batería, tamaño, almacenamiento y sistema.' },
   ],
@@ -191,14 +176,12 @@ const OPTIONS = {
 const RANGE = {
   pc: { min: 8000, max: 40000, cut: [12000, 22000], val: { eco: 10000, mid: 17000, high: 30000 } },
   laptop: { min: 8000, max: 80000, cut: [18000, 35000], val: { eco: 13000, mid: 26000, high: 55000 } },
-  aio: { min: 8000, max: 80000, cut: [18000, 35000], val: { eco: 13000, mid: 26000, high: 55000 } },
   tablet: { min: 2500, max: 30000, cut: [8000, 15000], val: { eco: 7500, mid: 15000, high: 22000 } },
   phone: { min: 1500, max: 40000, cut: [6500, 15000], val: { eco: 6500, mid: 12000, high: 25000 } },
 };
 const BUDGET_HINT = {
   pc: 'Guía para las piezas principales de una PC de escritorio; el total no incluye gabinete, fuente ni tarjeta madre.',
   laptop: 'Guía para comparar laptops completas. El precio depende de la marca y configuración.',
-  aio: 'Guía para comparar equipos todo en uno completos. El precio depende de la marca y configuración.',
   tablet: 'Monto aproximado para una tableta. Revisa si el lápiz, teclado o conexión móvil se venden aparte.',
   phone: 'Monto aproximado para un teléfono. Confirma almacenamiento, compatibilidad con tu compañía y precio actual.',
 };
@@ -399,7 +382,7 @@ function recommend(use, budget, lastKey = '') {
   return { ...safeFallback, fallback: true };
 }
 
-// Laptops o todo en uno: relaja el filtro (perfil, luego uso, luego solo presupuesto)
+// En laptops se relaja el filtro (perfil, luego uso, luego solo presupuesto)
 function recommendList(device, use, budget, profile, lastKey = '') {
   const src = CATALOG[device];
   const steps = [
@@ -548,7 +531,10 @@ function renderMobileQuestions() {
 }
 
 function renderOptions(key) {
-  $(`#opts-${key}`).innerHTML = OPTIONS[key].map(o => `
+  const options = key === 'budget' && isMobileDevice()
+    ? OPTIONS.budget.map(o => ({ ...o, hint: o.id === 'eco' ? 'Cuidando cada peso' : o.id === 'mid' ? 'Buen equilibrio entre precio y funciones' : 'Más opciones de rendimiento y espacio' }))
+    : OPTIONS[key];
+  $(`#opts-${key}`).innerHTML = options.map(o => `
     <button type="button" class="opt" data-key="${key}" data-value="${o.id}" aria-pressed="false">
       <span class="opt-icon" aria-hidden="true">${o.icon}</span>
       <span class="opt-text"><strong>${o.label}</strong><small>${o.hint}</small></span>
@@ -605,6 +591,7 @@ function choose(key, value) {
     state.mobile = {};
     state.last = '';
     state.build = null;
+    renderOptions('budget');
     $$('.opt[data-key="budget"]').forEach(b => b.setAttribute('aria-pressed', 'false'));
     $$('.opt[data-key="profile"], .opt[data-key="use"], .opt[data-key="field"]').forEach(b => b.setAttribute('aria-pressed', 'false'));
     $('#use-hint').hidden = true;
@@ -643,10 +630,10 @@ function analyze() {
 }
 
 function showResults(reroll) {
-  const titles = { pc: 'Tu PC de escritorio ideal', laptop: 'Tu laptop ideal', aio: 'Tu equipo todo en uno ideal', tablet: 'La tableta que mejor encaja contigo', phone: 'El teléfono que mejor encaja contigo' };
+  const titles = { pc: 'Tu PC de escritorio ideal', laptop: 'Tu laptop ideal', tablet: 'La tableta que mejor encaja contigo', phone: 'El teléfono que mejor encaja contigo' };
   $('#result-title').textContent = titles[dev()];
   if (isMobileDevice()) return showMobileList(reroll);
-  if (state.device === 'laptop' || state.device === 'aio') return showList(reroll);
+  if (state.device === 'laptop') return showList(reroll);
   state.build = recommend(state.use, state.budget, reroll ? state.last : '');
   state.last = keyOf(state.build);
   paint(state.build);
@@ -724,7 +711,7 @@ function showList(reroll) {
   $('#summary').textContent = r.fallback
     ? `No encontré una coincidencia exacta para ${selectionFocus()}. Esta opción sirve como referencia${state.budget === 'eco' ? ' y conserva 8 GB de RAM en el nivel económico' : ''}.`
     : `Una opción para ${selectionFocus()}, enfocada en ${labelOf('use', state.use)} y en un presupuesto ${labelOf('budget', state.budget)}.`;
-  const icon = d === 'aio' ? '🖥️' : '💻';
+  const icon = '💻';
   $('#cards').classList.add('three');
   $('#cards').innerHTML = r.items.map((p, i) => `
     <article class="card">
