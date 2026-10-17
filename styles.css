@@ -125,7 +125,9 @@ main { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 1.5rem 1
 .brand svg { width: 40px; height: 40px; }
 .hero-logo { width: 120px; height: 120px; animation: float 3.2s ease-in-out infinite; filter: drop-shadow(0 10px 24px color-mix(in srgb, var(--violet) 55%, transparent)); }
 @keyframes float { 50% { transform: translateY(-8px) rotate(-2deg); } }
-.bar { height: 4px; background: var(--border); }
+.progress-wrap { display: flex; align-items: center; gap: .75rem; padding: .4rem 1rem; }
+#step-label { flex: none; color: var(--muted); font-size: .78rem; font-weight: 700; white-space: nowrap; }
+.bar { flex: 1; height: 5px; overflow: hidden; background: var(--border); border-radius: 999px; }
 .bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--blue), var(--violet)); transition: width .4s ease; }
 .story { width: 100%; max-width: 640px; margin-top: 1.5rem; padding: 1.25rem; text-align: left; background: var(--card); border: 1px solid var(--border); border-radius: 20px; box-shadow: var(--shadow); }
 .story h2 { font-size: 1.25rem; margin-bottom: .5rem; }
@@ -183,4 +185,19 @@ main { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 1.5rem 1
 .device-options { max-width: 860px; }
 @media (min-width: 640px) {
   #opts-device .opt:last-child { grid-column: 1 / -1; width: calc(50% - .5rem); justify-self: center; }
+}
+
+/* ===== v6: preguntas para tabletas y teléfonos ===== */
+.question-list { width: 100%; max-width: 860px; display: grid; gap: 1rem; text-align: left; }
+.question { min-width: 0; padding: 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 20px; box-shadow: var(--shadow); }
+.question legend { padding: 0 .35rem; font-size: 1.1rem; font-weight: 800; }
+.mobile-answers { grid-template-columns: 1fr; margin-top: .5rem; }
+.mobile-answers .opt { min-height: 68px; flex-direction: row; justify-content: flex-start; text-align: left; }
+.mobile-answers .opt-icon { font-size: 1.8rem; }
+.mobile-answers .opt-text { padding-right: 1.25rem; }
+.card .price small { color: var(--muted); font-size: .8rem; font-weight: 500; }
+.match-reason { margin-top: .4rem; color: var(--muted); font-size: .9rem; }
+@media (min-width: 640px) {
+  .mobile-answers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .question-list { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
 }

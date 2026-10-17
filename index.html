@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
-  <title>PC Recomendador</title>
+  <title>Recomendador de equipos</title>
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
@@ -14,28 +14,31 @@
     <symbol id="logo" viewBox="0 0 64 64"><rect x="4" y="6" width="56" height="38" rx="10" fill="url(#lg)"/><circle cx="23" cy="22" r="4" fill="#fff"/><circle cx="41" cy="22" r="4" fill="#fff"/><path d="M22 32q10 8 20 0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><path d="M24 58h16M32 44v14" fill="none" stroke="url(#lg)" stroke-width="5" stroke-linecap="round"/></symbol>
   </svg>
   <header class="top">
-    <button type="button" class="brand" data-action="reset" aria-label="PC Recomendador, volver al inicio">
+    <button type="button" class="brand" data-action="reset" aria-label="Recomendador de equipos, volver al inicio">
       <svg aria-hidden="true"><use href="#logo"/></svg>
-      <span>PC Recomendador</span>
+      <span>Recomendador de equipos</span>
     </button>
     <button type="button" class="icon-btn" id="theme" data-action="theme" aria-label="Cambiar tema"></button>
   </header>
-  <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+  <div class="progress-wrap">
+    <span id="step-label" aria-live="polite">Inicio</span>
+    <div class="bar" id="progress" role="progressbar" aria-label="Avance" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="bar"></i></div>
+  </div>
 
   <main id="app">
     <section class="view active" data-view="welcome">
       <svg class="hero-logo" viewBox="0 0 64 64" aria-hidden="true"><use href="#logo"/></svg>
       <h1 class="title" tabindex="-1">¡Hola! Vamos a elegir tu equipo</h1>
-      <p class="lead">Te ayudo a encontrar una computadora para tu día a día, sin tecnicismos y cuidando tu bolsillo. ¡Empecemos!</p>
+      <p class="lead">Te ayudo a elegir una computadora, tableta o teléfono para tu día a día, sin tecnicismos y cuidando tu bolsillo. ¡Empecemos!</p>
       <button type="button" class="btn btn-lg" data-action="start">Comenzar</button>
       <article class="story">
         <h2>Cómo nació esta idea</h2>
         <p>Todo empezó con las ganas de hacer un ayudante para las cosas electrónicas. Elegir una computadora suele llenarse de palabras raras, y queríamos lo contrario: algo tan sencillo que un niño de 10 años, o un adulto que no sabe de tecnología, pueda escoger bien para su día a día.</p>
         <h2>Cómo funciona</h2>
         <ol class="steps">
-          <li><span><strong>Elige el tipo de equipo.</strong> Puede ser una PC de escritorio, laptop o todo en uno.</span></li>
-          <li><span><strong>Cuéntame qué haces.</strong> Si estudias o trabajas, puedes elegir tu carrera o actividad.</span></li>
-          <li><span><strong>Define el uso y el presupuesto.</strong> Recibirás piezas principales o modelos para comparar.</span></li>
+          <li><span><strong>Elige el tipo de equipo.</strong> Hay computadoras, tabletas y teléfonos.</span></li>
+          <li><span><strong>Cuéntame qué necesitas.</strong> Te preguntaré por tu uso, tamaño, accesorios o prioridades.</span></li>
+          <li><span><strong>Define el presupuesto.</strong> Recibirás recomendaciones para comparar.</span></li>
         </ol>
       </article>
 
@@ -43,15 +46,15 @@
       <section class="home-grid" aria-label="Qué toma en cuenta el recomendador">
         <article><span aria-hidden="true">🎓</span><h3>Tu carrera o trabajo</h3><p>Elige tu carrera o actividad laboral para sugerir un uso relacionado con los programas y tareas que podrías necesitar.</p></article>
         <article><span aria-hidden="true">💰</span><h3>Tu presupuesto</h3><p>Escoge un nivel o mueve la barra. Los precios son orientativos y sirven para comparar opciones.</p></article>
-        <article><span aria-hidden="true">🧰</span><h3>Lo que puedes cambiar</h3><p>En una PC puedes probar distintas piezas. Para laptops y equipos todo en uno verás modelos de referencia.</p></article>
+        <article><span aria-hidden="true">🧰</span><h3>El equipo adecuado</h3><p>Compara piezas de PC o modelos de laptop, todo en uno, tableta y teléfono según lo que más te importa.</p></article>
       </section>
       <article class="story">
         <h2>Consejos rápidos</h2>
         <ul class="tips">
           <li><strong>RAM:</strong> es la mesa de trabajo. Más RAM significa que puedes tener más cosas abiertas sin que se trabe.</li>
           <li><strong>SSD:</strong> hace que la computadora prenda y abra programas rápido. Hoy casi todas traen uno.</li>
-          <li><strong>Batería:</strong> si la usarás lejos de un enchufe, busca 6 horas o más de uso real.</li>
-          <li><strong>Opción económica:</strong> esta guía la limita a 8 GB de RAM. Si usarás CAD, edición o varias aplicaciones pesadas, considera el nivel intermedio.</li>
+          <li><strong>Batería:</strong> para una laptop que usarás lejos de un enchufe, busca 6 horas o más de uso real.</li>
+          <li><strong>Opción económica de computadora:</strong> la guía usa 8 GB de RAM. Si harás CAD, edición o varias tareas pesadas, considera el nivel intermedio.</li>
           <li><strong>Programas:</strong> revisa qué aplicaciones pide tu escuela o trabajo; sus requisitos pueden cambiar la computadora que necesitas.</li>
           <li><strong>Precio:</strong> los montos de esta página son guías. Compara siempre con tu tienda antes de comprar.</li>
         </ul>
@@ -63,8 +66,8 @@
           <p>No. Solo sirve para sugerir un tipo de uso. Puedes cambiarlo antes de ver las recomendaciones.</p>
         </details>
         <details>
-          <summary>¿Una laptop y una PC de escritorio se recomiendan igual?</summary>
-          <p>No. Para laptop y todo en uno verás modelos completos; para escritorio verás piezas principales que puedes combinar.</p>
+          <summary>¿También puedo comparar tabletas y teléfonos?</summary>
+          <p>Sí. Responderás preguntas de uso y preferencias para ordenar modelos que se acerquen a lo que buscas.</p>
         </details>
         <details>
           <summary>¿Los precios son exactos?</summary>
@@ -81,6 +84,16 @@
       <div class="nav">
         <button type="button" class="btn btn-ghost" data-action="back-device">Atrás</button>
         <button type="button" class="btn" data-action="next-device" disabled>Continuar</button>
+      </div>
+    </section>
+
+    <section class="view" data-view="mobile-questions" hidden>
+      <h2 class="title" id="mobile-title" tabindex="-1">¿Qué equipo se adapta a ti?</h2>
+      <p class="lead" id="mobile-intro"></p>
+      <div id="mobile-questions" class="question-list"></div>
+      <div class="nav">
+        <button type="button" class="btn btn-ghost" data-action="back-mobile">Atrás</button>
+        <button type="button" class="btn" data-action="next-mobile" disabled>Ver presupuesto</button>
       </div>
     </section>
 
@@ -130,7 +143,7 @@
 
     <section class="view" data-view="loading" hidden>
       <div class="spinner" aria-hidden="true"></div>
-      <h2 class="title" tabindex="-1" role="status">Analizando los mejores componentes...</h2>
+      <h2 class="title" tabindex="-1" role="status">Buscando las mejores opciones...</h2>
     </section>
 
     <section class="view" data-view="results" hidden>

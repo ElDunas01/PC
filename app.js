@@ -133,6 +133,23 @@ const AIOS = [
   lap('Dell', 'XPS 27', 'Core Ultra 7, 32 GB RAM, 1 TB', 52900, 'high', 'work create code', 'business work'),
 ];
 
+// Precios orientativos en MXN. Las preguntas adaptan el orden de recomendación.
+const MOBILE_CATALOG = {
+  tablet: [
+    { brand: 'Samsung', big: 'Galaxy Tab A11', detail: '8.7 pulgadas, 4 GB RAM, 64 GB, Wi-Fi', price: 4200, uses: ['basic', 'work'], screen: 'compact', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.samsung.com/mx/tablets/galaxy-tab-a/galaxy-tab-a11-gray-64gb-sm-x133nzaal06/buy/' },
+    { brand: 'Samsung', big: 'Galaxy Tab A11+', detail: '11 pulgadas, 128 GB, Wi-Fi', price: 6900, uses: ['basic', 'work', 'gaming'], screen: 'large', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.samsung.com/mx/tablets/galaxy-tab-a/galaxy-tab-a11-plus-gray-128gb-sm-x230nzaamxo/buy/' },
+    { brand: 'Apple', big: 'iPad (A16)', detail: '11 pulgadas, 128 GB, Wi-Fi; Apple Pencil compatible (se vende aparte)', price: 10999, uses: ['basic', 'work', 'create', 'gaming'], screen: 'large', storage: 'normal', system: 'ios', pen: true, keyboard: true, source: 'https://www.apple.com/mx/shop/buy-ipad/ipad' },
+    { brand: 'Samsung', big: 'Galaxy Tab S10 FE', detail: '10.9 pulgadas, 8 GB RAM, 128 GB; S Pen incluido', price: 11799, uses: ['basic', 'work', 'create', 'gaming'], screen: 'medium', storage: 'normal', system: 'android', pen: true, keyboard: true, source: 'https://www.samsung.com/mx/tablets/galaxy-tab-s10-fe/buy/' },
+    { brand: 'Apple', big: 'iPad mini', detail: '8.3 pulgadas, 128 GB, Wi-Fi; compatible con Apple Pencil', price: 14499, uses: ['basic', 'work', 'create', 'gaming'], screen: 'compact', storage: 'normal', system: 'ios', pen: true, keyboard: true, source: 'https://www.apple.com/mx/shop/buy-ipad/ipad-mini' },
+  ],
+  phone: [
+    { brand: 'Samsung', big: 'Galaxy A17 5G', detail: '128 GB, 5G, pantalla de 6.7 pulgadas', price: 4999, uses: ['basic', 'work'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-a/galaxy-a17-5g-blue-128gb-sm-a176bzbrltm/' },
+    { brand: 'Motorola', big: 'moto g67 5G', detail: '256 GB, 5G, Android 16', price: 5999, uses: ['basic', 'work', 'create', 'gaming'], priorities: ['battery', 'everyday', 'gaming', 'camera'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/moto-g/67/pmipmjh43mt' },
+    { brand: 'Samsung', big: 'Galaxy A56 5G', detail: '128 GB, 5G, pantalla de 6.7 pulgadas', price: 9999, uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-a/galaxy-a56-5g-awesome-graphite-128gb-sm-a566ezkbltm/' },
+    { brand: 'Apple', big: 'iPhone 17e', detail: '256 GB, pantalla de 6.1 pulgadas, iOS', price: 16999, uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://www.apple.com/mx/shop/buy-iphone/iphone-17e' },
+  ],
+};
+
 const FALLBACK_LAPTOP = lap('Lenovo', 'IdeaPad Slim 3', 'Core i5, 8 GB RAM, 512 GB', 12500, 'eco', 'basic work', 'student home');
 const FALLBACK_AIO = lap('HP', 'All-in-One 24', 'Ryzen 5, 8 GB RAM, 512 GB', 14900, 'eco', 'basic work', 'student home');
 const CATALOG = { laptop: LAPTOPS, aio: AIOS };
@@ -146,6 +163,8 @@ const OPTIONS = {
     { id: 'pc', icon: '🛠️', label: 'PC de escritorio', hint: 'Más potencia por el precio y fácil de actualizar. Ideal para usarla en un solo lugar.' },
     { id: 'laptop', icon: '💻', label: 'Laptop', hint: 'Llévala a clases o al trabajo. Revisa su peso, batería y memoria ampliable.' },
     { id: 'aio', icon: '🖥️', label: 'Todo en uno', hint: 'Pantalla y computadora juntas, con menos cables. Ocupa poco espacio.' },
+    { id: 'tablet', icon: '📱', label: 'Tableta', hint: 'Ligera para leer, tomar apuntes, dibujar o ver contenido.' },
+    { id: 'phone', icon: '📲', label: 'Teléfono', hint: 'Compara cámara, batería, tamaño, almacenamiento y sistema.' },
   ],
   profile: [
     { id: 'student', icon: '🎓', label: 'Estudiar', hint: 'Escuela, universidad o cursos' },
@@ -173,11 +192,64 @@ const RANGE = {
   pc: { min: 8000, max: 40000, cut: [12000, 22000], val: { eco: 10000, mid: 17000, high: 30000 } },
   laptop: { min: 8000, max: 80000, cut: [18000, 35000], val: { eco: 13000, mid: 26000, high: 55000 } },
   aio: { min: 8000, max: 80000, cut: [18000, 35000], val: { eco: 13000, mid: 26000, high: 55000 } },
+  tablet: { min: 2500, max: 30000, cut: [8000, 15000], val: { eco: 7500, mid: 15000, high: 22000 } },
+  phone: { min: 1500, max: 40000, cut: [6500, 15000], val: { eco: 6500, mid: 12000, high: 25000 } },
 };
 const BUDGET_HINT = {
   pc: 'Guía para las piezas principales de una PC de escritorio; el total no incluye gabinete, fuente ni tarjeta madre.',
   laptop: 'Guía para comparar laptops completas. El precio depende de la marca y configuración.',
   aio: 'Guía para comparar equipos todo en uno completos. El precio depende de la marca y configuración.',
+  tablet: 'Monto aproximado para una tableta. Revisa si el lápiz, teclado o conexión móvil se venden aparte.',
+  phone: 'Monto aproximado para un teléfono. Confirma almacenamiento, compatibilidad con tu compañía y precio actual.',
+};
+
+const MOBILE_QUESTIONS = {
+  tablet: [
+    { id: 'main', title: '¿Qué harás más con la tableta?', options: [
+      { id: 'work', label: 'Clases, apuntes y documentos', icon: '📝' },
+      { id: 'basic', label: 'Leer, navegar y ver series', icon: '🎬' },
+      { id: 'create', label: 'Dibujar o crear contenido', icon: '✍️' },
+      { id: 'gaming', label: 'Jugar', icon: '🎮' },
+    ]},
+    { id: 'screen', title: '¿Qué tamaño de pantalla prefieres?', options: [
+      { id: 'compact', label: 'Compacta y fácil de llevar', icon: '🤏' },
+      { id: 'medium', label: 'Tamaño equilibrado', icon: '⚖️' },
+      { id: 'large', label: 'Grande para leer o dividir pantalla', icon: '🔎' },
+    ]},
+    { id: 'accessory', title: '¿Necesitas lápiz o teclado?', options: [
+      { id: 'none', label: 'No necesito accesorios', icon: '👌' },
+      { id: 'pen', label: 'Lápiz para escribir o dibujar', icon: '✏️' },
+      { id: 'keyboard', label: 'Teclado para escribir', icon: '⌨️' },
+      { id: 'both', label: 'Ambos', icon: '🧰' },
+    ]},
+    { id: 'system', title: '¿Usas o prefieres algún sistema?', options: [
+      { id: 'android', label: 'Android', icon: '🤖' },
+      { id: 'ios', label: 'Apple (iPadOS)', icon: '🍎' },
+      { id: 'any', label: 'Me da igual', icon: '✨' },
+    ]},
+  ],
+  phone: [
+    { id: 'priority', title: '¿Qué es lo más importante para ti?', options: [
+      { id: 'camera', label: 'Tomar fotos y grabar video', icon: '📸' },
+      { id: 'battery', label: 'Que aguante el día', icon: '🔋' },
+      { id: 'gaming', label: 'Jugar y tener buen rendimiento', icon: '🎮' },
+      { id: 'everyday', label: 'Mensajes, redes y uso diario', icon: '💬' },
+    ]},
+    { id: 'screen', title: '¿Qué tamaño te resulta cómodo?', options: [
+      { id: 'compact', label: 'Más compacto para usar con una mano', icon: '🤏' },
+      { id: 'large', label: 'Pantalla grande para videos y lectura', icon: '📺' },
+      { id: 'any', label: 'No tengo preferencia', icon: '✨' },
+    ]},
+    { id: 'storage', title: '¿Cuánto espacio necesitas?', options: [
+      { id: 'normal', label: 'Uso normal; guardo pocas fotos', icon: '📁' },
+      { id: 'lots', label: 'Muchas fotos, videos o aplicaciones', icon: '🗂️' },
+    ]},
+    { id: 'system', title: '¿Qué sistema prefieres?', options: [
+      { id: 'android', label: 'Android', icon: '🤖' },
+      { id: 'ios', label: 'Apple (iOS)', icon: '🍎' },
+      { id: 'any', label: 'Me da igual', icon: '✨' },
+    ]},
+  ],
 };
 
 // Usos nuevos que reutilizan el catálogo de PC de un uso con necesidades parecidas
@@ -349,15 +421,90 @@ function recommendList(device, use, budget, profile, lastKey = '') {
   return { items, fallback: false };
 }
 
+function scoreMobile(item, device) {
+  const answer = state.mobile;
+  let score = item.uses.includes(state.use) ? 5 : 0;
+  if (device === 'tablet') {
+    if (answer.screen !== 'any' && item.screen === answer.screen) score += 3;
+    if (answer.accessory === 'pen' && item.pen) score += 5;
+    if (answer.accessory === 'keyboard' && item.keyboard) score += 5;
+    if (answer.accessory === 'both' && item.pen && item.keyboard) score += 6;
+    if (answer.accessory === 'none' && !item.pen && !item.keyboard) score += 1;
+    if (answer.system !== 'any' && item.system === answer.system) score += 3;
+  } else {
+    if (answer.priority && item.priorities.includes(answer.priority)) score += 5;
+    if (answer.screen !== 'any' && item.screen === answer.screen) score += 3;
+    if (answer.storage && item.storage === answer.storage) score += 3;
+    if (answer.system !== 'any' && item.system === answer.system) score += 3;
+  }
+  return score;
+}
+
+function recommendMobile(device, amount, lastKey = '') {
+  const catalog = MOBILE_CATALOG[device];
+  const affordable = catalog.filter(item => item.price <= amount);
+  const pool = affordable.length ? affordable : [catalog.reduce((a, b) => a.price < b.price ? a : b)];
+  const ranked = pool.map(item => ({ item, score: scoreMobile(item, device) }))
+    .sort((a, b) => b.score - a.score || a.item.price - b.item.price);
+  let items = ranked.slice(0, 3).map(x => x.item);
+  if (keyList(items) === lastKey && ranked.length > 1) {
+    const first = ranked.shift();
+    ranked.push(first);
+    items = ranked.slice(0, 3).map(x => x.item);
+  }
+  return { items, overBudget: !affordable.length };
+}
+
+function mobileReason(item, device) {
+  const answer = state.mobile;
+  const reasons = [];
+  if (item.uses.includes(state.use)) reasons.push(device === 'tablet' ? 'Se ajusta al uso que elegiste' : 'Se ajusta a tu uso diario');
+  if (device === 'tablet') {
+    if (answer.screen !== 'any' && item.screen === answer.screen) reasons.push('Coincide con el tamaño de pantalla que prefieres');
+    if (answer.accessory === 'pen' && item.pen) reasons.push('Es compatible con lápiz');
+    if (answer.accessory === 'keyboard' && item.keyboard) reasons.push('Es compatible con teclado');
+    if (answer.accessory === 'both' && item.pen && item.keyboard) reasons.push('Admite lápiz y teclado');
+  } else {
+    if (answer.priority && item.priorities.includes(answer.priority)) reasons.push('Coincide con tu prioridad');
+    if (answer.screen !== 'any' && item.screen === answer.screen) reasons.push('Coincide con el tamaño que prefieres');
+    if (answer.storage && item.storage === answer.storage) reasons.push(answer.storage === 'lots' ? 'Tiene más espacio para tus archivos' : 'Adecuado para uso y almacenamiento normales');
+  }
+  if (answer.system !== 'any' && item.system === answer.system) reasons.push(`Usa ${answer.system === 'ios' ? (device === 'tablet' ? 'iPadOS' : 'iOS') : 'Android'}, como prefieres`);
+  return reasons.slice(0, 2).join(' · ') || 'Una alternativa dentro del monto seleccionado';
+}
+
 /* =====================================================================
    7. ESTADO Y VISTAS
    ===================================================================== */
 const state = {
   device: null, profile: null, field: null, auto: false, use: null, budget: null,
-  last: '', timer: null, build: null,
+  mobile: {}, last: '', timer: null, build: null,
 };
-const STEP = { welcome: 0, device: 12, profile: 24, field: 36, use: 48, budget: 66, loading: 85, results: 100 };
 const needsField = () => state.profile === 'student' || state.profile === 'work';
+const isMobileDevice = () => state.device === 'tablet' || state.device === 'phone';
+
+function progressFor(name) {
+  if (name === 'welcome') return { label: 'Inicio', value: 0 };
+  if (name === 'loading') return { label: 'Preparando tu recomendación', value: 95 };
+  if (name === 'results') return { label: 'Recomendación lista', value: 100 };
+
+  const hasFieldStep = needsField() || !state.profile;
+  const steps = isMobileDevice()
+    ? ['device', 'mobile-questions', 'budget']
+    : ['device', 'profile', ...(hasFieldStep ? ['field'] : []), 'use', 'budget'];
+  const index = steps.indexOf(name);
+  if (index < 0) return { label: '', value: 0 };
+
+  const titles = {
+    device: 'tipo de equipo', profile: 'quién lo usará', field: state.profile === 'student' ? 'carrera' : 'trabajo',
+    'mobile-questions': 'tus preferencias', use: 'uso principal', budget: 'presupuesto',
+  };
+  const total = steps.length;
+  return {
+    label: `Paso ${index + 1} de ${total}: ${titles[name]}`,
+    value: Math.round(90 * (index + 1) / total),
+  };
+}
 
 function show(name) {
   $$('.view').forEach(v => {
@@ -367,7 +514,10 @@ function show(name) {
   });
   const title = $(`.view[data-view="${name}"] .title`);
   if (title) title.focus({ preventScroll: true });
-  $('#bar').style.width = STEP[name] + '%';
+  const progress = progressFor(name);
+  $('#step-label').textContent = progress.label;
+  $('#progress').setAttribute('aria-valuenow', String(progress.value));
+  $('#bar').style.width = `${progress.value}%`;
   window.scrollTo({ top: 0 });
 }
 
@@ -377,6 +527,24 @@ function syncNext() {
   $('[data-action="next-field"]').disabled = !state.field;
   $('[data-action="next-use"]').disabled = !state.use;
   $('[data-action="next-budget"]').disabled = !state.budget;
+  const questions = MOBILE_QUESTIONS[state.device] || [];
+  $('[data-action="next-mobile"]').disabled = !questions.length || questions.some(q => !state.mobile[q.id]);
+}
+
+function renderMobileQuestions() {
+  const questions = MOBILE_QUESTIONS[state.device];
+  $('#mobile-title').textContent = state.device === 'tablet' ? '¿Qué tableta se adapta a ti?' : '¿Qué teléfono te conviene más?';
+  $('#mobile-intro').textContent = 'Responde estas preguntas para ordenar opciones que coincidan con lo que necesitas.';
+  $('#mobile-questions').innerHTML = questions.map(q => `
+    <fieldset class="question">
+      <legend>${q.title}</legend>
+      <div class="opts mobile-answers" role="group" aria-label="${q.title}">
+        ${q.options.map(o => `<button type="button" class="opt answer" data-key="mobile-answer" data-question="${q.id}" data-value="${o.id}" aria-pressed="${state.mobile[q.id] === o.id}">
+          <span class="opt-icon" aria-hidden="true">${o.icon}</span><span class="opt-text"><strong>${o.label}</strong></span>
+        </button>`).join('')}
+      </div>
+    </fieldset>`).join('');
+  syncNext();
 }
 
 function renderOptions(key) {
@@ -423,13 +591,23 @@ function suggestUse() {
 }
 
 function choose(key, value) {
+  const deviceChanged = key === 'device' && state.device !== value;
   state[key] = value;
-  if (key === 'device') {
+  if (deviceChanged) {
     const r = RANGE[value], rng = $('#budget-range');
     Object.assign(rng, { min: r.min, max: r.max, value: r.val.mid });
     $('#budget-hint').textContent = BUDGET_HINT[value];
     state.budget = null;
+    state.profile = null;
+    state.field = null;
+    state.use = null;
+    state.auto = false;
+    state.mobile = {};
+    state.last = '';
+    state.build = null;
     $$('.opt[data-key="budget"]').forEach(b => b.setAttribute('aria-pressed', 'false'));
+    $$('.opt[data-key="profile"], .opt[data-key="use"], .opt[data-key="field"]').forEach(b => b.setAttribute('aria-pressed', 'false'));
+    $('#use-hint').hidden = true;
     $('#range-out').textContent = 'Mueve la barra o elige una opción';
   }
   if (key === 'profile') state.field = null;
@@ -446,7 +624,7 @@ function choose(key, value) {
 function reset() {
   clearTimeout(state.timer);
   Object.assign(state, {
-    device: null, profile: null, field: null, auto: false, use: null, budget: null, last: '', build: null,
+    device: null, profile: null, field: null, auto: false, use: null, budget: null, mobile: {}, last: '', build: null,
   });
   $$('.opt').forEach(b => b.setAttribute('aria-pressed', 'false'));
   $('#use-hint').hidden = true;
@@ -465,12 +643,43 @@ function analyze() {
 }
 
 function showResults(reroll) {
-  const titles = { pc: 'Tu PC de escritorio ideal', laptop: 'Tu laptop ideal', aio: 'Tu equipo todo en uno ideal' };
+  const titles = { pc: 'Tu PC de escritorio ideal', laptop: 'Tu laptop ideal', aio: 'Tu equipo todo en uno ideal', tablet: 'La tableta que mejor encaja contigo', phone: 'El teléfono que mejor encaja contigo' };
   $('#result-title').textContent = titles[dev()];
+  if (isMobileDevice()) return showMobileList(reroll);
   if (state.device === 'laptop' || state.device === 'aio') return showList(reroll);
   state.build = recommend(state.use, state.budget, reroll ? state.last : '');
   state.last = keyOf(state.build);
   paint(state.build);
+  show('results');
+}
+
+function showMobileList(reroll) {
+  const d = state.device;
+  const amount = Number($('#budget-range').value);
+  const r = recommendMobile(d, amount, reroll ? state.last : '');
+  state.last = keyList(r.items);
+  state.build = null;
+  const label = d === 'tablet' ? 'tableta' : 'teléfono';
+  const focus = d === 'tablet'
+    ? `tu preferencia de uso, pantalla ${state.mobile.screen === 'compact' ? 'compacta' : state.mobile.screen === 'large' ? 'grande' : 'mediana'} y sistema ${state.mobile.system === 'any' ? 'sin preferencia' : state.mobile.system}`
+    : `tu prioridad de ${MOBILE_QUESTIONS.phone[0].options.find(o => o.id === state.mobile.priority)?.label.toLowerCase()}, pantalla ${state.mobile.screen === 'any' ? 'sin preferencia de tamaño' : state.mobile.screen === 'compact' ? 'compacta' : 'grande'} y ${state.mobile.storage === 'lots' ? 'más espacio para guardar contenido' : 'espacio para uso normal'}`;
+  $('#summary').textContent = r.overBudget
+    ? `No encontramos una ${label} del catálogo dentro del monto elegido; aquí está la opción más cercana. Elige otro presupuesto si quieres ver más alternativas.`
+    : `Ordené estas opciones según ${focus}. El precio mostrado es orientativo y puede cambiar.`;
+  $('#cards').classList.add('three');
+  $('#cards').innerHTML = r.items.map((p, i) => `
+    <article class="card">
+      <span class="part-icon" aria-hidden="true">${d === 'tablet' ? '📱' : '📲'}</span>
+      <h3>${i === 0 ? 'Mejor coincidencia' : `Alternativa ${'ABC'[i]}`}</h3>
+      <p class="maker">${p.brand}</p>
+      <p class="big">${p.big}</p>
+      <p class="detail">${p.detail}</p>
+      <p class="match-reason">${mobileReason(p, d)}</p>
+      <p class="price">${mxn.format(p.price)} <small>aprox.</small></p>
+      <a class="ml" href="${p.source}" target="_blank" rel="noopener">Ver ficha oficial</a>
+    </article>`).join('');
+  $('#total-line').hidden = true;
+  $('#note').textContent = 'Precios de referencia en MXN; pueden cambiar por tienda, promoción y configuración. Confirma que el modelo tenga el almacenamiento, conexión y accesorios que necesitas. En las tabletas, el lápiz o teclado pueden venderse por separado.';
   show('results');
 }
 
@@ -554,7 +763,9 @@ function swap(part, btn) {
    8. TEMA CAMALEÓN
    ===================================================================== */
 const root = document.documentElement;
-const media = window.matchMedia('(prefers-color-scheme: light)');
+const media = window.matchMedia
+  ? window.matchMedia('(prefers-color-scheme: light)')
+  : { matches: false };
 const currentTheme = () => root.dataset.theme || (media.matches ? 'light' : 'dark');
 
 function paintThemeButton() {
@@ -579,7 +790,18 @@ const actions = {
   theme: toggleTheme,
   start: () => show('device'),
   'back-device': () => show('welcome'),
-  'next-device': () => { if (state.device) show('profile'); },
+  'next-device': () => {
+    if (!state.device) return;
+    if (isMobileDevice()) { renderMobileQuestions(); show('mobile-questions'); }
+    else show('profile');
+  },
+  'back-mobile': () => show('device'),
+  'next-mobile': () => {
+    if (!isMobileDevice()) return;
+    if (state.device === 'tablet') state.use = state.mobile.main;
+    else state.use = ({ camera: 'create', battery: 'basic', gaming: 'gaming', everyday: 'basic' })[state.mobile.priority];
+    show('budget');
+  },
   'back-profile': () => show('device'),
   'next-profile': () => {
     if (!state.profile) return;
@@ -589,7 +811,7 @@ const actions = {
   'next-field': () => { if (state.field) { suggestUse(); show('use'); } },
   'back-use': () => show(needsField() ? 'field' : 'profile'),
   'next-use': () => { if (state.use) show('budget'); },
-  'back-budget': () => show('use'),
+  'back-budget': () => show(isMobileDevice() ? 'mobile-questions' : 'use'),
   'next-budget': analyze,
   other: () => showResults(true),
   swap: (b) => swap(b.dataset.part, b),
@@ -599,6 +821,12 @@ document.addEventListener('click', e => {
   const btn = e.target.closest('button');
   if (!btn || btn.disabled) return;
   e.preventDefault();                       // nunca se recarga la página
+  if (btn.dataset.key === 'mobile-answer') {
+    state.mobile[btn.dataset.question] = btn.dataset.value;
+    $$(`.opt[data-key="mobile-answer"][data-question="${btn.dataset.question}"]`).forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    syncNext();
+    return;
+  }
   if (btn.classList.contains('opt')) return choose(btn.dataset.key, btn.dataset.value);
   const run = actions[btn.dataset.action];
   if (run) run(btn);
@@ -614,7 +842,8 @@ function init() {
     const saved = localStorage.getItem('pcr-theme');
     if (saved === 'light' || saved === 'dark') root.dataset.theme = saved;
   } catch (e) { /* sin almacenamiento */ }
-  media.addEventListener('change', paintThemeButton);
+  if (typeof media.addEventListener === 'function') media.addEventListener('change', paintThemeButton);
+  else if (typeof media.addListener === 'function') media.addListener(paintThemeButton);
   renderOptions('device');
   renderOptions('profile');
   renderOptions('use');
