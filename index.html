@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>PC Recomendador</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <button type="button" class="brand" data-action="reset" aria-label="PC Recomendador, volver al inicio">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="26" height="17" rx="4"/><path d="M11 27h10M16 22v5"/></svg>
+      <span>PC Recomendador</span>
+    </button>
+    <button type="button" class="icon-btn" id="theme" data-action="theme" aria-label="Cambiar tema"></button>
+  </header>
+
+  <main id="app">
+    <section class="view active" data-view="welcome">
+      <h1 class="title" tabindex="-1">¡Hola! Vamos a elegir tu PC</h1>
+      <p class="lead">Te ayudo a encontrar la PC perfecta para tu día a día, sin tecnicismos y cuidando tu bolsillo. ¡Empecemos!</p>
+      <button type="button" class="btn btn-lg" data-action="start">Comenzar</button>
+    </section>
+
+    <section class="view" data-view="use" hidden>
+      <h2 class="title" tabindex="-1">¿Para qué usarás tu equipo?</h2>
+      <div class="opts" id="opts-use" role="group" aria-label="Uso del equipo"></div>
+      <div class="nav">
+        <button type="button" class="btn btn-ghost" data-action="back-use">Atrás</button>
+        <button type="button" class="btn" data-action="next-use" disabled>Siguiente</button>
+      </div>
+    </section>
+
+    <section class="view" data-view="budget" hidden>
+      <h2 class="title" tabindex="-1">¿Cuánto quieres invertir?</h2>
+      <div class="opts" id="opts-budget" role="group" aria-label="Presupuesto"></div>
+      <div class="nav">
+        <button type="button" class="btn btn-ghost" data-action="back-budget">Atrás</button>
+        <button type="button" class="btn" data-action="next-budget" disabled>Siguiente</button>
+      </div>
+    </section>
+
+    <section class="view" data-view="loading" hidden>
+      <div class="spinner" aria-hidden="true"></div>
+      <h2 class="title" tabindex="-1" role="status">Analizando los mejores componentes...</h2>
+    </section>
+
+    <section class="view" data-view="results" hidden>
+      <h2 class="title" tabindex="-1">Tu PC ideal</h2>
+      <p class="lead" id="summary"></p>
+      <div class="cards" id="cards"></div>
+      <p class="total">Total estimado: <strong id="total"></strong></p>
+      <p class="note">Suma de procesador, tarjeta de video, RAM y almacenamiento. Aún faltan gabinete, fuente y tarjeta madre. Los precios son aproximados.</p>
+      <div class="nav">
+        <button type="button" class="btn btn-ghost" data-action="other">Ver otra opción</button>
+        <button type="button" class="btn" data-action="reset">Empezar de nuevo</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
