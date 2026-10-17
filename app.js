@@ -123,17 +123,67 @@ const LAPTOPS = [
 // Precios orientativos en MXN. Las preguntas adaptan el orden de recomendación.
 const MOBILE_CATALOG = {
   tablet: [
-    { brand: 'Samsung', big: 'Galaxy Tab A11', detail: '8.7 pulgadas, 4 GB RAM, 64 GB, Wi-Fi', price: 4200, uses: ['basic', 'work'], screen: 'compact', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.samsung.com/mx/tablets/galaxy-tab-a/galaxy-tab-a11-gray-64gb-sm-x133nzaal06/buy/' },
-    { brand: 'Samsung', big: 'Galaxy Tab A11+', detail: '11 pulgadas, 128 GB, Wi-Fi', price: 6900, uses: ['basic', 'work', 'gaming'], screen: 'large', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.samsung.com/mx/tablets/galaxy-tab-a/galaxy-tab-a11-plus-gray-128gb-sm-x230nzaamxo/buy/' },
-    { brand: 'Apple', big: 'iPad (A16)', detail: '11 pulgadas, 128 GB, Wi-Fi; Apple Pencil compatible (se vende aparte)', price: 10999, uses: ['basic', 'work', 'create', 'gaming'], screen: 'large', storage: 'normal', system: 'ios', pen: true, keyboard: true, source: 'https://www.apple.com/mx/shop/buy-ipad/ipad' },
-    { brand: 'Samsung', big: 'Galaxy Tab S10 FE', detail: '10.9 pulgadas, 8 GB RAM, 128 GB; S Pen incluido', price: 11799, uses: ['basic', 'work', 'create', 'gaming'], screen: 'medium', storage: 'normal', system: 'android', pen: true, keyboard: true, source: 'https://www.samsung.com/mx/tablets/galaxy-tab-s10-fe/buy/' },
-    { brand: 'Apple', big: 'iPad mini', detail: '8.3 pulgadas, 128 GB, Wi-Fi; compatible con Apple Pencil', price: 14499, uses: ['basic', 'work', 'create', 'gaming'], screen: 'compact', storage: 'normal', system: 'ios', pen: true, keyboard: true, source: 'https://www.apple.com/mx/shop/buy-ipad/ipad-mini' },
+    { brand: 'Xiaomi', big: 'Redmi Pad SE 8.7', detail: '8.7 pulgadas, 4 GB RAM, 128 GB, Wi-Fi', price: 2800, category: 'Uso diario', uses: ['basic', 'kids'], screen: 'compact', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.mi.com/mx/product/redmi-pad-se-8-7-inch/' },
+    { brand: 'Xiaomi', big: 'Redmi Pad SE 8.7 4G', detail: '8.7 pulgadas, 4 GB RAM, 128 GB, conexión 4G', price: 3500, category: 'Uso diario y movilidad', uses: ['basic', 'work'], screen: 'compact', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.mi.com/mx/product/redmi-pad-se-8-7-inch-4g/' },
+    { brand: 'Samsung', big: 'Galaxy Tab A11', detail: '8.7 pulgadas, 64 GB, Wi-Fi', price: 4200, category: 'Uso diario', uses: ['basic', 'kids'], screen: 'compact', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.samsung.com/mx/tablets/galaxy-tab-a/galaxy-tab-a11-gray-64gb-sm-x133nzaal06/buy/' },
+    { brand: 'Xiaomi', big: 'Redmi Pad 2 9.7', detail: '9.7 pulgadas, 4 GB RAM, 128 GB, Wi-Fi', price: 4300, category: 'Uso diario y estudio', uses: ['basic', 'work'], screen: 'medium', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.mi.com/mx/product/redmi-pad-2-9-7-inch/' },
+    { brand: 'Xiaomi', big: 'Redmi Pad SE', detail: '11 pulgadas, 4 GB RAM, 128 GB, Wi-Fi', price: 4800, category: 'Uso diario y entretenimiento', uses: ['basic', 'kids'], screen: 'large', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.mi.com/mx/product/redmi-pad-se/' },
+    { brand: 'Samsung', big: 'Galaxy Tab A11+', detail: '11 pulgadas, 128 GB, Wi-Fi', price: 6900, category: 'Estudio, uso diario y juegos casuales', uses: ['basic', 'work', 'gaming'], screen: 'large', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.samsung.com/mx/tablets/galaxy-tab-a/galaxy-tab-a11-plus-gray-128gb-sm-x230nzaamxo/' },
+    { brand: 'Xiaomi', big: 'Redmi Pad 2 Pro', detail: '12.1 pulgadas, 8 GB RAM, 256 GB', price: 6999, category: 'Gaming y entretenimiento', uses: ['basic', 'gaming', 'work'], screen: 'large', storage: 'lots', system: 'android', pen: true, keyboard: true, source: 'https://www.mi.com/mx/product/redmi-pad-2-pro/' },
+    { brand: 'Xiaomi', big: 'Xiaomi Pad 7', detail: '11.2 pulgadas, 8 GB RAM, 128 GB', price: 7999, category: 'Gaming y creación', uses: ['gaming', 'create', 'work'], screen: 'large', storage: 'normal', system: 'android', pen: true, keyboard: true, source: 'https://www.mi.com/mx/product/xiaomi-pad-7/' },
+    { brand: 'Lenovo', big: 'Lenovo Tab Plus', detail: '11.5 pulgadas, 8 GB RAM, 256 GB', price: 8999, category: 'Gaming y entretenimiento', uses: ['gaming', 'basic'], screen: 'large', storage: 'lots', system: 'android', pen: false, keyboard: false, source: 'https://www.lenovo.com/mx/es/p/tablets/lenovo-tab-series/lenovo-tab-plus/zadx0071mx' },
+    { brand: 'Lenovo', big: 'Idea Tab Plus', detail: '12.1 pulgadas, 256 GB, compatible con lápiz y teclado', price: 9999, category: 'Estudio y trabajo', uses: ['work', 'create', 'basic'], screen: 'large', storage: 'lots', system: 'android', pen: true, keyboard: true, source: 'https://www.lenovo.com/mx/es/p/tablets/lenovo-tab-series/lenovo-idea-tab-plus/zag70754mx' },
+    { brand: 'Apple', big: 'iPad (A16)', detail: '11 pulgadas, 128 GB, Wi-Fi; Apple Pencil compatible (se vende aparte)', price: 10999, category: 'Estudio, trabajo y uso diario', uses: ['basic', 'work', 'create', 'gaming'], screen: 'large', storage: 'normal', system: 'ios', pen: true, keyboard: true, source: 'https://www.apple.com/mx/shop/buy-ipad/ipad' },
+    { brand: 'Samsung', big: 'Galaxy Tab S10 FE', detail: '10.9 pulgadas, 8 GB RAM, 128 GB; S Pen incluido', price: 11799, category: 'Estudio, trabajo y dibujo', uses: ['basic', 'work', 'create', 'gaming'], screen: 'medium', storage: 'normal', system: 'android', pen: true, keyboard: true, source: 'https://www.samsung.com/mx/tablets/galaxy-tab-s10-fe/buy/' },
+    { brand: 'Xiaomi', big: 'Xiaomi Pad 7 Pro', detail: '11.2 pulgadas, 8 GB RAM, 256 GB', price: 12999, category: 'Gaming y creación', uses: ['gaming', 'create', 'work'], screen: 'large', storage: 'lots', system: 'android', pen: true, keyboard: true, source: 'https://www.mi.com/mx/product-list/tablets/tablet/' },
+    { brand: 'Apple', big: 'iPad mini', detail: '8.3 pulgadas, 128 GB, Wi-Fi; compatible con Apple Pencil', price: 14499, category: 'Estudio y movilidad', uses: ['basic', 'work', 'create', 'gaming'], screen: 'compact', storage: 'normal', system: 'ios', pen: true, keyboard: false, source: 'https://www.apple.com/mx/shop/buy-ipad/ipad-mini' },
+    { brand: 'Samsung', big: 'Galaxy Tab S10 FE+', detail: '13.1 pulgadas, 8 GB RAM, 128 GB; S Pen incluido', price: 15999, category: 'Trabajo, estudio y dibujo', uses: ['work', 'create', 'basic'], screen: 'large', storage: 'normal', system: 'android', pen: true, keyboard: true, source: 'https://www.samsung.com/mx/tablets/galaxy-tab-s/galaxy-tab-s10-fe-plus-gray-128gb-sm-x620nzaamxo/' },
+    { brand: 'Apple', big: 'iPad Air de 11 pulgadas', detail: '11 pulgadas, 128 GB; compatible con Apple Pencil y teclado', price: 18799, category: 'Trabajo y creación profesional', uses: ['work', 'create', 'gaming'], screen: 'large', storage: 'normal', system: 'ios', pen: true, keyboard: true, source: 'https://www.apple.com/mx/shop/buy-ipad/ipad-air' },
+    { brand: 'Samsung', big: 'Galaxy Tab S11', detail: '11 pulgadas, 256 GB, S Pen incluido', price: 21999, category: 'Trabajo y creación avanzada', uses: ['work', 'create', 'gaming'], screen: 'large', storage: 'lots', system: 'android', pen: true, keyboard: true, source: 'https://www.samsung.com/mx/tablets/galaxy-tab-s/galaxy-tab-s11-gray-256gb-sm-x730nzaemxo/' },
+    { brand: 'Lenovo', big: 'Yoga Tab Plus Gen 2', detail: '13 pulgadas, pantalla 4K y lápiz incluido; teclado opcional', price: 26999, category: 'Gaming, dibujo y creación avanzada', uses: ['gaming', 'create', 'work'], screen: 'large', storage: 'lots', system: 'android', pen: true, keyboard: true, source: 'https://www.lenovo.com/mx/es/p/tablets/yoga-tab-series/lenovo-yoga-tab-plus-gen-2/len103y0002' },
+    { brand: 'Samsung', big: 'Galaxy Tab S11 Ultra', detail: '14.6 pulgadas, 256 GB, S Pen incluido', price: 27999, category: 'Trabajo y creación profesional', uses: ['work', 'create', 'gaming'], screen: 'large', storage: 'lots', system: 'android', pen: true, keyboard: true, source: 'https://www.samsung.com/mx/tablets/galaxy-tab-s/galaxy-tab-s11-ultra-gray-256gb-sm-x930nzaamxo/' },
+    { brand: 'HONOR', big: 'Pad X7', detail: 'Tableta compacta con almacenamiento expandible', price: 2999, category: 'Uso diario y movilidad', uses: ['basic', 'kids'], screen: 'compact', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.honor.com/mx/tablets/honor-pad-x7/' },
+    { brand: 'HONOR', big: 'Pad X8b', detail: '11 pulgadas, batería de gran capacidad y cuatro bocinas', price: 4499, category: 'Uso diario y entretenimiento', uses: ['basic', 'kids'], screen: 'large', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.honor.com/mx/tablets/honor-pad-x8b/' },
+    { brand: 'HONOR', big: 'Pad X9a', detail: '11.5 pulgadas, pantalla 2.5K a 120 Hz', price: 5999, category: 'Gaming casual y entretenimiento', uses: ['basic', 'gaming'], screen: 'large', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.honor.com/mx/tablets/honor-pad-x9a/' },
+    { brand: 'Xiaomi', big: 'Redmi Pad Pro', detail: '12.1 pulgadas, pantalla 2.5K y cuatro bocinas', price: 6999, category: 'Gaming y entretenimiento', uses: ['gaming', 'basic', 'work'], screen: 'large', storage: 'lots', system: 'android', pen: true, keyboard: true, source: 'https://www.mi.com/mx/product/redmi-pad-pro/' },
+    { brand: 'Samsung', big: 'Galaxy Tab S10 Lite', detail: '10.9 pulgadas, 128 GB; admite accesorios de teclado', price: 7999, category: 'Estudio y trabajo', uses: ['work', 'basic', 'create'], screen: 'medium', storage: 'normal', system: 'android', pen: true, keyboard: true, source: 'https://www.samsung.com/mx/tablets/galaxy-tab-s/galaxy-tab-s10-lite-gray-128gb-sm-x400nzaamxo/' },
+    { brand: 'HONOR', big: 'Pad 10', detail: '12.1 pulgadas, 8 GB RAM, 256 GB', price: 8999, category: 'Estudio, trabajo y contenido', uses: ['work', 'basic', 'create'], screen: 'large', storage: 'lots', system: 'android', pen: true, keyboard: true, source: 'https://www.honor.com/mx/tablets/honor-pad-10/' },
+    { brand: 'HUAWEI', big: 'MatePad 11.5 (2025)', detail: '11.5 pulgadas, HarmonyOS 4.3, teclado desmontable y lápiz compatible', price: 10999, category: 'Estudio y trabajo', uses: ['work', 'create', 'basic'], screen: 'large', storage: 'lots', system: 'harmony', pen: true, keyboard: true, source: 'https://consumer.huawei.com/mx/tablets/matepad-11-5-2025/' },
+    { brand: 'HUAWEI', big: 'MatePad 12 X', detail: '12 pulgadas PaperMatte, HarmonyOS, lápiz M-Pencil y enfoque creativo', price: 17999, category: 'Trabajo, estudio y dibujo', uses: ['work', 'create', 'basic'], screen: 'large', storage: 'lots', system: 'harmony', pen: true, keyboard: true, source: 'https://consumer.huawei.com/mx/tablets/matepad-12-x/' },
+    { brand: 'OnePlus', big: 'Pad 3', detail: 'Tableta Android de alto rendimiento con pantalla grande', price: 21999, category: 'Gaming y productividad avanzada', uses: ['gaming', 'work', 'create'], screen: 'large', storage: 'lots', system: 'android', pen: true, keyboard: true, source: 'https://www.oneplus.com/mx/oneplus-pad-3' },
+    { brand: 'HONOR', big: 'Pad X8a', detail: '11 pulgadas, batería amplia y cuatro bocinas', price: 3999, category: 'Uso diario y entretenimiento', uses: ['basic', 'kids'], screen: 'large', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.honor.com/mx/tablets/honor-pad-x8a/' },
   ],
   phone: [
-    { brand: 'Samsung', big: 'Galaxy A17 5G', detail: '128 GB, 5G, pantalla de 6.7 pulgadas', price: 4999, uses: ['basic', 'work'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-a/galaxy-a17-5g-blue-128gb-sm-a176bzbrltm/' },
-    { brand: 'Motorola', big: 'moto g67 5G', detail: '256 GB, 5G, Android 16', price: 5999, uses: ['basic', 'work', 'create', 'gaming'], priorities: ['battery', 'everyday', 'gaming', 'camera'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/moto-g/67/pmipmjh43mt' },
-    { brand: 'Samsung', big: 'Galaxy A56 5G', detail: '128 GB, 5G, pantalla de 6.7 pulgadas', price: 9999, uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-a/galaxy-a56-5g-awesome-graphite-128gb-sm-a566ezkbltm/' },
-    { brand: 'Apple', big: 'iPhone 17e', detail: '256 GB, pantalla de 6.1 pulgadas, iOS', price: 16999, uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://www.apple.com/mx/shop/buy-iphone/iphone-17e' },
+    { brand: 'Motorola', big: 'moto g06', detail: '128 GB, pantalla de 6.88 pulgadas, batería grande', price: 2600, category: 'Uso diario económico', uses: ['basic'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/moto-g/06/pmipmhy42mg' },
+    { brand: 'Xiaomi', big: 'REDMI Note 15', detail: 'Pantalla AMOLED de 6.77 pulgadas, 128 GB', price: 4999, category: 'Uso diario y batería', uses: ['basic', 'work'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.mi.com/mx/product/redmi-note-15/' },
+    { brand: 'Samsung', big: 'Galaxy A17 5G', detail: '128 GB, 5G, pantalla de 6.7 pulgadas', price: 4999, category: 'Uso diario y trabajo ligero', uses: ['basic', 'work'], priorities: ['battery', 'everyday', 'work'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-a/galaxy-a17-5g-blue-128gb-sm-a176bzbrltm/' },
+    { brand: 'Motorola', big: 'moto g17', detail: 'Pantalla FHD+ de 6.7 pulgadas, cámara de 50 MP', price: 4999, category: 'Uso diario y fotos', uses: ['basic', 'create'], priorities: ['camera', 'battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/moto-g/17/pmipmjn44mh' },
+    { brand: 'Motorola', big: 'moto g67 5G', detail: '256 GB, 5G, Android 16', price: 5999, category: 'Uso diario, trabajo y juegos casuales', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['battery', 'everyday', 'gaming', 'camera', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/moto-g/67/pmipmjh43mt' },
+    { brand: 'Xiaomi', big: 'REDMI Note 17', detail: 'Pantalla AMOLED de 6.99 pulgadas, 256 GB', price: 7999, category: 'Uso diario y trabajo', uses: ['basic', 'work', 'create'], priorities: ['camera', 'battery', 'everyday', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/redmi-note-17/' },
+    { brand: 'Samsung', big: 'Galaxy A36 5G', detail: '128 GB, 5G, pantalla Super AMOLED', price: 7999, category: 'Trabajo y uso diario', uses: ['basic', 'work', 'create'], priorities: ['camera', 'battery', 'everyday', 'work'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-a/galaxy-a36-5g-awesome-black-128gb-sm-a366ezkaltm/' },
+    { brand: 'POCO', big: 'X7 Pro 5G', detail: 'Pantalla 1.5K de 6.83 pulgadas y sistema de refrigeración para juegos', price: 8499, category: 'Gaming', uses: ['gaming', 'create'], priorities: ['gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/poco-x7-pro/' },
+    { brand: 'Samsung', big: 'Galaxy A56 5G', detail: '128 GB, 5G, pantalla de 6.7 pulgadas', price: 9999, category: 'Trabajo, fotos y uso diario', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'battery', 'everyday', 'work'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-a/galaxy-a56-5g-awesome-graphite-128gb-sm-a566ezkbltm/' },
+    { brand: 'Motorola', big: 'edge 60 Fusion', detail: 'Pantalla pOLED de 6.7 pulgadas, cámara y carga rápida', price: 10999, category: 'Trabajo, fotos y uso diario', uses: ['basic', 'work', 'create'], priorities: ['camera', 'battery', 'everyday', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/motorola-edge/60-fusion/pmipmhq40my' },
+    { brand: 'Xiaomi', big: 'POCO F7', detail: 'Pantalla de 6.83 pulgadas y rendimiento optimizado para juegos', price: 11999, category: 'Gaming', uses: ['gaming', 'create'], priorities: ['gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/poco-f7/' },
+    { brand: 'Xiaomi', big: 'REDMI Note 17 Pro 5G', detail: '5G, cámara con estabilización y pantalla AMOLED de 6.83 pulgadas', price: 12999, category: 'Trabajo, fotos y uso diario', uses: ['basic', 'work', 'create'], priorities: ['camera', 'battery', 'everyday', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/redmi-note-17-pro-5g/' },
+    { brand: 'Motorola', big: 'edge 60 Pro', detail: 'Pantalla pOLED de 6.7 pulgadas, cámara avanzada y carga rápida', price: 14999, category: 'Trabajo y fotografía', uses: ['work', 'create', 'basic'], priorities: ['camera', 'battery', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/motorola-edge/60-pro/pmipmht41mf' },
+    { brand: 'POCO', big: 'F7 Pro', detail: 'Snapdragon 8 Gen 3 y funciones para gaming exigente', price: 15999, category: 'Gaming avanzado', uses: ['gaming', 'create'], priorities: ['gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/poco-f7-pro/' },
+    { brand: 'Apple', big: 'iPhone 17e', detail: '256 GB, pantalla de 6.1 pulgadas, iOS', price: 16999, category: 'Trabajo y uso diario', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://www.apple.com/mx/shop/buy-iphone/iphone-17e' },
+    { brand: 'Samsung', big: 'Galaxy S25 FE', detail: '128 GB, pantalla AMOLED y funciones para productividad y cámara', price: 17999, category: 'Trabajo, fotos y productividad', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-s/galaxy-s25-fe-icyblue-128gb-sm-s731blblltm/' },
+    { brand: 'Apple', big: 'iPhone 17', detail: '256 GB, pantalla de 6.3 pulgadas y cámara dual', price: 20999, category: 'Fotografía, trabajo y uso diario', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work'], screen: 'large', storage: 'lots', system: 'ios', source: 'https://www.apple.com/mx/shop/buy-iphone/iphone-17' },
+    { brand: 'Motorola', big: 'Signature', detail: 'Pantalla AMOLED de 6.8 pulgadas, cámara de alta resolución y funciones de IA', price: 24999, category: 'Trabajo y creación profesional', uses: ['work', 'create', 'gaming'], priorities: ['camera', 'battery', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/motorola-signature/signature/pmipmje43mf' },
+    { brand: 'REDMAGIC', big: '11 Pro', detail: 'Teléfono diseñado para gaming, con ventilación y controles dedicados', price: 26999, category: 'Gaming dedicado', uses: ['gaming'], priorities: ['gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://global.redmagic.gg/products/redmagic-11-pro' },
+    { brand: 'Xiaomi', big: 'REDMI A5', detail: 'Pantalla grande, 64 GB y batería para uso diario', price: 2499, category: 'Uso diario económico', uses: ['basic'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.mi.com/mx/product/redmi-a5/' },
+    { brand: 'HONOR', big: 'X7e', detail: '256 GB, batería de 7500 mAh y pantalla de 120 Hz', price: 4999, category: 'Uso diario y batería', uses: ['basic', 'work'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.honor.com/mx/phones/honor-x7e/' },
+    { brand: 'HONOR', big: 'X8d', detail: '256 GB, cámara de 108 MP y batería de 7000 mAh', price: 6999, category: 'Fotos, trabajo y uso diario', uses: ['basic', 'work', 'create'], priorities: ['camera', 'battery', 'everyday', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.honor.com/mx/phones/honor-x8d/' },
+    { brand: 'POCO', big: 'X8 Pro', detail: 'Pantalla de alta frecuencia y funciones optimizadas para juegos', price: 8999, category: 'Gaming', uses: ['gaming', 'create'], priorities: ['gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/poco-x8-pro/' },
+    { brand: 'Motorola', big: 'edge 70', detail: 'Diseño ligero, cámara de 50 MP y funciones de IA', price: 17999, category: 'Trabajo, fotos y uso diario', uses: ['work', 'create', 'basic'], priorities: ['camera', 'everyday', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/motorola-edge/70/pmipmjc43ma' },
+    { brand: 'Samsung', big: 'Galaxy S26 FE', detail: '256 GB, pantalla de 6.7 pulgadas y funciones de productividad', price: 19999, category: 'Trabajo, fotos y productividad', uses: ['work', 'create', 'basic', 'gaming'], priorities: ['camera', 'everyday', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-s/galaxy-s26-fe-pistachio-256gb-sm-s741blgmltm/' },
+    { brand: 'POCO', big: 'F8 Pro', detail: 'Rendimiento de gama alta, pantalla AMOLED y buen desempeño en juegos', price: 14999, category: 'Gaming avanzado', uses: ['gaming', 'create'], priorities: ['gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/poco-f8-pro/' },
+    { brand: 'Motorola', big: 'edge 70 Pro', detail: 'Cámara avanzada, pantalla pOLED y batería de larga duración', price: 24999, category: 'Trabajo, fotografía y creación', uses: ['work', 'create', 'basic'], priorities: ['camera', 'battery', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/motorola-edge/70-pro/pmipmjp44mp' },
+    { brand: 'POCO', big: 'F8 Ultra', detail: 'Rendimiento de alta gama y funciones de juego a 120 FPS', price: 22999, category: 'Gaming de alto rendimiento', uses: ['gaming', 'create'], priorities: ['gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/poco-f8-ultra/' },
+    { brand: 'Motorola', big: 'razr 70', detail: 'Teléfono plegable con pantalla externa y funciones de cámara con IA', price: 24999, category: 'Trabajo móvil y fotografía', uses: ['work', 'create', 'basic'], priorities: ['camera', 'everyday', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/razr/70/pmipmjl44m6' },
+    { brand: 'HONOR', big: 'Magic8 Pro', detail: 'Cámara con zoom óptico y funciones avanzadas de IA', price: 29999, category: 'Fotografía, trabajo y gaming', uses: ['work', 'create', 'gaming'], priorities: ['camera', 'work', 'gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.honor.com/mx/phones/honor-magic8-pro/' },
   ],
 };
 
@@ -207,6 +257,7 @@ const MOBILE_QUESTIONS = {
     ]},
     { id: 'system', title: '¿Usas o prefieres algún sistema?', options: [
       { id: 'android', label: 'Android', icon: '🤖' },
+      { id: 'harmony', label: 'HUAWEI HarmonyOS', icon: '🔷' },
       { id: 'ios', label: 'Apple (iPadOS)', icon: '🍎' },
       { id: 'any', label: 'Me da igual', icon: '✨' },
     ]},
@@ -216,6 +267,7 @@ const MOBILE_QUESTIONS = {
       { id: 'camera', label: 'Tomar fotos y grabar video', icon: '📸' },
       { id: 'battery', label: 'Que aguante el día', icon: '🔋' },
       { id: 'gaming', label: 'Jugar y tener buen rendimiento', icon: '🎮' },
+      { id: 'work', label: 'Trabajar, estudiar y hacer videollamadas', icon: '💼' },
       { id: 'everyday', label: 'Mensajes, redes y uso diario', icon: '💬' },
     ]},
     { id: 'screen', title: '¿Qué tamaño te resulta cómodo?', options: [
@@ -429,13 +481,7 @@ function recommendMobile(device, amount, lastKey = '') {
   const pool = affordable.length ? affordable : [catalog.reduce((a, b) => a.price < b.price ? a : b)];
   const ranked = pool.map(item => ({ item, score: scoreMobile(item, device) }))
     .sort((a, b) => b.score - a.score || a.item.price - b.item.price);
-  let items = ranked.slice(0, 3).map(x => x.item);
-  if (keyList(items) === lastKey && ranked.length > 1) {
-    const first = ranked.shift();
-    ranked.push(first);
-    items = ranked.slice(0, 3).map(x => x.item);
-  }
-  return { items, overBudget: !affordable.length };
+  return { items: ranked.map(x => x.item), overBudget: !affordable.length };
 }
 
 function mobileReason(item, device) {
@@ -452,7 +498,10 @@ function mobileReason(item, device) {
     if (answer.screen !== 'any' && item.screen === answer.screen) reasons.push('Coincide con el tamaño que prefieres');
     if (answer.storage && item.storage === answer.storage) reasons.push(answer.storage === 'lots' ? 'Tiene más espacio para tus archivos' : 'Adecuado para uso y almacenamiento normales');
   }
-  if (answer.system !== 'any' && item.system === answer.system) reasons.push(`Usa ${answer.system === 'ios' ? (device === 'tablet' ? 'iPadOS' : 'iOS') : 'Android'}, como prefieres`);
+  const systemName = answer.system === 'ios'
+    ? (device === 'tablet' ? 'iPadOS' : 'iOS')
+    : answer.system === 'harmony' ? 'HarmonyOS' : 'Android';
+  if (answer.system !== 'any' && item.system === answer.system) reasons.push(`Usa ${systemName}, como prefieres`);
   return reasons.slice(0, 2).join(' · ') || 'Una alternativa dentro del monto seleccionado';
 }
 
@@ -461,10 +510,16 @@ function mobileReason(item, device) {
    ===================================================================== */
 const state = {
   device: null, profile: null, field: null, auto: false, use: null, budget: null,
-  mobile: {}, last: '', timer: null, build: null,
+  mobile: {}, mobileRanked: [], mobileIndex: -1, mobileOverBudget: false,
+  last: '', timer: null, build: null,
 };
 const needsField = () => state.profile === 'student' || state.profile === 'work';
 const isMobileDevice = () => state.device === 'tablet' || state.device === 'phone';
+function clearMobileRecommendations() {
+  state.mobileRanked = [];
+  state.mobileIndex = -1;
+  state.mobileOverBudget = false;
+}
 
 function progressFor(name) {
   if (name === 'welcome') return { label: 'Inicio', value: 0 };
@@ -589,6 +644,7 @@ function choose(key, value) {
     state.use = null;
     state.auto = false;
     state.mobile = {};
+    clearMobileRecommendations();
     state.last = '';
     state.build = null;
     renderOptions('budget');
@@ -603,6 +659,7 @@ function choose(key, value) {
     const rng = $('#budget-range');
     if (tierOf(Number(rng.value)) !== value) rng.value = RANGE[dev()].val[value];
     $('#range-out').textContent = mxn.format(Number(rng.value));
+    clearMobileRecommendations();
   }
   $$(`.opt[data-key="${key}"]`).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.value === value)));
   syncNext();
@@ -611,8 +668,11 @@ function choose(key, value) {
 function reset() {
   clearTimeout(state.timer);
   Object.assign(state, {
-    device: null, profile: null, field: null, auto: false, use: null, budget: null, mobile: {}, last: '', build: null,
+    device: null, profile: null, field: null, auto: false, use: null, budget: null, mobile: {}, mobileRanked: [], mobileIndex: -1, mobileOverBudget: false, last: '', build: null,
   });
+  const otherButton = $('[data-action="other"]');
+  otherButton.disabled = false;
+  otherButton.textContent = 'Ver otra opción';
   $$('.opt').forEach(b => b.setAttribute('aria-pressed', 'false'));
   $('#use-hint').hidden = true;
   Object.assign($('#budget-range'), { min: 8000, max: 40000, value: 17000 });
@@ -632,6 +692,9 @@ function analyze() {
 function showResults(reroll) {
   const titles = { pc: 'Tu PC de escritorio ideal', laptop: 'Tu laptop ideal', tablet: 'La tableta que mejor encaja contigo', phone: 'El teléfono que mejor encaja contigo' };
   $('#result-title').textContent = titles[dev()];
+  const otherButton = $('[data-action="other"]');
+  otherButton.disabled = false;
+  otherButton.textContent = 'Ver otra opción';
   if (isMobileDevice()) return showMobileList(reroll);
   if (state.device === 'laptop') return showList(reroll);
   state.build = recommend(state.use, state.budget, reroll ? state.last : '');
@@ -643,28 +706,45 @@ function showResults(reroll) {
 function showMobileList(reroll) {
   const d = state.device;
   const amount = Number($('#budget-range').value);
-  const r = recommendMobile(d, amount, reroll ? state.last : '');
-  state.last = keyList(r.items);
+  if (!reroll || !state.mobileRanked.length) {
+    const r = recommendMobile(d, amount);
+    state.mobileRanked = r.items;
+    state.mobileIndex = 0;
+    state.mobileOverBudget = r.overBudget;
+  } else if (state.mobileIndex < state.mobileRanked.length - 1) {
+    state.mobileIndex += 1;
+  }
+  const p = state.mobileRanked[state.mobileIndex];
+  state.last = `${p.brand}|${p.big}`;
   state.build = null;
   const label = d === 'tablet' ? 'tableta' : 'teléfono';
+  const systemName = state.mobile.system === 'any' ? 'sin preferencia'
+    : state.mobile.system === 'ios' ? (d === 'tablet' ? 'iPadOS' : 'iOS')
+      : state.mobile.system === 'harmony' ? 'HarmonyOS' : 'Android';
   const focus = d === 'tablet'
-    ? `tu preferencia de uso, pantalla ${state.mobile.screen === 'compact' ? 'compacta' : state.mobile.screen === 'large' ? 'grande' : 'mediana'} y sistema ${state.mobile.system === 'any' ? 'sin preferencia' : state.mobile.system}`
+    ? `tu preferencia de uso, pantalla ${state.mobile.screen === 'compact' ? 'compacta' : state.mobile.screen === 'large' ? 'grande' : 'mediana'} y sistema ${systemName}`
     : `tu prioridad de ${MOBILE_QUESTIONS.phone[0].options.find(o => o.id === state.mobile.priority)?.label.toLowerCase()}, pantalla ${state.mobile.screen === 'any' ? 'sin preferencia de tamaño' : state.mobile.screen === 'compact' ? 'compacta' : 'grande'} y ${state.mobile.storage === 'lots' ? 'más espacio para guardar contenido' : 'espacio para uso normal'}`;
-  $('#summary').textContent = r.overBudget
+  $('#summary').textContent = state.mobileOverBudget
     ? `No encontramos una ${label} del catálogo dentro del monto elegido; aquí está la opción más cercana. Elige otro presupuesto si quieres ver más alternativas.`
-    : `Ordené estas opciones según ${focus}. El precio mostrado es orientativo y puede cambiar.`;
-  $('#cards').classList.add('three');
-  $('#cards').innerHTML = r.items.map((p, i) => `
+    : `Opción ${state.mobileIndex + 1} de ${state.mobileRanked.length}, elegida según ${focus}. Cada vez que pulses «Ver otra opción» avanzarás a un modelo distinto.`;
+  $('#cards').classList.remove('three', 'mobile-single');
+  $('#cards').classList.add('mobile-single');
+  $('#cards').innerHTML = `
     <article class="card">
       <span class="part-icon" aria-hidden="true">${d === 'tablet' ? '📱' : '📲'}</span>
-      <h3>${i === 0 ? 'Mejor coincidencia' : `Alternativa ${'ABC'[i]}`}</h3>
+      <h3>${state.mobileIndex === 0 ? 'Mejor coincidencia' : `Opción ${state.mobileIndex + 1}`}</h3>
       <p class="maker">${p.brand}</p>
       <p class="big">${p.big}</p>
+      <span class="mobile-category">${p.category}</span>
       <p class="detail">${p.detail}</p>
       <p class="match-reason">${mobileReason(p, d)}</p>
       <p class="price">${mxn.format(p.price)} <small>aprox.</small></p>
       <a class="ml" href="${p.source}" target="_blank" rel="noopener">Ver ficha oficial</a>
-    </article>`).join('');
+    </article>`;
+  const otherButton = $('[data-action="other"]');
+  const allShown = state.mobileIndex >= state.mobileRanked.length - 1;
+  otherButton.disabled = allShown;
+  otherButton.textContent = allShown ? 'Ya viste todas las opciones' : 'Ver otra opción';
   $('#total-line').hidden = true;
   $('#note').textContent = 'Precios de referencia en MXN; pueden cambiar por tienda, promoción y configuración. Confirma que el modelo tenga el almacenamiento, conexión y accesorios que necesitas. En las tabletas, el lápiz o teclado pueden venderse por separado.';
   show('results');
@@ -675,7 +755,7 @@ function paint(build) {
     ? `No encontré una combinación exacta para ${selectionFocus()}. Esta opción sirve como referencia${state.budget === 'eco' ? ' y conserva 8 GB de RAM en el nivel económico' : ''}.`
     : `Una opción para ${selectionFocus()}, enfocada en ${labelOf('use', state.use)} y en un presupuesto ${labelOf('budget', state.budget)}.`;
 
-  $('#cards').classList.remove('three');
+  $('#cards').classList.remove('three', 'mobile-single');
   $('#cards').innerHTML = PARTS.map(([k, icon, name, help]) => {
     const p = build[k];
     const link = p.price
@@ -712,6 +792,7 @@ function showList(reroll) {
     ? `No encontré una coincidencia exacta para ${selectionFocus()}. Esta opción sirve como referencia${state.budget === 'eco' ? ' y conserva 8 GB de RAM en el nivel económico' : ''}.`
     : `Una opción para ${selectionFocus()}, enfocada en ${labelOf('use', state.use)} y en un presupuesto ${labelOf('budget', state.budget)}.`;
   const icon = '💻';
+  $('#cards').classList.remove('mobile-single');
   $('#cards').classList.add('three');
   $('#cards').innerHTML = r.items.map((p, i) => `
     <article class="card">
@@ -786,7 +867,7 @@ const actions = {
   'next-mobile': () => {
     if (!isMobileDevice()) return;
     if (state.device === 'tablet') state.use = state.mobile.main;
-    else state.use = ({ camera: 'create', battery: 'basic', gaming: 'gaming', everyday: 'basic' })[state.mobile.priority];
+    else state.use = ({ camera: 'create', battery: 'basic', gaming: 'gaming', work: 'work', everyday: 'basic' })[state.mobile.priority];
     show('budget');
   },
   'back-profile': () => show('device'),
@@ -810,6 +891,7 @@ document.addEventListener('click', e => {
   e.preventDefault();                       // nunca se recarga la página
   if (btn.dataset.key === 'mobile-answer') {
     state.mobile[btn.dataset.question] = btn.dataset.value;
+    clearMobileRecommendations();
     $$(`.opt[data-key="mobile-answer"][data-question="${btn.dataset.question}"]`).forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
     syncNext();
     return;
