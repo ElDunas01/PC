@@ -75,6 +75,16 @@ const OPTIONS = {
     { id: 'code', icon: '👨‍💻', label: 'Programar', hint: 'Código y proyectos' },
     { id: 'kids', icon: '🧒', label: 'Niños y familia', hint: 'Dibujos, juegos suaves y tareas' },
   ],
+  device: [
+    { id: 'pc', icon: '🖥️', label: 'PC de escritorio', hint: 'Más potencia por tu dinero' },
+    { id: 'laptop', icon: '💻', label: 'Laptop', hint: 'Te la llevas a todos lados' },
+  ],
+  profile: [
+    { id: 'student', icon: '🎓', label: 'Estudiar', hint: 'Escuela, universidad o cursos' },
+    { id: 'work', icon: '💼', label: 'Trabajar', hint: 'Oficina o trabajo desde casa' },
+    { id: 'home', icon: '🏠', label: 'Hogar', hint: 'Para toda la familia' },
+    { id: 'business', icon: '🏢', label: 'Empresa o negocio', hint: 'Equipos para un equipo de trabajo' },
+  ],
   budget: [
     { id: 'eco', icon: '🪙', label: 'Económico', hint: 'Cuidando cada peso' },
     { id: 'mid', icon: '⚖️', label: 'Intermedio', hint: 'Buen equilibrio' },
@@ -95,8 +105,13 @@ const labelOf = (key, id) => (OPTIONS[key].find(o => o.id === id) || { label: ''
    ===================================================================== */
 // Usos nuevos que reutilizan el catálogo de otro uso con necesidades parecidas
 const POOL = { create: 'gaming', code: 'work', kids: 'basic' };
-const tierOf = v => (v <= 12000 ? 'eco' : v <= 22000 ? 'mid' : 'high');
-const TIER_VALUE = { eco: 10000, mid: 17000, high: 30000 };
+// La barra de presupuesto cambia de escala según el equipo (cut = cortes entre niveles)
+const RANGE = {
+  pc: { min: 8000, max: 40000, cut: [12000, 22000], val: { eco: 10000, mid: 17000, high: 30000 } },
+  laptop: { min: 8000, max: 80000, cut: [18000, 35000], val: { eco: 13000, mid: 26000, high: 55000 } },
+};
+const dev = () => state.device || 'pc';
+const tierOf = v => { const [a, b] = RANGE[dev()].cut; return v <= a ? 'eco' : v <= b ? 'mid' : 'high'; };
 const pick = list => list[Math.floor(Math.random() * list.length)];
 const fits = (item, budget, use) => item.t.includes(budget) && item.u.includes(use);
 const keyOf = b => PARTS.map(([k]) => `${b[k].brand}${b[k].big}${b[k].detail}`).join('|');
@@ -134,8 +149,8 @@ function recommend(use, budget, lastKey = '') {
    ===================================================================== */
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
-const state = { use: null, budget: null, last: '', timer: null, build: null };
-const STEP = { welcome: 0, use: 25, budget: 55, loading: 85, results: 100 };
+const state = { device: null, profile: null, field: null, auto: false, use: null, budget: null, last: '', timer: null, build: null };
+const STEP = { welcome: 0, device: 15, profile: 25, field: 35, use: 50, budget: 70, loading: 85, results: 100 };
 
 function show(name) {
   $$('.view').forEach(v => {
@@ -150,6 +165,9 @@ function show(name) {
 }
 
 function syncNext() {
+  $('[data-action="next-device"]').disabled = !state.device;
+  $('[data-action="next-profile"]').disabled = !state.profile;
+  $('[data-action="next-field"]').disabled = !state.field;
   $('[data-action="next-use"]').disabled = !state.use;
   $('[data-action="next-budget"]').disabled = !state.budget;
 }
@@ -164,9 +182,18 @@ function renderOptions(key) {
 
 function choose(key, value) {
   state[key] = value;
+  if (key === 'profile') state.field = null;
+  if (key === 'use') { state.auto = false; $('#use-hint').hidden = true; }
+  if (key === 'device') {
+    const r = RANGE[value], rng = $('#budget-range');
+    Object.assign(rng, { min: r.min, max: r.max, value: r.val.mid });
+    state.budget = null;
+    $$('.opt[data-key="budget"]').forEach(b => b.setAttribute('aria-pressed', 'false'));
+    $('#range-out').textContent = 'Mueve la barra o elige una opción';
+  }
   if (key === 'budget') {
     const rng = $('#budget-range');
-    if (tierOf(Number(rng.value)) !== value) rng.value = TIER_VALUE[value];
+    if (tierOf(Number(rng.value)) !== value) rng.value = RANGE[dev()].val[value];
     $('#range-out').textContent = mxn.format(Number(rng.value));
   }
   $$(`.opt[data-key="${key}"]`).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.value === value)));
@@ -175,10 +202,11 @@ function choose(key, value) {
 
 function reset() {
   clearTimeout(state.timer);                 // cancela un análisis en curso
-  Object.assign(state, { use: null, budget: null, last: '' });
+  Object.assign(state, { device: null, profile: null, field: null, auto: false, use: null, budget: null, last: '' });
   $$('.opt').forEach(b => b.setAttribute('aria-pressed', 'false'));
   syncNext();
-  $('#budget-range').value = 17000;
+  $('#use-hint').hidden = true;
+  Object.assign($('#budget-range'), { min: 8000, max: 40000, value: 17000 });
   $('#range-out').textContent = 'Mueve la barra o elige una opción';
   show('welcome');
 }
@@ -191,6 +219,7 @@ function analyze() {
 }
 
 function showResults(reroll) {
+  if (state.device === 'laptop') return showLaptops(reroll);
   state.build = recommend(state.use, state.budget, reroll ? state.last : '');
   state.last = keyOf(state.build);
   paint(state.build);
@@ -225,6 +254,9 @@ function paint(build) {
   }).join('');
 
   $('#total').textContent = mxn.format(totalOf(build));
+  $('#total-line').hidden = false;
+  $('#note').textContent = PC_NOTE;
+  $('#cards').classList.remove('three');
 }
 
 const bump = el => { if (!el) return; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); };
@@ -269,11 +301,194 @@ function toggleTheme() {
 /* =====================================================================
    6. EVENTOS E INICIO
    ===================================================================== */
+/* =====================================================================
+   LAPTOPS: catálogo y motor (precios Number en MXN, aproximados)
+   t = presupuesto, u = usos, p = perfiles (student | work | home | business)
+   ===================================================================== */
+const lap = (brand, big, detail, price, t, u, p) => row(brand, big, detail, price, [t], u.split(' '), { p: p.split(' ') });
+const LAPTOPS = [
+  lap('Acer', 'Aspire 3', 'Ryzen 5, 8 GB RAM, 512 GB', 9500, 'eco', 'basic kids work', 'student home'),
+  lap('ASUS', 'Vivobook Go 15', 'Ryzen 5, 16 GB RAM, 512 GB', 11900, 'eco', 'basic work kids', 'student home'),
+  lap('Lenovo', 'IdeaPad Slim 3', 'Core i5, 16 GB RAM, 512 GB', 12500, 'eco', 'basic work kids code', 'student home work'),
+  lap('Dell', 'Inspiron 15', 'Core i5, 16 GB RAM, 512 GB', 14500, 'eco', 'basic work', 'student home work'),
+  lap('Samsung', 'Galaxy Book4', 'Core 5, 16 GB RAM, 512 GB', 15900, 'eco', 'basic work', 'student work home'),
+  lap('HP', 'ProBook 440', 'Core i5, 16 GB RAM, 512 GB', 16500, 'eco', 'work basic', 'business work'),
+  lap('Apple', 'MacBook Air M1', 'Chip M1, 8 GB RAM, 256 GB', 16500, 'eco', 'basic work create code', 'student work home'),
+  lap('Lenovo', 'ThinkPad E14', 'Core i5, 16 GB RAM, 512 GB', 16900, 'eco', 'work code', 'business work student'),
+  lap('ASUS', 'TUF Gaming A15', 'Ryzen 5, RTX 3050, 16 GB RAM', 17500, 'eco', 'gaming', 'home'),
+  lap('Acer', 'Nitro V 15', 'Core i5, RTX 3050, 16 GB RAM', 17900, 'eco', 'gaming create', 'home student'),
+  lap('Acer', 'Swift Go 14', 'Core Ultra 5, 16 GB RAM, 512 GB', 20900, 'mid', 'work basic create', 'student work'),
+  lap('Lenovo', 'ThinkPad L14', 'Ryzen 5 PRO, 16 GB RAM, 512 GB', 22500, 'mid', 'work code', 'business work'),
+  lap('ASUS', 'Vivobook S 15 OLED', 'Core Ultra 7, 16 GB RAM, 1 TB', 23900, 'mid', 'work create basic', 'student home work'),
+  lap('ASUS', 'Zenbook 14 OLED', 'Core Ultra 5, 16 GB RAM, 512 GB', 24900, 'mid', 'work create', 'student work business'),
+  lap('Apple', 'MacBook Air 13 M3', 'Chip M3, 16 GB RAM, 256 GB', 25500, 'mid', 'basic work create code kids', 'student work home business'),
+  lap('HP', 'EliteBook 640', 'Core Ultra 5, 16 GB RAM, 512 GB', 25900, 'mid', 'work', 'business'),
+  lap('Dell', 'Latitude 5450', 'Core Ultra 5, 16 GB RAM, 512 GB', 26500, 'mid', 'work code', 'business work'),
+  lap('HP', 'Victus 16', 'Ryzen 5, RTX 4060, 16 GB RAM', 26900, 'mid', 'gaming create', 'home student'),
+  lap('Lenovo', 'ThinkPad T14', 'Core Ultra 5, 16 GB RAM, 512 GB', 27900, 'mid', 'work code', 'business work'),
+  lap('Microsoft', 'Surface Laptop 7', 'Snapdragon X, 16 GB RAM, 256 GB', 27900, 'mid', 'work basic kids', 'student work business home'),
+  lap('ASUS', 'TUF Gaming A16', 'Ryzen 7, RTX 4060, 16 GB RAM', 28500, 'mid', 'gaming code', 'home student'),
+  lap('MSI', 'Katana 15', 'Core i7, RTX 4060, 16 GB RAM', 29900, 'mid', 'gaming create', 'home'),
+  lap('Lenovo', 'Legion 5', 'Ryzen 7, RTX 4060, 16 GB RAM', 30900, 'mid', 'gaming create code', 'home student work'),
+  lap('LG', 'gram 16', 'Core Ultra 7, 16 GB RAM, 512 GB', 30900, 'mid', 'work basic', 'work business student'),
+  lap('Apple', 'MacBook Air 15 M3', 'Chip M3, 16 GB RAM, 512 GB', 36900, 'high', 'basic work create kids', 'student work home business'),
+  lap('Apple', 'MacBook Pro 14 M4', 'Chip M4, 16 GB RAM, 512 GB', 42900, 'high', 'create code work', 'work business student'),
+  lap('ASUS', 'ROG Strix G16', 'Core i7, RTX 4070, 16 GB RAM', 45900, 'high', 'gaming create', 'home'),
+  lap('Lenovo', 'Legion Pro 5', 'Core i7, RTX 4070, 32 GB RAM', 47900, 'high', 'gaming create code', 'home work'),
+  lap('Dell', 'XPS 14', 'Core Ultra 7, 32 GB RAM, 1 TB', 49900, 'high', 'work create code', 'work business'),
+  lap('ASUS', 'ROG Zephyrus G14', 'Ryzen 9, RTX 4070, 32 GB RAM', 52900, 'high', 'gaming create code', 'home work'),
+  lap('HP', 'EliteBook 840', 'Core Ultra 7, 32 GB RAM, 1 TB', 52900, 'high', 'work code', 'business'),
+  lap('Lenovo', 'ThinkPad X1 Carbon', 'Core Ultra 7, 32 GB RAM, 1 TB', 58900, 'high', 'work code', 'business work'),
+  lap('Razer', 'Blade 14', 'Ryzen 9, RTX 4070, 32 GB RAM', 59900, 'high', 'gaming create', 'home'),
+  lap('Apple', 'MacBook Pro 16 M4 Pro', 'Chip M4 Pro, 24 GB RAM, 512 GB', 69900, 'high', 'create code', 'work business'),
+  lap('MSI', 'Stealth 16', 'Core Ultra 9, RTX 4080, 32 GB RAM', 74900, 'high', 'gaming create', 'home work'),
+  lap('Lenovo', 'ThinkPad P1', 'Core Ultra 9, RTX Ada, 32 GB RAM', 79000, 'high', 'create code work', 'business work'),
+];
+const FALLBACK_LAPTOP = lap('Lenovo', 'IdeaPad Slim 3', 'Core i5, 16 GB RAM, 512 GB', 12500, 'eco', 'basic work', 'student home');
+const PC_NOTE = 'Suma de procesador, tarjeta de video, RAM y almacenamiento. Aún faltan gabinete, fuente y tarjeta madre. Los precios son aproximados.';
+const LAP_NOTE = 'Precios aproximados de modelos de línea: cambian según la tienda y la configuración. Confirma las especificaciones antes de comprar.';
+
+// Si no hay match exacto se relaja el filtro: perfil, luego uso, luego solo presupuesto
+function recommendLaptops(use, budget, profile, lastKey = '') {
+  const filters = [
+    p => fits(p, budget, use) && p.p.includes(profile),
+    p => fits(p, budget, use),
+    p => p.t.includes(budget),
+  ];
+  let pool = [];
+  for (const f of filters) { pool = LAPTOPS.filter(f); if (pool.length) break; }
+  if (!pool.length) return { items: [FALLBACK_LAPTOP], fallback: true };
+  let items = [];
+  for (let i = 0; i < 6; i++) {
+    const mix = [...pool].sort(() => Math.random() - .5);
+    items = [];
+    mix.forEach(p => { if (items.length < 3 && !items.some(o => o.brand === p.brand)) items.push(p); });
+    mix.forEach(p => { if (items.length < 3 && !items.includes(p)) items.push(p); });
+    if (keyLap(items) !== lastKey) break;
+  }
+  return { items, fallback: false };
+}
+const keyLap = items => items.map(i => i.big).sort().join('|');
+
+function showLaptops(reroll) {
+  const r = recommendLaptops(state.use, state.budget, state.profile, reroll ? state.last : '');
+  state.last = keyLap(r.items);
+  state.build = null;
+  $('#summary').textContent = r.fallback
+    ? 'No encontré una igual a lo que pediste, pero esta laptop equilibrada te va a servir muy bien.'
+    : `Para ${labelOf('profile', state.profile)}, pensando en ${labelOf('use', state.use)}, con presupuesto ${labelOf('budget', state.budget)}.`;
+  $('#cards').classList.add('three');
+  $('#cards').innerHTML = r.items.map((p, i) => `
+    <article class="card">
+      <span class="part-icon" aria-hidden="true">💻</span>
+      <h3>Opción ${'ABC'[i]}</h3>
+      <p class="maker">${p.brand}</p>
+      <p class="big">${p.big}</p>
+      <p class="detail">${p.detail}</p>
+      <p class="price">${mxn.format(p.price)}</p>
+      <a class="ml" href="https://listado.mercadolibre.com.mx/${slug(`${p.brand} ${p.big}`)}" target="_blank" rel="noopener">Ver en Mercado Libre</a>
+    </article>`).join('');
+  $('#total-line').hidden = true;
+  $('#note').textContent = LAP_NOTE;
+  show('results');
+}
+
+/* =====================================================================
+   CARRERAS Y TRABAJOS: carrera | trabajo | uso sugerido para el equipo
+   ===================================================================== */
+const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+const G = (name, rows, only) => ({
+  name, only,
+  items: rows.map(r => { const [career, job, use] = r.split('|'); return { id: slug(career), career, job, use, group: name }; }),
+});
+const FIELD_GROUPS = [
+  G('Escuela', ['Primaria|Primaria|kids', 'Secundaria|Secundaria|kids', 'Bachillerato|Bachillerato|work'], 'student'),
+  G('Ingenierías', [
+    'Ingeniería civil|Ingeniero/a civil|create', 'Ingeniería mecánica|Ingeniero/a mecánico/a|create',
+    'Ingeniería mecatrónica|Ingeniero/a mecatrónico/a|create', 'Ingeniería eléctrica|Ingeniero/a eléctrico/a|work',
+    'Ingeniería electrónica|Ingeniero/a electrónico/a|work', 'Ingeniería industrial|Ingeniero/a industrial|work',
+    'Ingeniería en sistemas computacionales|Ingeniero/a en sistemas|code', 'Ingeniería en software|Desarrollador/a de software|code',
+    'Ingeniería en datos e IA|Científico/a de datos|code', 'Ingeniería en telecomunicaciones|Ingeniero/a en telecomunicaciones|work',
+    'Ingeniería química|Ingeniero/a químico/a|work', 'Ingeniería petrolera|Ingeniero/a petrolero/a|work',
+    'Ingeniería ambiental|Ingeniero/a ambiental|work', 'Ingeniería biomédica|Ingeniero/a biomédico/a|work',
+    'Ingeniería aeroespacial|Ingeniero/a aeroespacial|create', 'Ingeniería automotriz|Ingeniero/a automotriz|create',
+    'Ingeniería en logística|Ingeniero/a en logística|work', 'Ingeniería en alimentos|Ingeniero/a en alimentos|work',
+    'Ingeniería agronómica|Ingeniero/a agrónomo/a|work', 'Ingeniería en energías renovables|Ingeniero/a en energías renovables|work',
+    'Ingeniería en minas|Ingeniero/a de minas|work',
+  ]),
+  G('Negocios y leyes', [
+    'Administración|Administrador/a|work', 'Contaduría|Contador/a|work', 'Economía|Economista|work', 'Derecho|Abogado/a|work',
+    'Mercadotecnia|Especialista en marketing|create', 'Negocios internacionales|Comercio exterior|work', 'Actuaría|Actuario/a|code',
+    'Recursos humanos|Recursos humanos|work', 'Ciencias políticas|Analista político/a|work', 'Relaciones internacionales|Relaciones internacionales|work',
+  ]),
+  G('Diseño y arte', [
+    'Arquitectura|Arquitecto/a|create', 'Diseño gráfico|Diseñador/a gráfico/a|create', 'Diseño industrial|Diseñador/a industrial|create',
+    'Animación digital|Animador/a|create', 'Cine y audiovisual|Editor/a de video|create', 'Fotografía|Fotógrafo/a|create',
+    'Música|Músico/a|create', 'Artes visuales|Artista visual|create', 'Diseño de modas|Diseñador/a de modas|create',
+    'Comunicación|Comunicólogo/a|create', 'Periodismo|Periodista|work',
+  ]),
+  G('Salud', [
+    'Medicina|Médico/a|work', 'Enfermería|Enfermero/a|work', 'Odontología|Dentista|work', 'Nutrición|Nutriólogo/a|work',
+    'Psicología|Psicólogo/a|work', 'Fisioterapia|Fisioterapeuta|work', 'Veterinaria|Veterinario/a|work', 'Farmacia|Farmacéutico/a|work',
+  ]),
+  G('Ciencias, educación y servicios', [
+    'Matemáticas|Matemático/a|code', 'Física|Físico/a|code', 'Biología|Biólogo/a|work', 'Química|Químico/a|work',
+    'Computación|Programador/a|code', 'Pedagogía|Pedagogo/a|work', 'Educación|Maestro/a|work', 'Idiomas y traducción|Traductor/a|work',
+    'Historia|Historiador/a|work', 'Filosofía|Filósofo/a|work', 'Letras|Escritor/a|work', 'Sociología|Sociólogo/a|work',
+    'Trabajo social|Trabajador/a social|work', 'Gastronomía|Chef|work', 'Turismo|Turismo y hoteles|work',
+  ]),
+  G('Oficios y otros trabajos', [
+    'Oficina y administración|Oficina y administración|work', 'Ventas y atención a clientes|Ventas y atención a clientes|work',
+    'Emprendedor/a|Emprendedor/a|work', 'Creador/a de contenido|Creador/a de contenido|create',
+    'Soporte técnico|Soporte técnico|work', 'Freelancer|Freelancer|work',
+  ], 'work'),
+  G('Otro', ['Otra carrera|Otro trabajo|']),
+];
+const FIELDS = FIELD_GROUPS.flatMap(g => g.items);
+const needsField = () => state.profile === 'student' || state.profile === 'work';
+
+function renderField() {
+  const student = state.profile === 'student';
+  $('#field-title').textContent = student ? '¿Qué carrera estudias?' : '¿A qué te dedicas?';
+  $('#field-search').value = '';
+  $('#field-list').innerHTML = FIELD_GROUPS.filter(g => !g.only || g.only === state.profile).map(g => `
+    <h3 class="grp">${g.name}</h3>
+    <div class="chips">${g.items.map(f => `<button type="button" class="opt chip" data-key="field" data-value="${f.id}"
+      data-q="${norm(f.career + ' ' + f.job)}" ${f.use ? '' : 'data-any="1"'} aria-pressed="${state.field === f.id}">${student ? f.career : f.job}</button>`).join('')}</div>`).join('');
+}
+
+function filterFields() {
+  const q = norm($('#field-search').value.trim());
+  $$('#field-list .chip').forEach(c => { c.hidden = !(c.dataset.any || c.dataset.q.includes(q)); });
+  $$('#field-list .grp').forEach(h => {
+    const box = h.nextElementSibling;
+    h.hidden = box.hidden = !box.querySelector('.chip:not([hidden])');
+  });
+}
+
+// Pre-selecciona el uso según la carrera o el trabajo (si la persona no eligió uno a mano)
+function suggestUse() {
+  const f = FIELDS.find(x => x.id === state.field);
+  if (!f || !f.use || (state.use && !state.auto)) return;
+  choose('use', f.use);
+  state.auto = true;
+  $('#use-hint').hidden = false;
+}
+
 const actions = {
   reset,
   theme: toggleTheme,
-  start: () => show('use'),
-  'back-use': () => show('welcome'),
+  start: () => show('device'),
+  'back-device': () => show('welcome'),
+  'next-device': () => { if (state.device) show('profile'); },
+  'back-profile': () => show('device'),
+  'next-profile': () => {
+    if (!state.profile) return;
+    if (needsField()) { renderField(); show('field'); } else show('use');
+  },
+  'back-field': () => show('profile'),
+  'next-field': () => { if (state.field) { suggestUse(); show('use'); } },
+  'back-use': () => show(needsField() ? 'field' : 'profile'),
   'next-use': () => { if (state.use) show('budget'); },
   'back-budget': () => show('use'),
   'next-budget': analyze,
@@ -292,6 +507,7 @@ document.addEventListener('click', e => {
 
 document.addEventListener('input', e => {
   if (e.target.id === 'budget-range') choose('budget', tierOf(Number(e.target.value)));
+  if (e.target.id === 'field-search') filterFields();
 });
 
 function init() {
@@ -300,6 +516,8 @@ function init() {
     if (saved === 'light' || saved === 'dark') root.dataset.theme = saved;
   } catch (e) { /* sin almacenamiento */ }
   media.addEventListener('change', paintThemeButton);
+  renderOptions('device');
+  renderOptions('profile');
   renderOptions('use');
   renderOptions('budget');
   syncNext();

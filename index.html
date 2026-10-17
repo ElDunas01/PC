@@ -40,8 +40,37 @@
       </article>
     </section>
 
+    <section class="view" data-view="device" hidden>
+      <h2 class="title" tabindex="-1">¿Qué quieres encontrar?</h2>
+      <div class="opts" id="opts-device" role="group" aria-label="¿Qué quieres encontrar?"></div>
+      <div class="nav">
+        <button type="button" class="btn btn-ghost" data-action="back-device">Atrás</button>
+        <button type="button" class="btn" data-action="next-device" disabled>Siguiente</button>
+      </div>
+    </section>
+
+    <section class="view" data-view="profile" hidden>
+      <h2 class="title" tabindex="-1">¿Quién la va a usar?</h2>
+      <div class="opts" id="opts-profile" role="group" aria-label="¿Quién la va a usar?"></div>
+      <div class="nav">
+        <button type="button" class="btn btn-ghost" data-action="back-profile">Atrás</button>
+        <button type="button" class="btn" data-action="next-profile" disabled>Siguiente</button>
+      </div>
+    </section>
+
+    <section class="view" data-view="field" hidden>
+      <h2 class="title" id="field-title" tabindex="-1">¿Qué carrera estudias?</h2>
+      <input type="search" id="field-search" class="search" placeholder="Busca tu carrera o trabajo" aria-label="Buscar carrera o trabajo" autocomplete="off">
+      <div id="field-list" class="field-list" role="group" aria-label="Lista de opciones"></div>
+      <div class="nav">
+        <button type="button" class="btn btn-ghost" data-action="back-field">Atrás</button>
+        <button type="button" class="btn" data-action="next-field" disabled>Siguiente</button>
+      </div>
+    </section>
+
     <section class="view" data-view="use" hidden>
       <h2 class="title" tabindex="-1">¿Para qué usarás tu equipo?</h2>
+      <p class="lead" id="use-hint" hidden>Te sugerí una opción según lo que elegiste. Puedes cambiarla.</p>
       <div class="opts" id="opts-use" role="group" aria-label="Uso del equipo"></div>
       <div class="nav">
         <button type="button" class="btn btn-ghost" data-action="back-use">Atrás</button>
@@ -72,8 +101,8 @@
       <h2 class="title" tabindex="-1">Tu PC ideal</h2>
       <p class="lead" id="summary"></p>
       <div class="cards" id="cards"></div>
-      <p class="total">Total estimado: <strong id="total"></strong></p>
-      <p class="note">Suma de procesador, tarjeta de video, RAM y almacenamiento. Aún faltan gabinete, fuente y tarjeta madre. Los precios son aproximados.</p>
+      <p class="total" id="total-line">Total estimado: <strong id="total"></strong></p>
+      <p class="note" id="note">Suma de procesador, tarjeta de video, RAM y almacenamiento. Aún faltan gabinete, fuente y tarjeta madre. Los precios son aproximados.</p>
       <div class="nav">
         <button type="button" class="btn btn-ghost" data-action="other">Ver otra opción</button>
         <button type="button" class="btn" data-action="reset">Empezar de nuevo</button>
