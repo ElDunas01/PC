@@ -57,13 +57,6 @@ const DB = {
   ],
 };
 
-const FALLBACK = {
-  cpu: row('Intel', 'Core i5', '12400', 4200),
-  gpu: row('Procesador', 'Integrada', 'Ya viene incluida', 0),
-  ram: row('Kingston', '16 GB', 'DDR4 3200 MHz', 3200),
-  ssd: row('WD', '1 TB', 'Blue SN580 NVMe', 1500),
-};
-
 const FALLBACK_ECO = { cpu: DB.cpu[0], gpu: DB.gpu[0], ram: DB.ram[0], ssd: DB.ssd[0] };
 const FALLBACK_ECO_GAMING = { cpu: DB.cpu[2], gpu: DB.gpu[1], ram: DB.ram[0], ssd: DB.ssd[0] };
 
@@ -154,16 +147,16 @@ const MOBILE_CATALOG = {
     { brand: 'HONOR', big: 'Pad X8a', detail: '11 pulgadas, batería amplia y cuatro bocinas', price: 3999, category: 'Uso diario y entretenimiento', uses: ['basic', 'kids'], screen: 'large', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.honor.com/mx/tablets/honor-pad-x8a/' },
   ],
   phone: [
-    { brand: 'Apple', big: 'iPhone 11', detail: '64 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 3999, category: 'Uso diario · reacondicionado', uses: ['basic', 'work'], priorities: ['camera', 'everyday', 'work'], screen: 'compact', storage: 'normal', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-11-64-gb-blanco-excelente-reacondicionado/p/MLM2000137020', sourceLabel: 'Ver en Mercado Libre' },
-    { brand: 'Apple', big: 'iPhone 12', detail: '64 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 4399, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create'], priorities: ['camera', 'everyday', 'work'], screen: 'compact', storage: 'normal', system: 'ios', source: 'https://www.mercadolibre.com.mx/iphone-12-dual-sim-64-gb-morado-excelente-reacondicionado/p/MLM2000029405', sourceLabel: 'Ver en Mercado Libre' },
-    { brand: 'Apple', big: 'iPhone 12', detail: '128 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 4899, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-12-morado-128-gb-4-gb/p/MLM2000108360', sourceLabel: 'Ver en Mercado Libre' },
-    { brand: 'Apple', big: 'iPhone 13', detail: '128 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 5999, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-13-128-gb-medianoche-aceptable-reacondicionado/p/MLM2000086180', sourceLabel: 'Ver en Mercado Libre' },
-    { brand: 'Apple', big: 'iPhone 14', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 6499, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-14-128-gb-medianoche-bueno-reacondicionado/p/MLM2000081741', sourceLabel: 'Ver en Mercado Libre' },
-    { brand: 'Apple', big: 'iPhone 13 Pro', detail: '128 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 7999, category: 'Fotografía y gaming · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://listado.mercadolibre.com.mx/celulares-telefonia/celulares-smartphones/iphone/iphone-13-pro/reacondicionado/', sourceLabel: 'Ver en Mercado Libre' },
-    { brand: 'Apple', big: 'iPhone 16e', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 8299, category: 'Trabajo y uso diario · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://listado.mercadolibre.com.mx/iphone-16e-reacondicionados', sourceLabel: 'Ver en Mercado Libre' },
-    { brand: 'Apple', big: 'iPhone 15', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 9299, category: 'Fotografía y trabajo · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'large', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-15-128-gb-azul-excelente-reacondicionado/p/MLM2000087240', sourceLabel: 'Ver en Mercado Libre' },
-    { brand: 'Apple', big: 'iPhone 15 Pro', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 12999, category: 'Fotografía y gaming · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-15-pro-128-gb-titanio-negro-excelente-reacondicionado/p/MLM2000057633', sourceLabel: 'Ver en Mercado Libre' },
-    { brand: 'Apple', big: 'iPhone 16', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 11999, category: 'Fotografía y trabajo · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'large', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-16-128-gb-negro-excelente-reacondicionado/p/MLM2000085752', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 11', detail: '64 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 3999, category: 'Uso diario · reacondicionado', uses: ['basic', 'work'], priorities: ['camera', 'everyday', 'work'], screen: 'standard', storage: 'normal', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-11-64-gb-blanco-excelente-reacondicionado/p/MLM2000137020', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 12', detail: '64 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 4399, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create'], priorities: ['camera', 'everyday', 'work'], screen: 'standard', storage: 'normal', system: 'ios', source: 'https://www.mercadolibre.com.mx/iphone-12-dual-sim-64-gb-morado-excelente-reacondicionado/p/MLM2000029405', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 12', detail: '128 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 4899, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'standard', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-12-morado-128-gb-4-gb/p/MLM2000108360', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 13', detail: '128 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 5999, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'standard', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-13-128-gb-medianoche-aceptable-reacondicionado/p/MLM2000086180', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 14', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 6499, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'standard', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-14-128-gb-medianoche-bueno-reacondicionado/p/MLM2000081741', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 13 Pro', detail: '128 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 7999, category: 'Fotografía y gaming · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'standard', storage: 'lots', system: 'ios', source: 'https://listado.mercadolibre.com.mx/celulares-telefonia/celulares-smartphones/iphone/iphone-13-pro/reacondicionado/', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 16e', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 8299, category: 'Trabajo y uso diario · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'standard', storage: 'lots', system: 'ios', source: 'https://listado.mercadolibre.com.mx/iphone-16e-reacondicionados', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 15', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 9299, category: 'Fotografía y trabajo · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'standard', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-15-128-gb-azul-excelente-reacondicionado/p/MLM2000087240', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 15 Pro', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 12999, category: 'Fotografía y gaming · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'standard', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-15-pro-128-gb-titanio-negro-excelente-reacondicionado/p/MLM2000057633', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 16', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 11999, category: 'Fotografía y trabajo · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'standard', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-16-128-gb-negro-excelente-reacondicionado/p/MLM2000085752', sourceLabel: 'Ver en Mercado Libre' },
     { brand: 'Motorola', big: 'moto g06', detail: '128 GB, pantalla de 6.88 pulgadas, batería grande', price: 2600, category: 'Uso diario económico', uses: ['basic'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/moto-g/06/pmipmhy42mg' },
     { brand: 'Xiaomi', big: 'REDMI Note 15', detail: 'Pantalla AMOLED de 6.77 pulgadas, 128 GB', price: 4999, category: 'Uso diario y batería', uses: ['basic', 'work'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.mi.com/mx/product/redmi-note-15/' },
     { brand: 'Samsung', big: 'Galaxy A17 5G', detail: '128 GB, 5G, pantalla de 6.7 pulgadas', price: 4999, category: 'Uso diario y trabajo ligero', uses: ['basic', 'work'], priorities: ['battery', 'everyday', 'work'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-a/galaxy-a17-5g-blue-128gb-sm-a176bzbrltm/' },
@@ -178,9 +171,9 @@ const MOBILE_CATALOG = {
     { brand: 'Xiaomi', big: 'REDMI Note 17 Pro 5G', detail: '5G, cámara con estabilización y pantalla AMOLED de 6.83 pulgadas', price: 12999, category: 'Trabajo, fotos y uso diario', uses: ['basic', 'work', 'create'], priorities: ['camera', 'battery', 'everyday', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/redmi-note-17-pro-5g/' },
     { brand: 'Motorola', big: 'edge 60 Pro', detail: 'Pantalla pOLED de 6.7 pulgadas, cámara avanzada y carga rápida', price: 14999, category: 'Trabajo y fotografía', uses: ['work', 'create', 'basic'], priorities: ['camera', 'battery', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/motorola-edge/60-pro/pmipmht41mf' },
     { brand: 'POCO', big: 'F7 Pro', detail: 'Snapdragon 8 Gen 3 y funciones para gaming exigente', price: 15999, category: 'Gaming avanzado', uses: ['gaming', 'create'], priorities: ['gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/poco-f7-pro/' },
-    { brand: 'Apple', big: 'iPhone 17e', detail: '256 GB, pantalla de 6.1 pulgadas, iOS', price: 16999, category: 'Trabajo y uso diario', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://www.apple.com/mx/shop/buy-iphone/iphone-17e' },
+    { brand: 'Apple', big: 'iPhone 17e', detail: '256 GB, pantalla de 6.1 pulgadas, iOS', price: 16999, category: 'Trabajo y uso diario', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work'], screen: 'standard', storage: 'lots', system: 'ios', source: 'https://www.apple.com/mx/shop/buy-iphone/iphone-17e' },
     { brand: 'Samsung', big: 'Galaxy S25 FE', detail: '128 GB, pantalla AMOLED y funciones para productividad y cámara', price: 17999, category: 'Trabajo, fotos y productividad', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-s/galaxy-s25-fe-icyblue-128gb-sm-s731blblltm/' },
-    { brand: 'Apple', big: 'iPhone 17', detail: '256 GB, pantalla de 6.3 pulgadas y cámara dual', price: 20999, category: 'Fotografía, trabajo y uso diario', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work'], screen: 'large', storage: 'lots', system: 'ios', source: 'https://www.apple.com/mx/shop/buy-iphone/iphone-17' },
+    { brand: 'Apple', big: 'iPhone 17', detail: '256 GB, pantalla de 6.3 pulgadas y cámara dual', price: 20999, category: 'Fotografía, trabajo y uso diario', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work'], screen: 'standard', storage: 'lots', system: 'ios', source: 'https://www.apple.com/mx/shop/buy-iphone/iphone-17' },
     { brand: 'Motorola', big: 'Signature', detail: 'Pantalla AMOLED de 6.8 pulgadas, cámara de alta resolución y funciones de IA', price: 24999, category: 'Trabajo y creación profesional', uses: ['work', 'create', 'gaming'], priorities: ['camera', 'battery', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/motorola-signature/signature/pmipmje43mf' },
     { brand: 'REDMAGIC', big: '11 Pro', detail: 'Teléfono diseñado para gaming, con ventilación y controles dedicados', price: 26999, category: 'Gaming dedicado', uses: ['gaming'], priorities: ['gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://global.redmagic.gg/products/redmagic-11-pro' },
     { brand: 'Xiaomi', big: 'REDMI A5', detail: 'Pantalla grande, 64 GB y batería para uso diario', price: 2499, category: 'Uso diario económico', uses: ['basic'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.mi.com/mx/product/redmi-a5/' },
@@ -197,18 +190,16 @@ const MOBILE_CATALOG = {
   ],
 };
 
-const FALLBACK_LAPTOP = lap('Lenovo', 'IdeaPad Slim 3', 'Core i5, 8 GB RAM, 512 GB', 12500, 'eco', 'basic work', 'student home');
 const CATALOG = { laptop: LAPTOPS };
-const FALLBACK_ITEM = { laptop: FALLBACK_LAPTOP };
 
 /* =====================================================================
    3. OPCIONES DEL ASISTENTE
    ===================================================================== */
 const OPTIONS = {
   device: [
-    { id: 'pc', icon: '🛠️', label: 'PC de escritorio', hint: 'Más potencia por el precio y fácil de actualizar. Ideal para usarla en un solo lugar.' },
+    { id: 'pc', icon: '🛠️', label: 'Computadora de escritorio', hint: 'Ofrece buen rendimiento por el precio y permite cambiar piezas con facilidad.' },
     { id: 'laptop', icon: '💻', label: 'Laptop', hint: 'Llévala a clases o al trabajo. Revisa su peso, batería y memoria ampliable.' },
-    { id: 'tablet', icon: '📱', label: 'Tablet', hint: 'Ligera para leer, tomar apuntes, dibujar o ver contenido.' },
+    { id: 'tablet', icon: '📱', label: 'Tableta', hint: 'Ligera para leer, tomar apuntes, dibujar o ver contenido.' },
     { id: 'phone', icon: '📲', label: 'Teléfono celular', hint: 'Compara cámara, batería, tamaño, almacenamiento y sistema.' },
   ],
   profile: [
@@ -219,31 +210,31 @@ const OPTIONS = {
   ],
   use: [
     { id: 'gaming', icon: '🎮', label: 'Jugar', hint: 'Videojuegos sin trabas' },
-    { id: 'work', icon: '💻', label: 'Trabajar / Estudiar', hint: 'Tareas, clases y oficina' },
+    { id: 'work', icon: '💻', label: 'Trabajar o estudiar', hint: 'Tareas, clases y oficina' },
     { id: 'basic', icon: '🌐', label: 'Uso básico', hint: 'Internet, videos y chats' },
     { id: 'create', icon: '🎨', label: 'Diseño y video', hint: 'Fotos, edición y animación' },
     { id: 'code', icon: '👨‍💻', label: 'Programar', hint: 'Código y proyectos' },
     { id: 'kids', icon: '🧒', label: 'Niños y familia', hint: 'Dibujos, juegos suaves y tareas' },
   ],
   budget: [
-    { id: 'eco', icon: '🪙', label: 'Económico', hint: 'Cuidando cada peso; 8 GB de RAM' },
+    { id: 'eco', icon: '🪙', label: 'Económico', hint: 'Piezas con 8 GB de RAM para reducir el costo' },
     { id: 'mid', icon: '⚖️', label: 'Intermedio', hint: 'Buen equilibrio' },
-    { id: 'high', icon: '🚀', label: 'Alto', hint: 'Lo mejor para rendir más' },
+    { id: 'high', icon: '🚀', label: 'Alto', hint: 'Más opciones para tareas exigentes' },
   ],
 };
 
 // Rangos de la barra de presupuesto por tipo de equipo (cut = cortes entre niveles)
 const RANGE = {
   pc: { min: 8000, max: 40000, cut: [12000, 22000], val: { eco: 10000, mid: 17000, high: 30000 } },
-  laptop: { min: 8000, max: 80000, cut: [18000, 35000], val: { eco: 13000, mid: 26000, high: 55000 } },
-  tablet: { min: 2500, max: 30000, cut: [8000, 15000], val: { eco: 7500, mid: 15000, high: 22000 } },
-  phone: { min: 4000, max: 40000, cut: [6500, 15000], val: { eco: 6500, mid: 12000, high: 25000 } },
+  laptop: { min: 9500, max: 80000, cut: [18000, 35000], val: { eco: 13000, mid: 26000, high: 55000 } },
+  tablet: { min: 2800, max: 30000, cut: [8000, 15000], val: { eco: 7500, mid: 15000, high: 22000 } },
+  phone: { min: 2500, max: 40000, cut: [6500, 15000], val: { eco: 6500, mid: 12000, high: 25000 } },
 };
 const BUDGET_HINT = {
-  pc: 'Guía para las piezas principales de una PC de escritorio; el total no incluye gabinete, fuente ni tarjeta madre.',
-  laptop: 'Guía para comparar laptops completas. El precio depende de la marca y configuración.',
-  tablet: 'Monto aproximado para una tableta. Revisa si el lápiz, teclado o conexión móvil se venden aparte.',
-  phone: 'Desde $4,000. Incluye iPhone reacondicionados. Revisa batería, desbloqueo, garantía y compatibilidad con tu compañía.',
+  pc: 'Este monto solo suma procesador, gráficos, RAM y SSD. Faltan tarjeta madre, gabinete, fuente, pantalla, teclado, ratón, sistema operativo y armado. Comprueba la compatibilidad antes de comprar.',
+  laptop: 'Tope para laptops completas. El precio depende de la marca y la configuración; confirma que incluya las características que necesitas.',
+  tablet: 'Tope para una tableta. Comprueba si el lápiz, el teclado o la conexión móvil se venden por separado.',
+  phone: 'Desde $2,500 para Android. Hay iPhone reacondicionados desde $3,999. Comprueba batería, desbloqueo, garantía y compatibilidad con tu compañía.',
 };
 
 const MOBILE_QUESTIONS = {
@@ -281,7 +272,7 @@ const MOBILE_QUESTIONS = {
       { id: 'everyday', label: 'Mensajes, redes y uso diario', icon: '💬' },
     ]},
     { id: 'screen', title: '¿Qué tamaño te resulta cómodo?', options: [
-      { id: 'compact', label: 'Más compacto para usar con una mano', icon: '🤏' },
+      { id: 'standard', label: 'Pantalla estándar, cerca de 6 pulgadas', icon: '📱' },
       { id: 'large', label: 'Pantalla grande para videos y lectura', icon: '📺' },
       { id: 'any', label: 'No tengo preferencia', icon: '✨' },
     ]},
@@ -300,7 +291,7 @@ const MOBILE_QUESTIONS = {
 // Usos nuevos que reutilizan el catálogo de PC de un uso con necesidades parecidas
 const POOL = { create: 'gaming', code: 'work', kids: 'basic' };
 
-const PC_NOTE = 'Suma de procesador, tarjeta de video, RAM y almacenamiento. Aún faltan gabinete, fuente y tarjeta madre. Los precios son aproximados.';
+const PC_NOTE = 'El total suma procesador, tarjeta de video, memoria RAM y almacenamiento. No incluye tarjeta madre, gabinete, fuente de poder, monitor, teclado, ratón, sistema operativo ni armado. Los precios son aproximados.';
 const LAP_NOTE = 'Precios aproximados de modelos de línea: cambian según la tienda y la configuración. Confirma las especificaciones antes de comprar.';
 
 /* =====================================================================
@@ -400,6 +391,14 @@ const selectionFocus = () => {
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const pick = list => list[Math.floor(Math.random() * list.length)];
+const shuffle = items => {
+  const result = [...items];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+};
 const dev = () => state.device || 'pc';
 const tierOf = v => { const [a, b] = RANGE[dev()].cut; return v <= a ? 'eco' : v <= b ? 'mid' : 'high'; };
 const fits = (item, budget, use) => item.t.includes(budget) && item.u.includes(use);
@@ -412,23 +411,35 @@ const totalOf = b => PARTS.reduce((sum, [k]) => sum + b[k].price, 0);
 /* =====================================================================
    6. MOTOR DE RECOMENDACIÓN
    ===================================================================== */
-function pickBuild(use, budget) {
+function pickBuild(use, budget, maxAmount) {
   const u = POOL[use] || use;
-  const cpu = pick(DB.cpu.filter(p => fits(p, budget, u)));
-  if (!cpu) return null;
-  // Sin gráficos integrados en el procesador, la tarjeta de video es obligatoria
-  const gpu = pick(DB.gpu.filter(p => fits(p, budget, u) && (cpu.igpu || !p.integrated)));
-  // La RAM debe ser compatible con la plataforma del procesador (DDR4 o DDR5)
-  const ram = pick(DB.ram.filter(p => fitsRam(p, budget, u) && p.type === cpu.ram));
-  const ssd = pick(DB.ssd.filter(p => fits(p, budget, u)));
-  return gpu && ram && ssd ? { cpu, gpu, ram, ssd } : null;
+  const tiers = budget === 'high' ? ['high', 'mid', 'eco'] : budget === 'mid' ? ['mid', 'eco'] : ['eco'];
+  for (const tier of tiers) {
+    const cpus = DB.cpu.filter(p => fits(p, tier, u));
+    const gpus = DB.gpu.filter(p => fits(p, tier, u));
+    const rams = DB.ram.filter(p => fitsRam(p, tier, u));
+    const ssds = DB.ssd.filter(p => fits(p, tier, u));
+    const builds = [];
+    for (const cpu of cpus) for (const gpu of gpus) {
+      if (!cpu.igpu && gpu.integrated) continue;
+      for (const ram of rams) {
+        if (ram.type !== cpu.ram) continue;
+        for (const ssd of ssds) {
+          const build = { cpu, gpu, ram, ssd };
+          if (totalOf(build) <= maxAmount) builds.push(build);
+        }
+      }
+    }
+    if (builds.length) return pick(builds);
+  }
+  return null;
 }
 
-function recommend(use, budget, lastKey = '') {
+function recommend(use, budget, maxAmount, lastKey = '') {
   let build = null;
   try {
     for (let i = 0; i < 8; i++) {          // evita repetir la misma combinación seguida
-      const next = pickBuild(use, budget);
+      const next = pickBuild(use, budget, maxAmount);
       if (!next) break;
       build = next;
       if (keyOf(next) !== lastKey) break;
@@ -438,26 +449,28 @@ function recommend(use, budget, lastKey = '') {
     build = null;
   }
   if (build) return { ...build, fallback: false };
-  const safeFallback = budget === 'eco'
-    ? ((POOL[use] || use) === 'gaming' ? FALLBACK_ECO_GAMING : FALLBACK_ECO)
-    : FALLBACK;
-  return { ...safeFallback, fallback: true };
+  const safeFallback = (POOL[use] || use) === 'gaming' ? FALLBACK_ECO_GAMING : FALLBACK_ECO;
+  return totalOf(safeFallback) <= maxAmount ? { ...safeFallback, fallback: true } : null;
 }
 
-// En laptops se relaja el filtro (perfil, luego uso, luego solo presupuesto)
-function recommendList(device, use, budget, profile, lastKey = '') {
+// En laptops el monto es un tope. Si hace falta, se relaja el perfil o el nivel,
+// pero nunca se devuelve un modelo que cueste más que el monto elegido.
+function recommendList(device, use, budget, profile, maxAmount, lastKey = '') {
   const src = CATALOG[device];
-  const steps = [
-    p => (budget !== 'eco' || hasEcoLaptopRam(p)) && fits(p, budget, use) && p.p.includes(profile),
-    p => (budget !== 'eco' || hasEcoLaptopRam(p)) && fits(p, budget, use),
-    p => (budget !== 'eco' || hasEcoLaptopRam(p)) && p.t.includes(budget),
-  ];
+  const tiers = budget === 'high' ? ['high', 'mid', 'eco'] : budget === 'mid' ? ['mid', 'eco'] : ['eco'];
   let pool = [];
-  for (const f of steps) { pool = src.filter(f); if (pool.length) break; }
-  if (!pool.length) return { items: [FALLBACK_ITEM[device]], fallback: true };
+  const matchesTier = (p, tier) => p.price <= maxAmount && p.t.includes(tier) && (tier !== 'eco' || hasEcoLaptopRam(p));
+  for (const matchProfile of [true, false]) {
+    for (const tier of tiers) {
+      pool = src.filter(p => matchesTier(p, tier) && p.u.includes(use) && (!matchProfile || p.p.includes(profile)));
+      if (pool.length) break;
+    }
+    if (pool.length) break;
+  }
+  if (!pool.length) return { items: [], fallback: false };
   let items = [];
   for (let i = 0; i < 6; i++) {
-    const mix = [...pool].sort(() => Math.random() - 0.5);
+    const mix = shuffle(pool);
     items = [];
     mix.forEach(p => { if (items.length < 3 && !items.some(o => o.brand === p.brand)) items.push(p); });
     mix.forEach(p => { if (items.length < 3 && !items.includes(p)) items.push(p); });
@@ -485,29 +498,28 @@ function scoreMobile(item, device) {
   return score;
 }
 
-function recommendMobile(device, amount, lastKey = '') {
+function recommendMobile(device, amount) {
   const catalog = MOBILE_CATALOG[device];
-  const preferredSystem = state.mobile.system || 'any';
+  const answer = state.mobile;
+  const preferredSystem = answer.system || 'any';
   // Si la persona elige un sistema, nunca se muestran equipos de otro sistema.
   const compatible = preferredSystem === 'any'
     ? catalog
     : catalog.filter(item => item.system === preferredSystem);
-  const affordable = compatible.filter(item => item.price <= amount);
-  // Si elige iOS no mostramos un iPhone que rebase su presupuesto.
-  const pool = affordable.length
-    ? affordable
-    : device === 'phone' && preferredSystem === 'ios'
-      ? []
-      : [compatible.reduce((a, b) => a.price < b.price ? a : b)];
-  const ranked = pool.map(item => ({ item, score: scoreMobile(item, device) }))
+  const hasRequiredAccessory = item => device !== 'tablet' || answer.accessory === 'none'
+    || (answer.accessory === 'pen' && item.pen)
+    || (answer.accessory === 'keyboard' && item.keyboard)
+    || (answer.accessory === 'both' && item.pen && item.keyboard);
+  const affordable = compatible.filter(item => item.price <= amount && hasRequiredAccessory(item));
+  const ranked = affordable.map(item => ({ item, score: scoreMobile(item, device) }))
     .sort((a, b) => b.score - a.score || a.item.price - b.item.price);
-  return { items: ranked.map(x => x.item), overBudget: !affordable.length };
+  return { items: ranked.map(x => x.item) };
 }
 
 function mobileReason(item, device) {
   const answer = state.mobile;
   const reasons = [];
-  if (item.uses.includes(state.use)) reasons.push(device === 'tablet' ? 'Se ajusta al uso que elegiste' : 'Se ajusta a tu uso diario');
+  if (item.uses.includes(state.use)) reasons.push('Se ajusta al uso que elegiste');
   if (device === 'tablet') {
     if (answer.screen !== 'any' && item.screen === answer.screen) reasons.push('Coincide con el tamaño de pantalla que prefieres');
     if (answer.accessory === 'pen' && item.pen) reasons.push('Es compatible con lápiz');
@@ -530,7 +542,7 @@ function mobileReason(item, device) {
    ===================================================================== */
 const state = {
   device: null, profile: null, field: null, auto: false, use: null, budget: null,
-  mobile: {}, mobileRanked: [], mobileIndex: -1, mobileOverBudget: false,
+  mobile: {}, mobileRanked: [], mobileIndex: -1,
   last: '', timer: null, build: null,
 };
 const needsField = () => state.profile === 'student' || state.profile === 'work';
@@ -538,7 +550,6 @@ const isMobileDevice = () => state.device === 'tablet' || state.device === 'phon
 function clearMobileRecommendations() {
   state.mobileRanked = [];
   state.mobileIndex = -1;
-  state.mobileOverBudget = false;
 }
 
 function progressFor(name) {
@@ -564,6 +575,8 @@ function progressFor(name) {
   };
 }
 
+const hasTouchNavigation = () => window.matchMedia?.('(any-pointer: coarse)').matches || 'ontouchstart' in window;
+
 function show(name) {
   $$('.view').forEach(v => {
     const on = v.dataset.view === name;
@@ -576,6 +589,8 @@ function show(name) {
   $('#step-label').textContent = progress.label;
   $('#progress').setAttribute('aria-valuenow', String(progress.value));
   $('#bar').style.width = `${progress.value}%`;
+  const swipeHelp = $('#swipe-help');
+  if (swipeHelp) swipeHelp.hidden = !hasTouchNavigation() || name === 'welcome' || name === 'loading';
   window.scrollTo({ top: 0 });
 }
 
@@ -607,7 +622,7 @@ function renderMobileQuestions() {
 
 function renderOptions(key) {
   const options = key === 'budget' && isMobileDevice()
-    ? OPTIONS.budget.map(o => ({ ...o, hint: o.id === 'eco' ? (state.device === 'phone' ? 'Desde $4,000; incluye iPhone reacondicionados' : 'Cuidando cada peso') : o.id === 'mid' ? 'Buen equilibrio entre precio y funciones' : 'Más opciones de rendimiento y espacio' }))
+    ? OPTIONS.budget.map(o => ({ ...o, hint: o.id === 'eco' ? (state.device === 'phone' ? 'Desde $2,500; iPhone reacondicionados desde $3,999' : 'Para presupuestos ajustados') : o.id === 'mid' ? 'Buen equilibrio entre precio y funciones' : 'Más opciones de rendimiento y espacio' }))
     : OPTIONS[key];
   $(`#opts-${key}`).innerHTML = options.map(o => `
     <button type="button" class="opt" data-key="${key}" data-value="${o.id}" aria-pressed="false">
@@ -688,7 +703,7 @@ function choose(key, value) {
 function reset() {
   clearTimeout(state.timer);
   Object.assign(state, {
-    device: null, profile: null, field: null, auto: false, use: null, budget: null, mobile: {}, mobileRanked: [], mobileIndex: -1, mobileOverBudget: false, last: '', build: null,
+    device: null, profile: null, field: null, auto: false, use: null, budget: null, mobile: {}, mobileRanked: [], mobileIndex: -1, last: '', build: null,
   });
   const otherButton = $('[data-action="other"]');
   otherButton.disabled = false;
@@ -709,15 +724,35 @@ function analyze() {
   state.timer = setTimeout(() => showResults(false), 1500 + Math.random() * 500);
 }
 
+function showEmptyResults(title, summary, detail) {
+  state.build = null;
+  state.last = '';
+  $('#result-title').textContent = title;
+  $('#summary').textContent = summary;
+  $('#cards').classList.remove('three');
+  $('#cards').classList.add('mobile-single');
+  $('#cards').innerHTML = `<article class="card empty-card"><span class="part-icon" aria-hidden="true">🔎</span><h3>Qué puedes hacer</h3><p class="detail">${detail}</p></article>`;
+  $('#total-line').hidden = true;
+  $('#note').textContent = 'Las recomendaciones son orientativas. Revisa las especificaciones y el precio actual antes de comprar.';
+  const otherButton = $('[data-action="other"]');
+  otherButton.disabled = true;
+  otherButton.textContent = 'No hay más opciones';
+  show('results');
+}
+
 function showResults(reroll) {
-  const titles = { pc: 'Tu PC de escritorio ideal', laptop: 'Tu laptop ideal', tablet: 'La tableta que mejor encaja contigo', phone: 'El teléfono que mejor encaja contigo' };
+  const titles = { pc: 'Tu computadora de escritorio', laptop: 'Tu laptop', tablet: 'La tableta que mejor encaja contigo', phone: 'El teléfono que mejor encaja contigo' };
   $('#result-title').textContent = titles[dev()];
   const otherButton = $('[data-action="other"]');
   otherButton.disabled = false;
   otherButton.textContent = 'Ver otra opción';
   if (isMobileDevice()) return showMobileList(reroll);
   if (state.device === 'laptop') return showList(reroll);
-  state.build = recommend(state.use, state.budget, reroll ? state.last : '');
+  const amount = Number($('#budget-range').value);
+  state.build = recommend(state.use, tierOf(amount), amount, reroll ? state.last : '');
+  if (!state.build) {
+    return showEmptyResults('No hay una combinación dentro del tope', `No encontramos componentes para ${labelOf('use', state.use)} por ${mxn.format(amount)} o menos.`, 'Aumenta el presupuesto o vuelve a tus respuestas para elegir otro uso. No mostraremos una combinación que supere el monto seleccionado.');
+  }
   state.last = keyOf(state.build);
   paint(state.build);
   show('results');
@@ -735,7 +770,6 @@ function showMobileList(reroll) {
     const r = recommendMobile(d, amount);
     state.mobileRanked = r.items;
     state.mobileIndex = 0;
-    state.mobileOverBudget = r.overBudget;
   } else if (state.mobileIndex < state.mobileRanked.length - 1) {
     state.mobileIndex += 1;
   }
@@ -743,25 +777,22 @@ function showMobileList(reroll) {
   state.build = null;
   if (!p) {
     state.last = '';
-    $('#summary').textContent = `No encontramos ${article} ${label} compatible con ${systemName} por ${mxn.format(amount)} o menos. Aumenta el presupuesto para ver más opciones.`;
-    $('#cards').classList.remove('three');
-    $('#cards').classList.add('mobile-single');
-    $('#cards').innerHTML = `<article class="card"><span class="part-icon" aria-hidden="true">📲</span><h3>No hay opciones dentro del presupuesto</h3><p class="detail">Ajusta el monto y vuelve a consultar para comparar modelos compatibles con ${systemName}.</p></article>`;
-    const otherButton = $('[data-action="other"]');
-    otherButton.disabled = true;
-    otherButton.textContent = 'No hay más opciones';
-    $('#total-line').hidden = true;
-    $('#note').textContent = 'Los precios son aproximados. Revisa el precio actual y la compatibilidad del equipo antes de comprar.';
-    show('results');
-    return;
+    const systemPreference = state.mobile.system === 'any' ? '' : ` con ${systemName}`;
+    const accessoryLabel = d !== 'tablet' || state.mobile.accessory === 'none' ? ''
+      : state.mobile.accessory === 'pen' ? 'compatible con lápiz'
+        : state.mobile.accessory === 'keyboard' ? 'compatible con teclado' : 'compatible con lápiz y teclado';
+    const accessoryPreference = accessoryLabel ? `${systemPreference ? ' y ' : ' '}${accessoryLabel}` : '';
+    return showEmptyResults(
+      'No hay opciones dentro del presupuesto',
+      `No encontramos ${article} ${label}${systemPreference}${accessoryPreference} que se ajuste a tus respuestas y cueste ${mxn.format(amount)} o menos.`,
+      'Aumenta el monto o cambia tus preferencias. No mostraremos un equipo incompatible ni uno que supere el límite elegido.'
+    );
   }
   state.last = `${p.brand}|${p.big}`;
   const focus = d === 'tablet'
     ? `tu preferencia de uso, pantalla ${state.mobile.screen === 'compact' ? 'compacta' : state.mobile.screen === 'large' ? 'grande' : 'mediana'} y sistema ${systemName}`
-    : `tu prioridad de ${MOBILE_QUESTIONS.phone[0].options.find(o => o.id === state.mobile.priority)?.label.toLowerCase()}, pantalla ${state.mobile.screen === 'any' ? 'sin preferencia de tamaño' : state.mobile.screen === 'compact' ? 'compacta' : 'grande'}, almacenamiento y sistema ${systemName}`;
-  $('#summary').textContent = state.mobileOverBudget
-    ? `No encontramos ${article} ${label}${state.mobile.system !== 'any' ? ` compatible con ${systemName}` : ''} por ${mxn.format(amount)} o menos. Aquí está la opción más económica que coincide con tu preferencia.`
-    : `Opción ${state.mobileIndex + 1} de ${state.mobileRanked.length}, elegida según ${focus}. Tope seleccionado: ${mxn.format(amount)}. Cada vez que pulses «Ver otra opción» avanzarás a un modelo distinto.`;
+    : `tu prioridad de ${MOBILE_QUESTIONS.phone[0].options.find(o => o.id === state.mobile.priority)?.label.toLowerCase()}, pantalla ${state.mobile.screen === 'standard' ? 'estándar' : 'grande'}, almacenamiento y sistema ${systemName}`;
+  $('#summary').textContent = `Opción ${state.mobileIndex + 1} de ${state.mobileRanked.length}, elegida según ${focus}. Precio máximo: ${mxn.format(amount)}. Cada vez que pulses «Ver otra opción» verás una alternativa diferente.`;
   $('#cards').classList.remove('three', 'mobile-single');
   $('#cards').classList.add('mobile-single');
   $('#cards').innerHTML = `
@@ -774,7 +805,7 @@ function showMobileList(reroll) {
       <p class="detail">${p.detail}</p>
       <p class="match-reason">${mobileReason(p, d)}</p>
       <p class="price">${mxn.format(p.price)} <small>aprox.</small></p>
-      <a class="ml" href="${p.source}" target="_blank" rel="noopener">${p.sourceLabel || 'Ver ficha oficial'}</a>
+      <a class="ml" href="${p.source}" target="_blank" rel="noopener noreferrer">${p.sourceLabel || 'Ver ficha oficial'}</a>
     </article>`;
   const otherButton = $('[data-action="other"]');
   const allShown = state.mobileIndex >= state.mobileRanked.length - 1;
@@ -786,15 +817,16 @@ function showMobileList(reroll) {
 }
 
 function paint(build) {
+  const amount = Number($('#budget-range').value);
   $('#summary').textContent = build.fallback
-    ? `No encontré una combinación exacta para ${selectionFocus()}. Esta opción sirve como referencia${state.budget === 'eco' ? ' y conserva 8 GB de RAM en el nivel económico' : ''}.`
-    : `Una opción para ${selectionFocus()}, enfocada en ${labelOf('use', state.use)} y en un presupuesto ${labelOf('budget', state.budget)}.`;
+    ? `No encontré una combinación exacta para ${selectionFocus()}. Esta opción de referencia cuesta ${mxn.format(totalOf(build))} y está dentro del máximo de ${mxn.format(amount)}.`
+    : `Una opción para ${selectionFocus()} dentro del máximo de ${mxn.format(amount)}. El subtotal de las piezas mostradas es ${mxn.format(totalOf(build))}.`;
 
   $('#cards').classList.remove('three', 'mobile-single');
   $('#cards').innerHTML = PARTS.map(([k, icon, name, help]) => {
     const p = build[k];
     const link = p.price
-      ? `<a class="ml" href="https://listado.mercadolibre.com.mx/${slug(`${p.brand} ${p.big} ${p.detail}`)}" target="_blank" rel="noopener">Ver en Mercado Libre</a>`
+      ? `<a class="ml" href="https://listado.mercadolibre.com.mx/${slug(`${p.brand} ${p.big} ${p.detail}`)}" target="_blank" rel="noopener noreferrer">Buscar precio en Mercado Libre</a>`
       : '';
     const swapBtn = !build.fallback && k !== 'cpu'
       ? `<button type="button" class="swap" data-action="swap" data-part="${k}" aria-label="Probar otra pieza: ${name}">Probar otra</button>`
@@ -820,12 +852,22 @@ function paint(build) {
 
 function showList(reroll) {
   const d = state.device;
-  const r = recommendList(d, state.use, state.budget, state.profile, reroll ? state.last : '');
+  const amount = Number($('#budget-range').value);
+  const r = recommendList(d, state.use, tierOf(amount), state.profile, amount, reroll ? state.last : '');
+  if (!r.items.length) {
+    const lowest = LAPTOPS.filter(item => item.u.includes(state.use)).sort((a, b) => a.price - b.price)[0];
+    const detail = lowest
+      ? `La opción de menor precio que aparece en esta guía para ese uso cuesta ${mxn.format(lowest.price)} aproximadamente. Ajusta el monto o cambia tus respuestas para ver alternativas.`
+      : 'Aumenta el monto o vuelve a tus respuestas para elegir otro uso.';
+    return showEmptyResults(
+      'No hay laptops dentro del tope',
+      `No encontramos una laptop para ${labelOf('use', state.use)} por ${mxn.format(amount)} o menos.`,
+      detail
+    );
+  }
   state.last = keyList(r.items);
   state.build = null;
-  $('#summary').textContent = r.fallback
-    ? `No encontré una coincidencia exacta para ${selectionFocus()}. Esta opción sirve como referencia${state.budget === 'eco' ? ' y conserva 8 GB de RAM en el nivel económico' : ''}.`
-    : `Una opción para ${selectionFocus()}, enfocada en ${labelOf('use', state.use)} y en un presupuesto ${labelOf('budget', state.budget)}.`;
+  $('#summary').textContent = `Opciones para ${selectionFocus()} dentro del máximo de ${mxn.format(amount)}. Los precios son aproximados.`;
   const icon = '💻';
   $('#cards').classList.remove('mobile-single');
   $('#cards').classList.add('three');
@@ -837,7 +879,7 @@ function showList(reroll) {
       <p class="big">${p.big}</p>
       <p class="detail">${p.detail}</p>
       <p class="price">${mxn.format(p.price)}</p>
-      <a class="ml" href="https://listado.mercadolibre.com.mx/${slug(`${p.brand} ${p.big}`)}" target="_blank" rel="noopener">Ver en Mercado Libre</a>
+      <a class="ml" href="https://listado.mercadolibre.com.mx/${slug(`${p.brand} ${p.big}`)}" target="_blank" rel="noopener noreferrer">Buscar precio en Mercado Libre</a>
     </article>`).join('');
   $('#total-line').hidden = true;
   $('#note').textContent = LAP_NOTE;
@@ -851,10 +893,12 @@ function swap(part, btn) {
   const b = state.build;
   if (!b || b.fallback) return;
   const use = POOL[state.use] || state.use;
+  const maxAmount = Number($('#budget-range').value);
   const list = DB[part].filter(p => p !== b[part] && (part === 'ram' ? fitsRam(p, state.budget, use) : fits(p, state.budget, use))
     && (part !== 'ram' || p.type === b.cpu.ram)
-    && (part !== 'gpu' || b.cpu.igpu || !p.integrated));
-  if (!list.length) { btn.textContent = 'No hay más opciones'; btn.disabled = true; return; }
+    && (part !== 'gpu' || b.cpu.igpu || !p.integrated)
+    && totalOf({ ...b, [part]: p }) <= maxAmount);
+  if (!list.length) { btn.textContent = 'No hay otra opción dentro del presupuesto'; btn.disabled = true; return; }
   state.build = { ...b, [part]: pick(list) };
   state.last = keyOf(state.build);
   paint(state.build);
@@ -876,6 +920,7 @@ function paintThemeButton() {
   const btn = $('#theme');
   btn.textContent = light ? '🌙' : '☀️';
   btn.setAttribute('aria-label', light ? 'Cambiar a tema oscuro' : 'Cambiar a tema claro');
+  $('#theme-color')?.setAttribute('content', light ? '#f4f1f9' : '#0f0a1a');
 }
 
 function toggleTheme() {
@@ -915,10 +960,54 @@ const actions = {
   'back-use': () => show(needsField() ? 'field' : 'profile'),
   'next-use': () => { if (state.use) show('budget'); },
   'back-budget': () => show(isMobileDevice() ? 'mobile-questions' : 'use'),
+  'back-results': () => show('budget'),
   'next-budget': analyze,
   other: () => showResults(true),
   swap: (b) => swap(b.dataset.part, b),
 };
+
+// Un deslizamiento a la derecha vuelve un paso y conserva las respuestas.
+const swipeBackActions = {
+  device: 'back-device',
+  'mobile-questions': 'back-mobile',
+  profile: 'back-profile',
+  field: 'back-field',
+  use: 'back-use',
+  budget: 'back-budget',
+};
+let swipeOrigin = null;
+document.addEventListener('touchstart', e => {
+  if (!hasTouchNavigation() || e.touches.length !== 1) { swipeOrigin = null; return; }
+  const target = e.target;
+  if (target.closest('button, a, input, textarea, select, [contenteditable="true"], .range, .field-list')) { swipeOrigin = null; return; }
+  const touch = e.touches[0];
+  if (touch.clientX < 20 || touch.clientX > window.innerWidth - 20) { swipeOrigin = null; return; }
+  swipeOrigin = { x: touch.clientX, y: touch.clientY, time: Date.now() };
+}, { passive: true });
+
+document.addEventListener('touchend', e => {
+  if (!swipeOrigin || e.changedTouches.length !== 1) { swipeOrigin = null; return; }
+  const start = swipeOrigin;
+  swipeOrigin = null;
+  const touch = e.changedTouches[0];
+  const dx = touch.clientX - start.x;
+  const dy = touch.clientY - start.y;
+  if (dx < 75 || Math.abs(dy) > 80 || dx < Math.abs(dy) * 1.25 || Date.now() - start.time > 1000) return;
+
+  const view = $('.view.active')?.dataset.view;
+  if (view === 'results') { $('[data-action="back-results"]')?.click(); return; }
+  const actionName = swipeBackActions[view];
+  if (actionName) $(`[data-action="${actionName}"]`)?.click();
+}, { passive: true });
+document.addEventListener('touchcancel', () => { swipeOrigin = null; }, { passive: true });
+
+// Bloquea la copia de texto en teléfonos y computadoras.
+document.addEventListener('contextmenu', e => {
+  const target = e.target instanceof Element ? e.target : e.target.parentElement;
+  if (target?.closest('a, input, textarea, select, [contenteditable="true"]')) return;
+  e.preventDefault();
+});
+document.addEventListener('copy', e => e.preventDefault());
 
 document.addEventListener('click', e => {
   const btn = e.target.closest('button');

@@ -4,11 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
-  <title>Recomendador de equipos</title>
+  <meta name="description" content="Compara computadoras, laptops, tabletas y teléfonos según tus tareas y el presupuesto máximo que elijas.">
+  <meta name="theme-color" id="theme-color" content="#0f0a1a">
+  <title>Recomendador de equipos | Guía de compra</title>
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#app">Saltar al contenido</a>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--blue)"/><stop offset="1" style="stop-color:var(--violet)"/></linearGradient></defs>
     <symbol id="logo" viewBox="0 0 64 64"><rect x="4" y="6" width="56" height="38" rx="10" fill="url(#lg)"/><circle cx="23" cy="22" r="4" fill="#fff"/><circle cx="41" cy="22" r="4" fill="#fff"/><path d="M22 32q10 8 20 0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><path d="M24 58h16M32 44v14" fill="none" stroke="url(#lg)" stroke-width="5" stroke-linecap="round"/></symbol>
@@ -25,15 +28,17 @@
     <div class="bar" id="progress" role="progressbar" aria-label="Avance" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="bar"></i></div>
   </div>
 
-  <main id="app">
+  <noscript><p class="noscript">Este recomendador necesita JavaScript. Actívalo en el navegador para responder las preguntas y ver opciones.</p></noscript>
+
+  <main id="app" tabindex="-1">
     <section class="view active" data-view="welcome">
       <svg class="hero-logo" viewBox="0 0 64 64" aria-hidden="true"><use href="#logo"/></svg>
       <h1 class="title" tabindex="-1">Encuentra el equipo adecuado para ti</h1>
       <p class="lead">Responde algunas preguntas para encontrar una computadora, tableta o teléfono que se ajuste a tus necesidades y presupuesto.</p>
-      <button type="button" class="btn btn-lg" data-action="start">Comenzar</button>
+      <button type="button" class="btn btn-lg" data-action="start">Comenzar recomendación</button>
       <article class="story">
         <h2>Sobre este proyecto</h2>
-        <p>Este proyecto busca facilitar la elección de un equipo electrónico. Algunas guías usan términos técnicos que pueden dificultar la comparación. Aquí presentamos la información con palabras sencillas para que puedas elegir según tus necesidades.</p>
+        <p>Elegir un equipo electrónico puede ser complicado. Este sitio explica las diferencias con palabras sencillas para ayudarte a comparar opciones según tus necesidades.</p>
         <h2>Cómo funciona este sitio</h2>
         <ol class="steps">
           <li><span><strong>Elige el equipo.</strong> Puedes seleccionar una computadora de escritorio, una laptop, una tableta o un teléfono.</span></li>
@@ -57,9 +62,10 @@
           <li><strong>Opción económica:</strong> las computadoras de nivel económico de esta guía incluyen 8 GB de RAM. Para tareas exigentes puedes comparar las opciones intermedias.</li>
           <li><strong>¿Qué es CAD?</strong> Es el nombre que reciben los programas de diseño asistido por computadora. Se usan para crear planos y modelos en 2D o 3D. Si los necesitas, revisa sus requisitos antes de elegir.</li>
           <li><strong>Programas:</strong> revisa qué aplicaciones necesitas para la escuela o el trabajo. Sus requisitos te ayudarán a elegir un equipo compatible.</li>
-          <li><strong>Precio:</strong> los precios son aproximados y pueden cambiar según la tienda o la configuración. Confirma el precio antes de comprar.</li>
+          <li><strong>Precio:</strong> compara el mismo modelo y configuración en distintas tiendas. Revisa qué accesorios incluye cada oferta.</li>
         </ul>
       </article>
+      <p class="note price-disclaimer">Los precios de esta guía son aproximados y no se actualizan en tiempo real. Confirma el precio, la disponibilidad y la configuración en la tienda antes de comprar.</p>
       <section class="home-faq" aria-labelledby="faq-title">
         <h2 id="faq-title" class="section-title">Preguntas frecuentes</h2>
         <details>
@@ -75,12 +81,12 @@
           <p>No. Son aproximados y pueden cambiar según la tienda, la fecha o la configuración. Confirma el precio y las especificaciones antes de comprar.</p>
         </details>
       </section>
-      <button type="button" class="btn btn-lg" data-action="start">Elegir mi equipo</button>
+      <button type="button" class="btn btn-lg" data-action="start">Comenzar recomendación</button>
     </section>
 
     <section class="view" data-view="device" hidden>
       <h2 class="title" tabindex="-1">Primero, elige tu tipo de equipo</h2>
-      <p class="lead">Elige una PC de escritorio, laptop, tablet o teléfono celular. Toca una tarjeta y pulsa «Continuar».</p>
+      <p class="lead">Elige una computadora de escritorio, laptop, tableta o teléfono celular. Selecciona una tarjeta y pulsa «Continuar».</p>
       <div class="opts device-options" id="opts-device" role="group" aria-label="Elige un tipo de equipo">
         <p class="load-help">Si las tarjetas no aparecen, extrae index.html, styles.css y app.js juntos en una carpeta y vuelve a abrir index.html.</p>
       </div>
@@ -112,7 +118,8 @@
     <section class="view" data-view="field" hidden>
       <h2 class="title" id="field-title" tabindex="-1">¿Qué carrera estudias?</h2>
       <p class="lead" id="field-hint">Elige la carrera que más se acerque a la tuya para ajustar la recomendación.</p>
-      <input type="search" id="field-search" class="search" placeholder="Busca tu carrera o trabajo" aria-label="Buscar carrera o trabajo" autocomplete="off">
+      <label class="field-label" for="field-search">Buscar carrera o trabajo</label>
+      <input type="search" id="field-search" class="search" placeholder="Escribe para filtrar la lista" autocomplete="off">
       <div id="field-list" class="field-list" role="group" aria-label="Lista de opciones"></div>
       <div class="nav">
         <button type="button" class="btn btn-ghost" data-action="back-field">Atrás</button>
@@ -132,10 +139,12 @@
 
     <section class="view" data-view="budget" hidden>
       <h2 class="title" tabindex="-1">¿Cuánto quieres invertir?</h2>
+      <p class="lead">El monto seleccionado es el máximo para la recomendación. Si no hay una opción compatible dentro de ese límite, te lo indicaremos.</p>
       <div class="opts" id="opts-budget" role="group" aria-label="Presupuesto"></div>
       <div class="range">
-        <output id="range-out" for="budget-range">Mueve la barra o elige una opción</output>
-        <input type="range" id="budget-range" min="8000" max="40000" step="500" value="17000" aria-label="Presupuesto en pesos mexicanos">
+        <label class="range-label" for="budget-range">Presupuesto máximo</label>
+        <output id="range-out" for="budget-range" aria-live="polite">Mueve la barra o elige una opción</output>
+        <input type="range" id="budget-range" min="8000" max="40000" step="500" value="17000" aria-describedby="budget-hint">
         <small id="budget-hint">El monto guía depende del tipo de equipo que elegiste.</small>
       </div>
       <div class="nav">
@@ -151,15 +160,17 @@
 
     <section class="view" data-view="results" hidden>
       <h2 class="title" id="result-title" tabindex="-1">Tu equipo ideal</h2>
-      <p class="lead" id="summary"></p>
+      <p class="lead" id="summary" aria-live="polite"></p>
       <div class="cards" id="cards"></div>
       <p class="total" id="total-line">Total estimado: <strong id="total"></strong></p>
       <p class="note" id="note">Suma de procesador, tarjeta de video, RAM y almacenamiento. Aún faltan gabinete, fuente y tarjeta madre. Los precios son aproximados.</p>
       <div class="nav">
+        <button type="button" class="btn btn-ghost" data-action="back-results">Atrás</button>
         <button type="button" class="btn btn-ghost" data-action="other">Ver otra opción</button>
         <button type="button" class="btn" data-action="reset">Empezar de nuevo</button>
       </div>
     </section>
+    <p id="swipe-help" class="gesture-hint" hidden>Desliza hacia la derecha para volver al paso anterior.</p>
   </main>
   <footer class="foot">Recomendaciones para computadoras de escritorio y laptops. También para tabletas y teléfonos. Precios aproximados.</footer>
 </body>
