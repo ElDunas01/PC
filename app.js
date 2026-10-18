@@ -148,7 +148,6 @@ const MOBILE_CATALOG = {
   ],
   phone: [
     { brand: 'Apple', big: 'iPhone 11', detail: '64 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 3999, category: 'Uso diario · reacondicionado', uses: ['basic', 'work'], priorities: ['camera', 'everyday', 'work'], screen: 'standard', storage: 'normal', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-11-64-gb-blanco-excelente-reacondicionado/p/MLM2000137020', sourceLabel: 'Ver en Mercado Libre' },
-    { brand: 'Apple', big: 'iPhone 12', detail: '64 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 4399, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create'], priorities: ['camera', 'everyday', 'work'], screen: 'standard', storage: 'normal', system: 'ios', source: 'https://www.mercadolibre.com.mx/iphone-12-dual-sim-64-gb-morado-excelente-reacondicionado/p/MLM2000029405', sourceLabel: 'Ver en Mercado Libre' },
     { brand: 'Apple', big: 'iPhone 12', detail: '128 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 4899, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'standard', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-12-morado-128-gb-4-gb/p/MLM2000108360', sourceLabel: 'Ver en Mercado Libre' },
     { brand: 'Apple', big: 'iPhone 13', detail: '128 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 5999, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'standard', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-13-128-gb-medianoche-aceptable-reacondicionado/p/MLM2000086180', sourceLabel: 'Ver en Mercado Libre' },
     { brand: 'Apple', big: 'iPhone 14', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 6499, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'standard', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-14-128-gb-medianoche-bueno-reacondicionado/p/MLM2000081741', sourceLabel: 'Ver en Mercado Libre' },
@@ -160,14 +159,18 @@ const MOBILE_CATALOG = {
     { brand: 'Motorola', big: 'moto g06', detail: '128 GB, pantalla de 6.88 pulgadas, batería grande', price: 2600, category: 'Uso diario económico', uses: ['basic'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/moto-g/06/pmipmhy42mg' },
     { brand: 'Xiaomi', big: 'REDMI Note 15', detail: 'Pantalla AMOLED de 6.77 pulgadas, 128 GB', price: 4999, category: 'Uso diario y batería', uses: ['basic', 'work'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.mi.com/mx/product/redmi-note-15/' },
     { brand: 'Samsung', big: 'Galaxy A17 5G', detail: '128 GB, 5G, pantalla de 6.7 pulgadas', price: 4999, category: 'Uso diario y trabajo ligero', uses: ['basic', 'work'], priorities: ['battery', 'everyday', 'work'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-a/galaxy-a17-5g-blue-128gb-sm-a176bzbrltm/' },
-    { brand: 'Motorola', big: 'moto g17', detail: 'Pantalla FHD+ de 6.7 pulgadas, cámara de 50 MP', price: 4999, category: 'Uso diario y fotos', uses: ['basic', 'create'], priorities: ['camera', 'battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/moto-g/17/pmipmjn44mh' },
+    { brand: 'Samsung', big: 'Galaxy A17 LTE', detail: 'Pantalla Super AMOLED de 6.7 pulgadas y 128 GB', price: 3999, category: 'Uso diario y trabajo', uses: ['basic', 'work'], priorities: ['battery', 'everyday', 'work'], screen: 'large', storage: 'normal', system: 'android', source: 'https://listado.mercadolibre.com.mx/samsung-galaxy-a17-lte', sourceLabel: 'Buscar ofertas' },
+    { brand: 'Samsung', big: 'Galaxy A07', detail: 'Pantalla de 6.7 pulgadas y almacenamiento para uso diario', price: 2999, category: 'Uso diario económico', uses: ['basic', 'work'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-a/galaxy-a07-black-128gb-sm-a075fzkaltm/' },
+    { brand: 'Motorola', big: 'moto g17', detail: 'Pantalla FHD+ de 6.7 pulgadas, cámara de 50 MP', price: 3799, category: 'Uso diario y fotos', uses: ['basic', 'create'], priorities: ['camera', 'battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/moto-g/17/pmipmjn44mh' },
+    { brand: 'Motorola', big: 'moto g15', detail: 'Pantalla de 6.72 pulgadas y batería de 5,200 mAh', price: 3999, category: 'Uso diario y fotografía', uses: ['basic', 'create', 'work'], priorities: ['camera', 'battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://listado.mercadolibre.com.mx/motorola-moto-g15', sourceLabel: 'Buscar ofertas' },
     { brand: 'Motorola', big: 'moto g67 5G', detail: '256 GB, 5G, Android 16', price: 5999, category: 'Uso diario, trabajo y juegos casuales', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['battery', 'everyday', 'gaming', 'camera', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/moto-g/67/pmipmjh43mt' },
     { brand: 'Xiaomi', big: 'REDMI Note 17', detail: 'Pantalla AMOLED de 6.99 pulgadas, 256 GB', price: 7999, category: 'Uso diario y trabajo', uses: ['basic', 'work', 'create'], priorities: ['camera', 'battery', 'everyday', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/redmi-note-17/' },
     { brand: 'Samsung', big: 'Galaxy A36 5G', detail: '128 GB, 5G, pantalla Super AMOLED', price: 7999, category: 'Trabajo y uso diario', uses: ['basic', 'work', 'create'], priorities: ['camera', 'battery', 'everyday', 'work'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-a/galaxy-a36-5g-awesome-black-128gb-sm-a366ezkaltm/' },
     { brand: 'POCO', big: 'X7 Pro 5G', detail: 'Pantalla 1.5K de 6.83 pulgadas y sistema de refrigeración para juegos', price: 8499, category: 'Gaming', uses: ['gaming', 'create'], priorities: ['gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/poco-x7-pro/' },
+    { brand: 'POCO', big: 'C85', detail: 'Pantalla IPS de 6.9 pulgadas y batería de 6,000 mAh', price: 3599, category: 'Uso diario y juegos casuales', uses: ['basic', 'gaming'], priorities: ['battery', 'everyday', 'gaming'], screen: 'large', storage: 'normal', system: 'android', source: 'https://listado.mercadolibre.com.mx/xiaomi-poco-c85', sourceLabel: 'Buscar ofertas' },
     { brand: 'Samsung', big: 'Galaxy A56 5G', detail: '128 GB, 5G, pantalla de 6.7 pulgadas', price: 9999, category: 'Trabajo, fotos y uso diario', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'battery', 'everyday', 'work'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-a/galaxy-a56-5g-awesome-graphite-128gb-sm-a566ezkbltm/' },
     { brand: 'Motorola', big: 'edge 60 Fusion', detail: 'Pantalla pOLED de 6.7 pulgadas, cámara y carga rápida', price: 10999, category: 'Trabajo, fotos y uso diario', uses: ['basic', 'work', 'create'], priorities: ['camera', 'battery', 'everyday', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/motorola-edge/60-fusion/pmipmhq40my' },
-    { brand: 'Xiaomi', big: 'POCO F7', detail: 'Pantalla de 6.83 pulgadas y rendimiento optimizado para juegos', price: 11999, category: 'Gaming', uses: ['gaming', 'create'], priorities: ['gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/poco-f7/' },
+    { brand: 'POCO', big: 'POCO F7', detail: 'Pantalla de 6.83 pulgadas y rendimiento optimizado para juegos', price: 11999, category: 'Gaming', uses: ['gaming', 'create'], priorities: ['gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/poco-f7/' },
     { brand: 'Xiaomi', big: 'REDMI Note 17 Pro 5G', detail: '5G, cámara con estabilización y pantalla AMOLED de 6.83 pulgadas', price: 12999, category: 'Trabajo, fotos y uso diario', uses: ['basic', 'work', 'create'], priorities: ['camera', 'battery', 'everyday', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/redmi-note-17-pro-5g/' },
     { brand: 'Motorola', big: 'edge 60 Pro', detail: 'Pantalla pOLED de 6.7 pulgadas, cámara avanzada y carga rápida', price: 14999, category: 'Trabajo y fotografía', uses: ['work', 'create', 'basic'], priorities: ['camera', 'battery', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/motorola-edge/60-pro/pmipmht41mf' },
     { brand: 'POCO', big: 'F7 Pro', detail: 'Snapdragon 8 Gen 3 y funciones para gaming exigente', price: 15999, category: 'Gaming avanzado', uses: ['gaming', 'create'], priorities: ['gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/poco-f7-pro/' },
@@ -177,6 +180,9 @@ const MOBILE_CATALOG = {
     { brand: 'Motorola', big: 'Signature', detail: 'Pantalla AMOLED de 6.8 pulgadas, cámara de alta resolución y funciones de IA', price: 24999, category: 'Trabajo y creación profesional', uses: ['work', 'create', 'gaming'], priorities: ['camera', 'battery', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/motorola-signature/signature/pmipmje43mf' },
     { brand: 'REDMAGIC', big: '11 Pro', detail: 'Teléfono diseñado para gaming, con ventilación y controles dedicados', price: 26999, category: 'Gaming dedicado', uses: ['gaming'], priorities: ['gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://global.redmagic.gg/products/redmagic-11-pro' },
     { brand: 'Xiaomi', big: 'REDMI A5', detail: 'Pantalla grande, 64 GB y batería para uso diario', price: 2499, category: 'Uso diario económico', uses: ['basic'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.mi.com/mx/product/redmi-a5/' },
+    { brand: 'Xiaomi', big: 'Redmi 13C', detail: '128 GB y pantalla de 6.7 pulgadas', price: 3699, category: 'Uso diario y entretenimiento', uses: ['basic', 'work'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://listado.mercadolibre.com.mx/xiaomi-redmi-13c', sourceLabel: 'Buscar ofertas' },
+    { brand: 'Xiaomi', big: 'Redmi 15', detail: 'Pantalla de 6.9 pulgadas y batería de gran capacidad', price: 3499, category: 'Uso diario, video y lectura', uses: ['basic', 'work'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.mi.com/mx/product/redmi-15/' },
+    { brand: 'Xiaomi', big: 'Redmi A7 Pro', detail: 'Pantalla de 6.9 pulgadas y batería para uso diario', price: 3299, category: 'Uso diario económico', uses: ['basic', 'work'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://listado.mercadolibre.com.mx/xiaomi-redmi-a7-pro', sourceLabel: 'Buscar ofertas' },
     { brand: 'HONOR', big: 'X7e', detail: '256 GB, batería de 7500 mAh y pantalla de 120 Hz', price: 4999, category: 'Uso diario y batería', uses: ['basic', 'work'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.honor.com/mx/phones/honor-x7e/' },
     { brand: 'HONOR', big: 'X8d', detail: '256 GB, cámara de 108 MP y batería de 7000 mAh', price: 6999, category: 'Fotos, trabajo y uso diario', uses: ['basic', 'work', 'create'], priorities: ['camera', 'battery', 'everyday', 'work'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.honor.com/mx/phones/honor-x8d/' },
     { brand: 'POCO', big: 'X8 Pro', detail: 'Pantalla de alta frecuencia y funciones optimizadas para juegos', price: 8999, category: 'Gaming', uses: ['gaming', 'create'], priorities: ['gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.mi.com/mx/product/poco-x8-pro/' },
@@ -189,6 +195,187 @@ const MOBILE_CATALOG = {
     { brand: 'HONOR', big: 'Magic8 Pro', detail: 'Cámara con zoom óptico y funciones avanzadas de IA', price: 29999, category: 'Fotografía, trabajo y gaming', uses: ['work', 'create', 'gaming'], priorities: ['camera', 'work', 'gaming'], screen: 'large', storage: 'lots', system: 'android', source: 'https://www.honor.com/mx/phones/honor-magic8-pro/' },
   ],
 };
+
+// Modelos históricos o reacondicionados para dar variedad a cada marca.
+// No asignamos especificaciones no verificadas: el enlace abre una búsqueda
+// para revisar la variante, el estado y el precio disponible en ese momento.
+const PHONE_ARCHIVE = {
+  Apple: [
+    'iPhone 18 Pro Max', 'iPhone 18 Pro', 'iPhone 18', 'iPhone 17 Pro Max', 'iPhone 17 Pro', 'iPhone Air',
+    'iPhone 16 Pro Max', 'iPhone 16 Pro', 'iPhone 16 Plus', 'iPhone 15 Plus', 'iPhone 15 Pro Max',
+    'iPhone 14 Plus', 'iPhone 14 Pro', 'iPhone 14 Pro Max', 'iPhone 13 mini', 'iPhone 13 Pro Max',
+    'iPhone 12 mini', 'iPhone 12 Pro', 'iPhone 12 Pro Max', 'iPhone 11 Pro', 'iPhone 11 Pro Max',
+    'iPhone SE (3.ª generación)', 'iPhone XR', 'iPhone XS', 'iPhone XS Max', 'iPhone X',
+    'iPhone 8', 'iPhone 8 Plus', 'iPhone 7', 'iPhone 7 Plus', 'iPhone 6s', 'iPhone 6s Plus',
+    'iPhone 6', 'iPhone 6 Plus', 'iPhone SE (2.ª generación)', 'iPhone SE (1.ª generación)',
+    'iPhone 5s', 'iPhone 5c', 'iPhone 5', 'iPhone 4s', 'iPhone 4', 'iPhone 3GS',
+  ],
+  Motorola: [
+    'edge 70 Fusion', 'edge 60 Neo', 'edge 60', 'edge 50 Ultra', 'edge 50 Pro', 'edge 50 Neo',
+    'edge 50 Fusion', 'edge 40 Pro', 'edge 40 Neo', 'edge 40', 'edge 30 Ultra', 'edge 30 Fusion',
+    'edge 30 Neo', 'edge 30', 'edge 20 Pro', 'edge 20', 'edge 20 Lite', 'edge+', 'edge+ (2023)',
+    'razr 60 Ultra', 'razr 60+', 'razr 60', 'razr 50 Ultra', 'razr 50', 'razr 40 Ultra', 'razr 40',
+    'razr (2023)', 'moto g86', 'moto g85', 'moto g84', 'moto g75', 'moto g73', 'moto g72',
+    'moto g71 5G', 'moto g70', 'moto g62 5G', 'moto g60', 'moto g60s', 'moto g52', 'moto g51 5G',
+    'moto g50', 'moto g42', 'moto g41', 'moto g40 Fusion', 'moto g31', 'moto g30', 'moto g22',
+    'moto g20', 'moto g10', 'moto g9 Plus', 'moto g8 Plus', 'moto g7 Plus', 'moto g6 Plus',
+    'moto g5 Plus', 'moto g4 Plus', 'moto e15', 'moto e14', 'moto e13', 'moto e7 Plus',
+    'moto e6 Plus', 'moto e5 Plus',
+  ],
+  Samsung: [
+    'Galaxy S26 Ultra', 'Galaxy S26+', 'Galaxy S26', 'Galaxy S25 Ultra', 'Galaxy S25+', 'Galaxy S25',
+    'Galaxy S24 Ultra', 'Galaxy S24+', 'Galaxy S24', 'Galaxy S23 Ultra', 'Galaxy S23+', 'Galaxy S23',
+    'Galaxy S22 Ultra', 'Galaxy S22+', 'Galaxy S22', 'Galaxy S21 Ultra', 'Galaxy S21+', 'Galaxy S21',
+    'Galaxy S20 Ultra', 'Galaxy S20+', 'Galaxy S20', 'Galaxy S10+', 'Galaxy S10', 'Galaxy S9+',
+    'Galaxy S9', 'Galaxy S8+', 'Galaxy S8', 'Galaxy Note20 Ultra', 'Galaxy Note20', 'Galaxy Note10+',
+    'Galaxy Note10', 'Galaxy A57 5G', 'Galaxy A55 5G', 'Galaxy A54 5G', 'Galaxy A53 5G',
+    'Galaxy A52s 5G', 'Galaxy A52 5G', 'Galaxy A51', 'Galaxy A50', 'Galaxy A42 5G', 'Galaxy A41',
+    'Galaxy A32 5G', 'Galaxy A31', 'Galaxy A30', 'Galaxy A21s', 'Galaxy A20', 'Galaxy A12',
+    'Galaxy A11', 'Galaxy A10', 'Galaxy A71', 'Galaxy A70', 'Galaxy A72', 'Galaxy A73 5G',
+    'Galaxy A34 5G', 'Galaxy A33 5G', 'Galaxy A24', 'Galaxy A23', 'Galaxy A22', 'Galaxy A14',
+    'Galaxy A13', 'Galaxy A03s', 'Galaxy A02s',
+  ],
+  Xiaomi: [
+    'Xiaomi 17 Ultra', 'Xiaomi 17 Pro', 'Xiaomi 17', 'Xiaomi 15 Ultra', 'Xiaomi 15 Pro', 'Xiaomi 15',
+    'Xiaomi 14 Ultra', 'Xiaomi 14 Pro', 'Xiaomi 14', 'Xiaomi 13 Ultra', 'Xiaomi 13T Pro', 'Xiaomi 13T',
+    'Xiaomi 13 Pro', 'Xiaomi 13', 'Xiaomi 12T Pro', 'Xiaomi 12T', 'Xiaomi 12 Pro', 'Xiaomi 12',
+    'Xiaomi 11T Pro', 'Xiaomi 11T', 'Xiaomi 11 Ultra', 'Xiaomi 11', 'Xiaomi Mi 10T Pro', 'Xiaomi Mi 10T',
+    'Xiaomi Mi 10 Pro', 'Xiaomi Mi 10', 'Xiaomi Mi 9', 'Xiaomi Mi 9T Pro', 'Xiaomi Mi 9T', 'Xiaomi Mi 8',
+    'Xiaomi Mi 6', 'Xiaomi MIX Fold 4', 'Xiaomi MIX Flip', 'Xiaomi MIX Fold 3', 'Xiaomi MIX 4',
+    'Xiaomi MIX Fold 2', 'Xiaomi MIX Fold', 'Xiaomi Mi MIX 3', 'Xiaomi Civi 4 Pro', 'Xiaomi Civi 3',
+    'Xiaomi Civi 2', 'Redmi Note 14 Pro+ 5G', 'Redmi Note 14 Pro 5G', 'Redmi Note 14 5G', 'Redmi Note 14',
+    'Redmi Note 13 Pro+ 5G', 'Redmi Note 13 Pro 5G', 'Redmi Note 13 5G', 'Redmi Note 12 Pro+ 5G',
+    'Redmi Note 12 Pro 5G', 'Redmi Note 12 5G', 'Redmi Note 11 Pro 5G', 'Redmi Note 11S',
+    'Redmi Note 11', 'Redmi Note 10 Pro', 'Redmi Note 10', 'Redmi Note 9S', 'Redmi Note 9',
+    'Redmi Note 8 Pro', 'Redmi Note 8', 'Redmi 14C', 'Redmi 13', 'Redmi 12', 'Redmi 12C',
+    'Redmi 11', 'Redmi 10C', 'Redmi 10', 'Redmi 9C', 'Redmi 9', 'Redmi 8', 'Redmi 7',
+    'Redmi 6A', 'Redmi 5 Plus', 'Redmi A3', 'Redmi A2',
+  ],
+  HUAWEI: [
+    'Pura 80 Ultra', 'Pura 80 Pro', 'Pura 80', 'Pura 70 Ultra', 'Pura 70 Pro+', 'Pura 70 Pro', 'Pura 70',
+    'P60 Pro', 'P60', 'P50 Pro', 'P50', 'P40 Pro+', 'P40 Pro', 'P40', 'P30 Pro', 'P30', 'P20 Pro', 'P20',
+    'Mate 80 Pro+', 'Mate 80 Pro', 'Mate 80', 'Mate 70 Pro+', 'Mate 70 Pro', 'Mate 70', 'Mate 60 Pro+',
+    'Mate 60 Pro', 'Mate 60', 'Mate 50 Pro', 'Mate 50', 'Mate 40 Pro', 'Mate 40', 'Mate 30 Pro', 'Mate 30',
+    'Mate 20 Pro', 'Mate 20', 'Mate 10 Pro', 'Mate 10', 'Mate X6', 'Mate X5', 'Mate X3', 'Mate X2',
+    'Mate Xs 2', 'Mate Xs', 'nova 14 Ultra', 'nova 14 Pro', 'nova 14', 'nova 13 Pro', 'nova 13',
+    'nova 12 Pro', 'nova 12', 'nova 11 Pro', 'nova 11', 'nova 10 Pro', 'nova 10', 'nova 9', 'nova 8',
+    'nova 7', 'nova 5T', 'nova 5', 'nova 3', 'nova 2i', 'nova Y90', 'nova Y70', 'Y9a', 'Y7a',
+    'Y6p', 'Y5p', 'Y9 Prime (2019)',
+  ],
+  POCO: [
+    'POCO F8', 'POCO F7 Ultra', 'POCO F7 Pro', 'POCO F6 Pro', 'POCO F6', 'POCO F5 Pro', 'POCO F5',
+    'POCO F4 GT', 'POCO F4', 'POCO F3 GT', 'POCO F3', 'POCO F2 Pro', 'POCO F1', 'POCO X8', 'POCO X7',
+    'POCO X6 Pro', 'POCO X6', 'POCO X5 Pro', 'POCO X5', 'POCO X4 GT', 'POCO X4 Pro 5G', 'POCO X3 GT',
+    'POCO X3 Pro', 'POCO X3 NFC', 'POCO X2', 'POCO M8 5G', 'POCO M7 Pro 5G', 'POCO M7 5G',
+    'POCO M6 Pro', 'POCO M6', 'POCO M5s', 'POCO M5', 'POCO M4 Pro 5G', 'POCO M4 Pro', 'POCO M4 5G',
+    'POCO M3 Pro 5G', 'POCO M3', 'POCO M2 Pro', 'POCO M2', 'POCO C75', 'POCO C65', 'POCO C55',
+    'POCO C51', 'POCO C50', 'POCO C40', 'POCO C31', 'POCO C3', 'POCO C71', 'POCO C61',
+  ],
+};
+
+function archivePrice(brand, model) {
+  const text = model.toLowerCase();
+  const generationMatch = text.match(/\b(?:iphone|galaxy s|galaxy a|galaxy note|xiaomi|pura|mate\s*x|mate|nova|edge|razr)\s*(\d+)|\bp(\d+)|\bmoto\s*[ge](\d+)|\bpoco\s*[fxmc](\d+)/i) || [];
+  const generation = Number(generationMatch.slice(1).find(Boolean)) || 0;
+  let price = 4500;
+  if (brand === 'Apple') {
+    const gen = Number((text.match(/iphone\s*(\d+)/i) || [])[1]) || (/iphone air/.test(text) ? 17 : text.includes('se') ? 9 : 6);
+    price = gen >= 18 ? 22999 : gen >= 17 ? 17999 : gen >= 16 ? 13999 : gen >= 15 ? 11999 : gen >= 14 ? 8999 : gen >= 13 ? 7499 : gen >= 12 ? 5999 : gen >= 11 ? 4999 : gen >= 10 ? 3999 : 2999;
+    if (/pro max/.test(text)) price *= 1.35;
+    else if (/pro|plus|air/.test(text)) price *= 1.18;
+    if (/se/.test(text)) price *= .78;
+  } else if (brand === 'Samsung') {
+    if (/galaxy (s|note)/.test(text)) {
+      const gen = Number((text.match(/galaxy (?:s|note)(\d+)/) || [])[1]) || 20;
+      price = gen >= 26 ? 29999 : gen >= 25 ? 24999 : gen >= 24 ? 19999 : gen >= 23 ? 15999 : gen >= 22 ? 11999 : gen >= 21 ? 8999 : gen >= 20 ? 6999 : 4999;
+      if (/ultra/.test(text)) price *= 1.3;
+      else if (/\+/.test(text)) price *= 1.12;
+    } else {
+      const a = Number((text.match(/galaxy a(\d+)/) || [])[1]) || 20;
+      price = a >= 50 ? 7999 : a >= 30 ? 5999 : a >= 20 ? 4499 : a >= 10 ? 3299 : 2799;
+    }
+  } else if (brand === 'Motorola') {
+    const gen = generation || 5;
+    if (/razr/.test(text)) price = gen >= 60 ? 22999 : gen >= 50 ? 16999 : gen >= 40 ? 11999 : 7999;
+    else if (/edge/.test(text)) price = gen >= 70 ? 17999 : gen >= 60 ? 12999 : gen >= 50 ? 9999 : gen >= 40 ? 7999 : 6499;
+    else price = gen >= 80 ? 6999 : gen >= 70 ? 5799 : gen >= 60 ? 4799 : gen >= 50 ? 3999 : gen >= 40 ? 3499 : 2799;
+    if (/ultra|pro|\+/.test(text)) price *= 1.2;
+  } else if (brand === 'POCO') {
+    const series = text.match(/poco ([fxmc])(\d+)/);
+    const tier = series?.[1] || 'm';
+    const gen = Number(series?.[2]) || 5;
+    if (tier === 'f') price = gen >= 8 ? 15999 : gen >= 7 ? 12999 : gen >= 6 ? 9999 : gen >= 5 ? 7999 : gen >= 4 ? 6999 : 4999;
+    else if (tier === 'x') price = gen >= 8 ? 8999 : gen >= 7 ? 7999 : gen >= 6 ? 6999 : gen >= 5 ? 5799 : 4499;
+    else if (tier === 'c') price = gen >= 8 ? 3999 : gen >= 7 ? 3299 : gen >= 6 ? 2799 : 2399;
+    else price = gen >= 8 ? 5999 : gen >= 7 ? 4999 : gen >= 6 ? 4299 : gen >= 5 ? 3799 : 2999;
+    if (/ultra|pro/.test(text)) price *= 1.15;
+  } else if (brand === 'Xiaomi') {
+    const note = Number((text.match(/note\s*(\d+)/) || [])[1]) || 0;
+    const xiaomi = Number((text.match(/xiaomi\s*(\d+)/) || [])[1]) || 0;
+    const redmi = Number((text.match(/redmi\s*(\d+)/) || [])[1]) || 0;
+    price = note ? (note >= 14 ? 6999 : note >= 12 ? 5499 : note >= 10 ? 4499 : 3299)
+      : xiaomi ? (xiaomi >= 17 ? 22999 : xiaomi >= 15 ? 19999 : xiaomi >= 14 ? 16999 : xiaomi >= 13 ? 13999 : xiaomi >= 12 ? 10999 : 7999)
+        : redmi ? (redmi >= 14 ? 3999 : redmi >= 12 ? 3299 : redmi >= 10 ? 2799 : 2299) : (/fold|flip/.test(text) ? 19999 : /civi/.test(text) ? 9999 : 6999);
+    if (/pro\+|ultra/.test(text)) price *= 1.25;
+    else if (/pro/.test(text)) price *= 1.12;
+  } else if (brand === 'HUAWEI') {
+    const gen = generation || 10;
+    if (/mate x/.test(text)) price = gen >= 6 ? 24999 : gen >= 5 ? 19999 : 12999;
+    else if (/pura/.test(text)) price = gen >= 80 ? 22999 : 17999;
+    else if (/mate/.test(text)) price = gen >= 70 ? 19999 : gen >= 60 ? 15999 : gen >= 50 ? 11999 : gen >= 40 ? 8999 : 5999;
+    else if (/^p\d/.test(text)) price = gen >= 60 ? 12999 : gen >= 50 ? 9999 : gen >= 40 ? 7499 : gen >= 30 ? 5999 : 3999;
+    else if (/nova/.test(text)) price = gen >= 14 ? 8999 : gen >= 12 ? 7499 : gen >= 10 ? 5999 : 4499;
+    else price = 3299;
+    if (/ultra|pro\+/.test(text)) price *= 1.2;
+  }
+  return Math.min(39999, Math.round(price / 100) * 100);
+}
+
+function addHistoricalPhones() {
+  const phones = MOBILE_CATALOG.phone;
+  for (const [brand, models] of Object.entries(PHONE_ARCHIVE)) {
+    const hasModel = model => phones.some(item => item.brand === brand && item.big.toLowerCase() === model.toLowerCase());
+    let count = new Set(phones.filter(item => item.brand === brand).map(item => item.big.toLowerCase())).size;
+    for (const model of models) {
+      if (count >= 50) break;
+      if (hasModel(model)) continue;
+      const huawei = brand === 'HUAWEI';
+      const apple = brand === 'Apple';
+      const name = model.toLowerCase();
+      const premium = /ultra|pro|\+|edge|razr|fold|flip|pura|mate|^xiaomi|^iphone (1[2-9]|[2-9]\d)/i.test(model)
+        || (brand === 'Samsung' && /galaxy (s|note)/i.test(model))
+        || (brand === 'POCO' && /\b[fx]\d/.test(name));
+      const uses = premium ? ['basic', 'work', 'create', 'gaming'] : ['basic', 'work'];
+      const priorities = ['everyday', 'work'];
+      if (apple || /ultra|pro|pura|mate|edge|razr|fold|flip|^xiaomi/i.test(model)
+        || (brand === 'Samsung' && /galaxy (s|note)/i.test(model))) priorities.push('camera');
+      if (brand === 'Samsung' && /galaxy s/i.test(model)) priorities.push('gaming');
+      if (brand === 'POCO' && /\b[fx]\d/.test(name)) priorities.push('gaming');
+      const search = slug(`${brand} ${model} reacondicionado`);
+      phones.push({
+        brand,
+        big: model,
+        detail: huawei
+          ? 'Modelo anterior o reacondicionado. Confirma servicios de Google, aplicaciones, estado de batería, desbloqueo y garantía.'
+          : apple
+            ? 'Modelo anterior o reacondicionado. Confirma compatibilidad con tus aplicaciones, batería, desbloqueo y garantía.'
+            : 'Modelo anterior o reacondicionado. Confirma la variante, el estado de batería, el desbloqueo y la garantía.',
+        price: archivePrice(brand, model),
+        category: 'Catálogo histórico · revisa la oferta',
+        uses,
+        priorities,
+        screen: 'unknown',
+        storage: 'unknown',
+        system: huawei ? 'harmony' : apple ? 'ios' : 'android',
+        source: `https://listado.mercadolibre.com.mx/${search}`,
+        sourceLabel: 'Buscar ofertas',
+      });
+      count += 1;
+    }
+  }
+}
+
+addHistoricalPhones();
 
 const CATALOG = { laptop: LAPTOPS };
 
@@ -282,6 +469,7 @@ const MOBILE_QUESTIONS = {
     ]},
     { id: 'system', title: '¿Qué sistema prefieres?', options: [
       { id: 'android', label: 'Android', icon: '🤖' },
+      { id: 'harmony', label: 'HUAWEI (EMUI o HarmonyOS)', icon: '🔷' },
       { id: 'ios', label: 'Apple (iOS)', icon: '🍎' },
       { id: 'any', label: 'Me da igual', icon: '✨' },
     ]},
@@ -479,23 +667,26 @@ function recommendList(device, use, budget, profile, maxAmount, lastKey = '') {
   return { items, fallback: false };
 }
 
-function scoreMobile(item, device) {
+function scoreMobile(item, device, amount) {
   const answer = state.mobile;
-  let score = item.uses.includes(state.use) ? 5 : 0;
+  let score = item.uses.includes(state.use) ? 100 : 0;
   if (device === 'tablet') {
-    if (answer.screen !== 'any' && item.screen === answer.screen) score += 3;
-    if (answer.accessory === 'pen' && item.pen) score += 5;
-    if (answer.accessory === 'keyboard' && item.keyboard) score += 5;
-    if (answer.accessory === 'both' && item.pen && item.keyboard) score += 6;
-    if (answer.accessory === 'none' && !item.pen && !item.keyboard) score += 1;
-    if (answer.system !== 'any' && item.system === answer.system) score += 3;
+    if (answer.screen !== 'any' && item.screen === answer.screen) score += 12;
+    if (answer.accessory === 'pen' && item.pen) score += 20;
+    if (answer.accessory === 'keyboard' && item.keyboard) score += 20;
+    if (answer.accessory === 'both' && item.pen && item.keyboard) score += 24;
+    if (answer.accessory === 'none' && !item.pen && !item.keyboard) score += 4;
+    if (answer.system !== 'any' && item.system === answer.system) score += 20;
   } else {
-    if (answer.priority && item.priorities.includes(answer.priority)) score += 5;
-    if (answer.screen !== 'any' && item.screen === answer.screen) score += 3;
-    if (answer.storage && item.storage === answer.storage) score += 3;
-    if (answer.system !== 'any' && item.system === answer.system) score += 3;
+    if (answer.priority && item.priorities.includes(answer.priority)) score += 100;
+    if (answer.screen !== 'any' && item.screen === answer.screen) score += 12;
+    if (answer.storage && item.storage !== 'unknown' && item.storage === answer.storage) score += 12;
+    if (answer.system !== 'any' && item.system === answer.system) score += 20;
   }
-  return score;
+  // El presupuesto es un máximo. Para teléfonos, damos más peso a opciones
+  // que se acerquen al monto sin superarlo; en tabletas pesan más los accesorios.
+  const budgetWeight = device === 'phone' ? 110 : 40;
+  return score + (amount > 0 ? budgetWeight * Math.min(item.price / amount, 1) : 0);
 }
 
 function recommendMobile(device, amount) {
@@ -511,8 +702,8 @@ function recommendMobile(device, amount) {
     || (answer.accessory === 'keyboard' && item.keyboard)
     || (answer.accessory === 'both' && item.pen && item.keyboard);
   const affordable = compatible.filter(item => item.price <= amount && hasRequiredAccessory(item));
-  const ranked = affordable.map(item => ({ item, score: scoreMobile(item, device) }))
-    .sort((a, b) => b.score - a.score || a.item.price - b.item.price);
+  const ranked = affordable.map(item => ({ item, score: scoreMobile(item, device, amount) }))
+    .sort((a, b) => b.score - a.score || b.item.price - a.item.price);
   return { items: ranked.map(x => x.item) };
 }
 
@@ -521,18 +712,18 @@ function mobileReason(item, device) {
   const reasons = [];
   if (item.uses.includes(state.use)) reasons.push('Se ajusta al uso que elegiste');
   if (device === 'tablet') {
-    if (answer.screen !== 'any' && item.screen === answer.screen) reasons.push('Coincide con el tamaño de pantalla que prefieres');
+    if (answer.screen !== 'any' && item.screen !== 'unknown' && item.screen === answer.screen) reasons.push('Coincide con el tamaño de pantalla que prefieres');
     if (answer.accessory === 'pen' && item.pen) reasons.push('Es compatible con lápiz');
     if (answer.accessory === 'keyboard' && item.keyboard) reasons.push('Es compatible con teclado');
     if (answer.accessory === 'both' && item.pen && item.keyboard) reasons.push('Admite lápiz y teclado');
   } else {
     if (answer.priority && item.priorities.includes(answer.priority)) reasons.push('Coincide con tu prioridad');
-    if (answer.screen !== 'any' && item.screen === answer.screen) reasons.push('Coincide con el tamaño que prefieres');
-    if (answer.storage && item.storage === answer.storage) reasons.push(answer.storage === 'lots' ? 'Tiene más espacio para tus archivos' : 'Adecuado para uso y almacenamiento normales');
+    if (answer.screen !== 'any' && item.screen !== 'unknown' && item.screen === answer.screen) reasons.push('Coincide con el tamaño que prefieres');
+    if (answer.storage && item.storage !== 'unknown' && item.storage === answer.storage) reasons.push(answer.storage === 'lots' ? 'Tiene más espacio para tus archivos' : 'Adecuado para uso y almacenamiento normales');
   }
   const systemName = answer.system === 'ios'
     ? (device === 'tablet' ? 'iPadOS' : 'iOS')
-    : answer.system === 'harmony' ? 'HarmonyOS' : 'Android';
+    : answer.system === 'harmony' ? (device === 'phone' ? 'HUAWEI (EMUI o HarmonyOS)' : 'HarmonyOS') : 'Android';
   if (answer.system !== 'any' && item.system === answer.system) reasons.push(`Usa ${systemName}, como prefieres`);
   return reasons.slice(0, 2).join(' · ') || 'Una alternativa dentro del monto seleccionado';
 }
@@ -765,7 +956,7 @@ function showMobileList(reroll) {
   const article = d === 'tablet' ? 'una' : 'un';
   const systemName = state.mobile.system === 'any' ? 'sin preferencia'
     : state.mobile.system === 'ios' ? (d === 'tablet' ? 'iPadOS' : 'iOS')
-      : state.mobile.system === 'harmony' ? 'HarmonyOS' : 'Android';
+      : state.mobile.system === 'harmony' ? (d === 'phone' ? 'HUAWEI (EMUI o HarmonyOS)' : 'HarmonyOS') : 'Android';
   if (!reroll || !state.mobileRanked.length) {
     const r = recommendMobile(d, amount);
     state.mobileRanked = r.items;
@@ -792,7 +983,7 @@ function showMobileList(reroll) {
   const focus = d === 'tablet'
     ? `tu preferencia de uso, pantalla ${state.mobile.screen === 'compact' ? 'compacta' : state.mobile.screen === 'large' ? 'grande' : 'mediana'} y sistema ${systemName}`
     : `tu prioridad de ${MOBILE_QUESTIONS.phone[0].options.find(o => o.id === state.mobile.priority)?.label.toLowerCase()}, pantalla ${state.mobile.screen === 'standard' ? 'estándar' : 'grande'}, almacenamiento y sistema ${systemName}`;
-  $('#summary').textContent = `Opción ${state.mobileIndex + 1} de ${state.mobileRanked.length}, elegida según ${focus}. Precio máximo: ${mxn.format(amount)}. Cada vez que pulses «Ver otra opción» verás una alternativa diferente.`;
+  $('#summary').textContent = `Opción ${state.mobileIndex + 1} de ${state.mobileRanked.length}, elegida según ${focus}. Precio aproximado: ${mxn.format(p.price)}. Está dentro del máximo de ${mxn.format(amount)}; las alternativas también se acercan al monto sin superarlo.`;
   $('#cards').classList.remove('three', 'mobile-single');
   $('#cards').classList.add('mobile-single');
   $('#cards').innerHTML = `
@@ -812,7 +1003,7 @@ function showMobileList(reroll) {
   otherButton.disabled = allShown;
   otherButton.textContent = allShown ? 'Ya viste todas las opciones' : 'Ver otra opción';
   $('#total-line').hidden = true;
-  $('#note').textContent = 'Precios de referencia en MXN; pueden cambiar por tienda, promoción y configuración. Confirma que el modelo tenga el almacenamiento, conexión y accesorios que necesitas. En las tabletas, el lápiz o teclado pueden venderse por separado.';
+  $('#note').textContent = 'Precios de referencia en MXN; pueden cambiar por tienda, promoción, configuración y estado del equipo. Las opciones históricas pueden ser reacondicionadas. Confirma variante, batería, desbloqueo, garantía y compatibilidad con tus aplicaciones. En las tabletas, el lápiz o teclado pueden venderse por separado.';
   show('results');
 }
 

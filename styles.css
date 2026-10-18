@@ -31,8 +31,8 @@ body {
 }
 :focus-visible { outline: 3px solid var(--link); outline-offset: 3px; }
 button { min-width: 0; max-width: 100%; white-space: normal; overflow-wrap: normal; word-break: normal; hyphens: none; }
-.skip-link { position: absolute; z-index: 20; top: -4rem; left: 1rem; padding: .75rem 1rem; border-radius: 10px; background: var(--card); color: var(--text); }
-.skip-link:focus { top: 1rem; }
+.skip-link { position: fixed; z-index: 20; top: 0; left: 1rem; padding: .75rem 1rem; border-radius: 10px; background: var(--card); color: var(--text); transform: translateY(calc(-100% - 1rem)); transition: transform .16s ease; }
+.skip-link:focus-visible { transform: translateY(0); }
 .noscript { max-width: 860px; margin: .75rem auto; padding: .75rem 1rem; color: var(--text); background: var(--card); border: 1px solid var(--border); border-radius: 12px; }
 
 .top {
