@@ -202,7 +202,6 @@ main { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 1.5rem 1
 .cards.mobile-single .card { min-height: 320px; padding: clamp(1.25rem, 4vw, 2rem); }
 .cards.mobile-single .detail, .cards.mobile-single .match-reason { max-width: 34rem; }
 .mobile-category { margin-top: .3rem; padding: .3rem .75rem; border: 1px solid var(--border); border-radius: 999px; color: var(--text); background: color-mix(in srgb, var(--violet) 16%, var(--card)); font-size: .85rem; font-weight: 750; text-align: center; }
-@media (min-width: 640px) {
-  .mobile-answers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 960px) {
   .question-list { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
 }

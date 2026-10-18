@@ -493,9 +493,12 @@ function recommendMobile(device, amount, lastKey = '') {
     ? catalog
     : catalog.filter(item => item.system === preferredSystem);
   const affordable = compatible.filter(item => item.price <= amount);
+  // Si elige iOS no mostramos un iPhone que rebase su presupuesto.
   const pool = affordable.length
     ? affordable
-    : [compatible.reduce((a, b) => a.price < b.price ? a : b)];
+    : device === 'phone' && preferredSystem === 'ios'
+      ? []
+      : [compatible.reduce((a, b) => a.price < b.price ? a : b)];
   const ranked = pool.map(item => ({ item, score: scoreMobile(item, device) }))
     .sort((a, b) => b.score - a.score || a.item.price - b.item.price);
   return { items: ranked.map(x => x.item), overBudget: !affordable.length };
@@ -723,6 +726,11 @@ function showResults(reroll) {
 function showMobileList(reroll) {
   const d = state.device;
   const amount = Number($('#budget-range').value);
+  const label = d === 'tablet' ? 'tableta' : 'teléfono';
+  const article = d === 'tablet' ? 'una' : 'un';
+  const systemName = state.mobile.system === 'any' ? 'sin preferencia'
+    : state.mobile.system === 'ios' ? (d === 'tablet' ? 'iPadOS' : 'iOS')
+      : state.mobile.system === 'harmony' ? 'HarmonyOS' : 'Android';
   if (!reroll || !state.mobileRanked.length) {
     const r = recommendMobile(d, amount);
     state.mobileRanked = r.items;
@@ -732,18 +740,28 @@ function showMobileList(reroll) {
     state.mobileIndex += 1;
   }
   const p = state.mobileRanked[state.mobileIndex];
-  state.last = `${p.brand}|${p.big}`;
   state.build = null;
-  const label = d === 'tablet' ? 'tableta' : 'teléfono';
-  const systemName = state.mobile.system === 'any' ? 'sin preferencia'
-    : state.mobile.system === 'ios' ? (d === 'tablet' ? 'iPadOS' : 'iOS')
-      : state.mobile.system === 'harmony' ? 'HarmonyOS' : 'Android';
+  if (!p) {
+    state.last = '';
+    $('#summary').textContent = `No encontramos ${article} ${label} compatible con ${systemName} por ${mxn.format(amount)} o menos. Aumenta el presupuesto para ver más opciones.`;
+    $('#cards').classList.remove('three');
+    $('#cards').classList.add('mobile-single');
+    $('#cards').innerHTML = `<article class="card"><span class="part-icon" aria-hidden="true">📲</span><h3>No hay opciones dentro del presupuesto</h3><p class="detail">Ajusta el monto y vuelve a consultar para comparar modelos compatibles con ${systemName}.</p></article>`;
+    const otherButton = $('[data-action="other"]');
+    otherButton.disabled = true;
+    otherButton.textContent = 'No hay más opciones';
+    $('#total-line').hidden = true;
+    $('#note').textContent = 'Los precios son aproximados. Revisa el precio actual y la compatibilidad del equipo antes de comprar.';
+    show('results');
+    return;
+  }
+  state.last = `${p.brand}|${p.big}`;
   const focus = d === 'tablet'
     ? `tu preferencia de uso, pantalla ${state.mobile.screen === 'compact' ? 'compacta' : state.mobile.screen === 'large' ? 'grande' : 'mediana'} y sistema ${systemName}`
     : `tu prioridad de ${MOBILE_QUESTIONS.phone[0].options.find(o => o.id === state.mobile.priority)?.label.toLowerCase()}, pantalla ${state.mobile.screen === 'any' ? 'sin preferencia de tamaño' : state.mobile.screen === 'compact' ? 'compacta' : 'grande'}, almacenamiento y sistema ${systemName}`;
   $('#summary').textContent = state.mobileOverBudget
-    ? `No encontramos una ${label}${state.mobile.system !== 'any' ? ` compatible con ${systemName}` : ''} dentro del monto elegido. Aquí está la opción más económica que coincide con tu preferencia.`
-    : `Opción ${state.mobileIndex + 1} de ${state.mobileRanked.length}, elegida según ${focus}. Cada vez que pulses «Ver otra opción» avanzarás a un modelo distinto.`;
+    ? `No encontramos ${article} ${label}${state.mobile.system !== 'any' ? ` compatible con ${systemName}` : ''} por ${mxn.format(amount)} o menos. Aquí está la opción más económica que coincide con tu preferencia.`
+    : `Opción ${state.mobileIndex + 1} de ${state.mobileRanked.length}, elegida según ${focus}. Tope seleccionado: ${mxn.format(amount)}. Cada vez que pulses «Ver otra opción» avanzarás a un modelo distinto.`;
   $('#cards').classList.remove('three', 'mobile-single');
   $('#cards').classList.add('mobile-single');
   $('#cards').innerHTML = `
