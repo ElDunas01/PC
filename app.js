@@ -736,6 +736,35 @@ const state = {
   mobile: {}, mobileRanked: [], mobileIndex: -1,
   last: '', timer: null, build: null,
 };
+const APP_HISTORY_ID = 'recomendador-equipos';
+const APP_VIEWS = new Set(['welcome', 'device', 'mobile-questions', 'profile', 'field', 'use', 'budget', 'loading', 'results']);
+let appHistoryFlow = createAppHistoryFlow();
+let activeAppView = 'welcome';
+function createAppHistoryFlow() {
+  return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+function appHistoryEntry(view, guard = false) {
+  return { appId: APP_HISTORY_ID, flow: appHistoryFlow, view, guard };
+}
+function isAppHistoryEntry(entry) {
+  return entry?.appId === APP_HISTORY_ID && entry.flow === appHistoryFlow && APP_VIEWS.has(entry.view);
+}
+function startAppHistoryFlow(view = 'welcome') {
+  appHistoryFlow = createAppHistoryFlow();
+  activeAppView = view;
+  try {
+    window.history.replaceState(appHistoryEntry(view), '', window.location.href);
+    window.history.pushState(appHistoryEntry(view, true), '', window.location.href);
+  } catch (e) { /* historial no disponible */ }
+}
+function navigateBack(fallbackView) {
+  const entry = window.history.state;
+  if (activeAppView !== 'welcome' && isAppHistoryEntry(entry) && entry.view === activeAppView) {
+    window.history.back();
+    return;
+  }
+  if (fallbackView) show(fallbackView);
+}
 const needsField = () => state.profile === 'student' || state.profile === 'work';
 const isMobileDevice = () => state.device === 'tablet' || state.device === 'phone';
 function clearMobileRecommendations() {
@@ -768,7 +797,14 @@ function progressFor(name) {
 
 const hasTouchNavigation = () => window.matchMedia?.('(any-pointer: coarse)').matches || 'ontouchstart' in window;
 
-function show(name) {
+function show(name, options = {}) {
+  if (options.fromHistory) {
+    activeAppView = name;
+  } else if (name !== activeAppView) {
+    activeAppView = name;
+    try { window.history.pushState(appHistoryEntry(name), '', window.location.href); }
+    catch (e) { /* historial no disponible */ }
+  }
   $$('.view').forEach(v => {
     const on = v.dataset.view === name;
     v.hidden = !on;
@@ -784,6 +820,20 @@ function show(name) {
   if (swipeHelp) swipeHelp.hidden = !hasTouchNavigation() || name === 'welcome' || name === 'loading';
   window.scrollTo({ top: 0 });
 }
+
+window.addEventListener('popstate', event => {
+  clearTimeout(state.timer);
+  if (!isAppHistoryEntry(event.state)) {
+    // Si no queda un paso anterior del asistente, conserva al usuario en el sitio.
+    try { window.history.pushState(appHistoryEntry(activeAppView, true), '', window.location.href); } catch (e) { /* historial no disponible */ }
+    return;
+  }
+  show(event.state.view, { fromHistory: true });
+  // Mantén una entrada de inicio dentro del sitio para que Atrás no cierre la página.
+  if (event.state.view === 'welcome' && !event.state.guard) {
+    try { window.history.pushState(appHistoryEntry('welcome', true), '', window.location.href); } catch (e) { /* historial no disponible */ }
+  }
+});
 
 function syncNext() {
   $('[data-action="next-device"]').disabled = !state.device;
@@ -905,6 +955,7 @@ function reset() {
   $('#budget-hint').textContent = 'El monto guía depende del tipo de equipo que elegiste.';
   $('#range-out').textContent = 'Mueve la barra o elige una opción';
   syncNext();
+  startAppHistoryFlow('welcome');
   show('welcome');
 }
 
@@ -1128,30 +1179,30 @@ const actions = {
   reset,
   theme: toggleTheme,
   start: () => show('device'),
-  'back-device': () => show('welcome'),
+  'back-device': () => navigateBack('welcome'),
   'next-device': () => {
     if (!state.device) return;
     if (isMobileDevice()) { renderMobileQuestions(); show('mobile-questions'); }
     else show('profile');
   },
-  'back-mobile': () => show('device'),
+  'back-mobile': () => navigateBack('device'),
   'next-mobile': () => {
     if (!isMobileDevice()) return;
     if (state.device === 'tablet') state.use = state.mobile.main;
     else state.use = ({ camera: 'create', battery: 'basic', gaming: 'gaming', work: 'work', everyday: 'basic' })[state.mobile.priority];
     show('budget');
   },
-  'back-profile': () => show('device'),
+  'back-profile': () => navigateBack('device'),
   'next-profile': () => {
     if (!state.profile) return;
     if (needsField()) { renderField(); show('field'); } else show('use');
   },
-  'back-field': () => show('profile'),
+  'back-field': () => navigateBack('profile'),
   'next-field': () => { if (state.field) { suggestUse(); show('use'); } },
-  'back-use': () => show(needsField() ? 'field' : 'profile'),
+  'back-use': () => navigateBack(needsField() ? 'field' : 'profile'),
   'next-use': () => { if (state.use) show('budget'); },
-  'back-budget': () => show(isMobileDevice() ? 'mobile-questions' : 'use'),
-  'back-results': () => show('budget'),
+  'back-budget': () => navigateBack(isMobileDevice() ? 'mobile-questions' : 'use'),
+  'back-results': () => navigateBack('budget'),
   'next-budget': analyze,
   other: () => showResults(true),
   swap: (b) => swap(b.dataset.part, b),
@@ -1222,6 +1273,7 @@ document.addEventListener('input', e => {
 });
 
 function init() {
+  startAppHistoryFlow('welcome');
   try {
     const saved = localStorage.getItem('pcr-theme');
     if (saved === 'light' || saved === 'dark') root.dataset.theme = saved;
