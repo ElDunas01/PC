@@ -154,6 +154,16 @@ const MOBILE_CATALOG = {
     { brand: 'HONOR', big: 'Pad X8a', detail: '11 pulgadas, batería amplia y cuatro bocinas', price: 3999, category: 'Uso diario y entretenimiento', uses: ['basic', 'kids'], screen: 'large', storage: 'normal', system: 'android', pen: false, keyboard: false, source: 'https://www.honor.com/mx/tablets/honor-pad-x8a/' },
   ],
   phone: [
+    { brand: 'Apple', big: 'iPhone 11', detail: '64 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 3999, category: 'Uso diario · reacondicionado', uses: ['basic', 'work'], priorities: ['camera', 'everyday', 'work'], screen: 'compact', storage: 'normal', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-11-64-gb-blanco-excelente-reacondicionado/p/MLM2000137020', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 12', detail: '64 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 4399, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create'], priorities: ['camera', 'everyday', 'work'], screen: 'compact', storage: 'normal', system: 'ios', source: 'https://www.mercadolibre.com.mx/iphone-12-dual-sim-64-gb-morado-excelente-reacondicionado/p/MLM2000029405', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 12', detail: '128 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 4899, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-12-morado-128-gb-4-gb/p/MLM2000108360', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 13', detail: '128 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 5999, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-13-128-gb-medianoche-aceptable-reacondicionado/p/MLM2000086180', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 14', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 6499, category: 'Uso diario · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-14-128-gb-medianoche-bueno-reacondicionado/p/MLM2000081741', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 13 Pro', detail: '128 GB, reacondicionado. Revisa la batería, el desbloqueo y la garantía.', price: 7999, category: 'Fotografía y gaming · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://listado.mercadolibre.com.mx/celulares-telefonia/celulares-smartphones/iphone/iphone-13-pro/reacondicionado/', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 16e', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 8299, category: 'Trabajo y uso diario · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://listado.mercadolibre.com.mx/iphone-16e-reacondicionados', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 15', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 9299, category: 'Fotografía y trabajo · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'large', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-15-128-gb-azul-excelente-reacondicionado/p/MLM2000087240', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 15 Pro', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 12999, category: 'Fotografía y gaming · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'compact', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-15-pro-128-gb-titanio-negro-excelente-reacondicionado/p/MLM2000057633', sourceLabel: 'Ver en Mercado Libre' },
+    { brand: 'Apple', big: 'iPhone 16', detail: '128 GB, reacondicionado. Comprueba si usa SIM física o eSIM.', price: 11999, category: 'Fotografía y trabajo · reacondicionado', uses: ['basic', 'work', 'create', 'gaming'], priorities: ['camera', 'everyday', 'work', 'gaming'], screen: 'large', storage: 'lots', system: 'ios', source: 'https://www.mercadolibre.com.mx/apple-iphone-16-128-gb-negro-excelente-reacondicionado/p/MLM2000085752', sourceLabel: 'Ver en Mercado Libre' },
     { brand: 'Motorola', big: 'moto g06', detail: '128 GB, pantalla de 6.88 pulgadas, batería grande', price: 2600, category: 'Uso diario económico', uses: ['basic'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.motorola.com/mx/es/p/phones/moto-g/06/pmipmhy42mg' },
     { brand: 'Xiaomi', big: 'REDMI Note 15', detail: 'Pantalla AMOLED de 6.77 pulgadas, 128 GB', price: 4999, category: 'Uso diario y batería', uses: ['basic', 'work'], priorities: ['battery', 'everyday'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.mi.com/mx/product/redmi-note-15/' },
     { brand: 'Samsung', big: 'Galaxy A17 5G', detail: '128 GB, 5G, pantalla de 6.7 pulgadas', price: 4999, category: 'Uso diario y trabajo ligero', uses: ['basic', 'work'], priorities: ['battery', 'everyday', 'work'], screen: 'large', storage: 'normal', system: 'android', source: 'https://www.samsung.com/mx/smartphones/galaxy-a/galaxy-a17-5g-blue-128gb-sm-a176bzbrltm/' },
@@ -227,13 +237,13 @@ const RANGE = {
   pc: { min: 8000, max: 40000, cut: [12000, 22000], val: { eco: 10000, mid: 17000, high: 30000 } },
   laptop: { min: 8000, max: 80000, cut: [18000, 35000], val: { eco: 13000, mid: 26000, high: 55000 } },
   tablet: { min: 2500, max: 30000, cut: [8000, 15000], val: { eco: 7500, mid: 15000, high: 22000 } },
-  phone: { min: 1500, max: 40000, cut: [6500, 15000], val: { eco: 6500, mid: 12000, high: 25000 } },
+  phone: { min: 4000, max: 40000, cut: [6500, 15000], val: { eco: 6500, mid: 12000, high: 25000 } },
 };
 const BUDGET_HINT = {
   pc: 'Guía para las piezas principales de una PC de escritorio; el total no incluye gabinete, fuente ni tarjeta madre.',
   laptop: 'Guía para comparar laptops completas. El precio depende de la marca y configuración.',
   tablet: 'Monto aproximado para una tableta. Revisa si el lápiz, teclado o conexión móvil se venden aparte.',
-  phone: 'Monto aproximado para un teléfono. Confirma almacenamiento, compatibilidad con tu compañía y precio actual.',
+  phone: 'Desde $4,000. Incluye iPhone reacondicionados. Revisa batería, desbloqueo, garantía y compatibilidad con tu compañía.',
 };
 
 const MOBILE_QUESTIONS = {
@@ -594,7 +604,7 @@ function renderMobileQuestions() {
 
 function renderOptions(key) {
   const options = key === 'budget' && isMobileDevice()
-    ? OPTIONS.budget.map(o => ({ ...o, hint: o.id === 'eco' ? 'Cuidando cada peso' : o.id === 'mid' ? 'Buen equilibrio entre precio y funciones' : 'Más opciones de rendimiento y espacio' }))
+    ? OPTIONS.budget.map(o => ({ ...o, hint: o.id === 'eco' ? (state.device === 'phone' ? 'Desde $4,000; incluye iPhone reacondicionados' : 'Cuidando cada peso') : o.id === 'mid' ? 'Buen equilibrio entre precio y funciones' : 'Más opciones de rendimiento y espacio' }))
     : OPTIONS[key];
   $(`#opts-${key}`).innerHTML = options.map(o => `
     <button type="button" class="opt" data-key="${key}" data-value="${o.id}" aria-pressed="false">
@@ -746,7 +756,7 @@ function showMobileList(reroll) {
       <p class="detail">${p.detail}</p>
       <p class="match-reason">${mobileReason(p, d)}</p>
       <p class="price">${mxn.format(p.price)} <small>aprox.</small></p>
-      <a class="ml" href="${p.source}" target="_blank" rel="noopener">Ver ficha oficial</a>
+      <a class="ml" href="${p.source}" target="_blank" rel="noopener">${p.sourceLabel || 'Ver ficha oficial'}</a>
     </article>`;
   const otherButton = $('[data-action="other"]');
   const allShown = state.mobileIndex >= state.mobileRanked.length - 1;
