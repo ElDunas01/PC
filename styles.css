@@ -30,7 +30,7 @@ body {
   transition: all .3s ease;
 }
 :focus-visible { outline: 3px solid var(--link); outline-offset: 3px; }
-button { min-width: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+button { min-width: 0; max-width: 100%; white-space: normal; overflow-wrap: normal; word-break: normal; hyphens: none; }
 
 .top {
   position: sticky; top: 0; z-index: 5;
@@ -84,7 +84,7 @@ main { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 1.5rem 1
 .opt[aria-pressed="true"] { border-color: var(--blue); background: color-mix(in srgb, var(--blue) 14%, var(--card)); }
 .opt[aria-pressed="true"]::after { content: "✓"; position: absolute; top: .5rem; right: .9rem; font-weight: 800; color: var(--link); }
 .opt-icon { flex: none; font-size: 2.5rem; line-height: 1; }
-.opt-text { display: flex; flex: 1; flex-direction: column; min-width: 0; overflow-wrap: anywhere; }
+.opt-text { display: flex; flex: 1; flex-direction: column; min-width: 0; overflow-wrap: normal; word-break: normal; hyphens: none; }
 .opt small { color: var(--muted); font-size: .95rem; }
 
 /* ===== Carga ===== */
@@ -204,4 +204,17 @@ main { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 1.5rem 1
 .mobile-category { margin-top: .3rem; padding: .3rem .75rem; border: 1px solid var(--border); border-radius: 999px; color: var(--text); background: color-mix(in srgb, var(--violet) 16%, var(--card)); font-size: .85rem; font-weight: 750; text-align: center; }
 @media (min-width: 960px) {
   .question-list { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+}
+
+/* ===== Legibilidad de las preguntas en teléfonos y tabletas ===== */
+.question-list { grid-template-columns: minmax(0, 1fr); }
+.mobile-answers { grid-template-columns: minmax(0, 1fr); }
+.mobile-answers .opt {
+  width: 100%; min-width: 0; flex-direction: row; justify-content: flex-start;
+  text-align: left; overflow-wrap: normal; word-break: normal; hyphens: none;
+}
+.mobile-answers .opt-text,
+.mobile-answers .opt-text strong { min-width: 0; overflow-wrap: normal; word-break: normal; hyphens: none; }
+@media (min-width: 960px) {
+  .question-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
